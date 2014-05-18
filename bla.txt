@@ -1,0 +1,1131 @@
+Satz:  Diese Klausurzusammenfassung ist keine offizielle Lösungssammlung, sondern nur eine nach bestem Wissen und Gewissen erstellte Lernhilfe für die Klausur Programmieren I. In den Lösungen können noch Fehler enthalten sein, deswegen hinterfragt selbst alle Lösungen.
+Datei: test/tex/zusammenfassung.tex   10
+
+Satz:  Wer sich in der Klausureinsicht auf Lösungen, aus dieser Zusammenfassung, beruft ist selbst schuld!
+Datei: test/tex/zusammenfassung.tex   10
+
+Satz:  Damit nicht jedes mal binär gerechnet werden muss hier ein paar Formeln.
+Datei: test/tex/cheat_sheet.tex   138
+
+Satz:  Ein Linksshift $x << y$ verschiebt man die Zahl $x$ in Binärdarstellung um $y$ stellen.
+Datei: test/tex/cheat_sheet.tex   140
+
+Satz:  Somit ergibt sich die Formel $ x * 2^y$.
+Datei: test/tex/cheat_sheet.tex   140
+
+Satz:  Als Beispiel nehmen wir den Aufruf $9_{10} << 3_{10}$ = $000 1001_{2} << 3_{10} = 100 1000_{2} = 72_{10}$ und mit der Formel ergibt sich $9 * 2^3 = 9 * 8 = 72$.
+Datei: test/tex/cheat_sheet.tex   143
+
+Satz:  Falls jedoch das Ergebnis größer als der maximale Wert des Datentyps ist, ist das Ergebnis der Formel falsch!
+Datei: test/tex/cheat_sheet.tex   143
+
+Satz:  Beim Rechtsshift $x >> y$ verschiebt man die Zahl $x$ in Binärdarstellung um $y$ stellen.
+Datei: test/tex/cheat_sheet.tex   145
+
+Satz:  Hier ergeben sich zwei Formeln.
+Datei: test/tex/cheat_sheet.tex   145
+
+Satz:  Für den Fall $x > 0$ gilt $ x * ( (abrunden) $ und für den Fall $x <= 0$ gilt $ x * ( (aufrunden)$.
+Datei: test/tex/cheat_sheet.tex   145
+
+Satz:  Beispiel $9_{10} >> 2_{10}$ = $1001_{2} >> 2_{10} = 10_{2} = 2_{10}$ und mit der Formel ergibt sich $ 9 * ( = 9 * = 2$.
+Datei: test/tex/cheat_sheet.tex   152
+
+Satz:  Bei $-9_{10} >> 2_{10}$ (Byte) = $1111 0111_{2} >> 2_{10} = 1111 1101_{2} = -3_{10}$ und mit der Formel ergibt sich $ -9 * ( = -9 * = -3$.
+Datei: test/tex/cheat_sheet.tex   152
+
+Satz:  Die Logischen-Operatoren sind z.B. alle Vergleiche wie $<$, $>$, $==$, usw.
+Datei: test/tex/cheat_sheet.tex   156
+
+Satz:  und $\&\&$ (AND) sowie $||$ (OR).
+Datei: test/tex/cheat_sheet.tex   156
+
+Satz:  Diese können nur auf den Datentyp boolean angewendet werden.
+Datei: test/tex/cheat_sheet.tex   156
+
+Satz:  Die beiden Operatoren AND und OR besitzen eine Besonderheit, wenn bei der Auswertung von $x_1$ AND $x_2$ das Ergebnis von $x_1$ schon false ist, wird $x_2$ nicht mehr ausgewertet.
+Datei: test/tex/cheat_sheet.tex   156
+
+Satz:  Das OR verhält sich ähnlich, hier gilt jedoch bei $x_1$ OR $x_2$ wenn $x_1$ schon true ist, wird $x_2$ nicht mehr ausgewertet.
+Datei: test/tex/cheat_sheet.tex   156
+
+Satz:  Bei Bit-Operatoren sind die Operatoren $\&$, $|$ und gemeint, diese können auf alle primitiven Datentypen angewendet werden und arbeitet direkt auf der Binärdarstellung.
+Datei: test/tex/cheat_sheet.tex   158
+
+Satz:  Leider gibt es keine mathematischen Formeln wie bei den Shift-Operatoren somit muss in diesem Fall binär gerechnet werden.
+Datei: test/tex/cheat_sheet.tex   158
+
+Satz:  Gegeben seien die Methode sowie das Programmfragment
+Datei: test/tex/16_03_11_k.tex   3
+
+Satz:  Welchen Wert berechnet die Methode wasPassiert(int[][] a)?
+Datei: test/tex/16_03_11_k.tex   25
+
+Satz:  Geben Sie den Wert in Abhängigkeit vom Parameter a an.
+Datei: test/tex/16_03_11_k.tex   26
+
+Satz:  Welche Exceptions können ggf.
+Datei: test/tex/16_03_11_k.tex   27
+
+Satz:  Wie lautet die Ausgabe des Programmfragments?
+Datei: test/tex/16_03_11_k.tex   42
+
+Satz:  Welche der folgenden Schleifen terminieren?
+Datei: test/tex/16_03_11_k.tex   54
+
+Satz:  Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen, nachdem die jeweiligen Anweisungen ausgeführt wurden.
+Datei: test/tex/16_03_11_k.tex   55
+
+Satz:  Die Schleife terminiert, $a = 3$ und $b = 0$.
+Datei: test/tex/16_03_11_k.tex   71
+
+Satz:  Die Schleife terminiert, $a = 11$ und $b = 3$.
+Datei: test/tex/16_03_11_k.tex   94
+
+Satz:  Die Schleife terminiert, $a = 3$ und $b = 4$.
+Datei: test/tex/16_03_11_k.tex   114
+
+Satz:  Die Schleife terminiert, $a = -2$ und $b = 1$.
+Datei: test/tex/16_03_11_k.tex   135
+
+Satz:  Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an.
+Datei: test/tex/16_03_11_k.tex   144
+
+Satz:  Setzen Sie vor jedem Ausdruck die Deklaration int x = 27; voraus.
+Datei: test/tex/16_03_11_k.tex   146
+
+Satz:  Typ: double, da automatisch von int nach double gecastet wird
+Datei: test/tex/16_03_11_k.tex   154
+
+Satz:  Typ: boolean, da 27 mit 3 verglichen wird
+Datei: test/tex/16_03_11_k.tex   163
+
+Satz:  Typ: int, weil es werden die Bits in Binärdarstellung um 3 Stellen nach rechts verschoben.
+Datei: test/tex/16_03_11_k.tex   172
+
+Satz:  Wert: $0001 1011_{(2)} >> 3_{(10)} = 0000 0011_{(2)} = 3_{(10)}$.
+Datei: test/tex/16_03_11_k.tex   173
+
+Satz:  Ein int besteht zwar aus 4 Byte (also 32 Bit) jedoch habe ich nur das erste Byte der Übersicht halber geschrieben.
+Datei: test/tex/16_03_11_k.tex   174
+
+Satz:  Bitte kreuzen Sie an.
+Datei: test/tex/16_03_11_k.tex   178
+
+Satz:  Für jede richtige Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen.
+Datei: test/tex/16_03_11_k.tex   178
+
+Satz:  Kein Kreuz bzw.
+Datei: test/tex/16_03_11_k.tex   179
+
+Satz:  zwei Kreuze bedeuten 0 Punkte.
+Datei: test/tex/16_03_11_k.tex   180
+
+Satz:  Die minimale Gesamtpunktzahl für diese Aufgabe beträgt 0 Punkte.
+Datei: test/tex/16_03_11_k.tex   180
+
+Satz:  Gegeben sei die folgende rekursive Methode:
+Datei: test/tex/16_03_11_k.tex   213
+
+Satz:  Welchen Wert liefert der Aufruf f(3,-1)?
+Datei: test/tex/16_03_11_k.tex   215
+
+Satz:  In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen?
+Datei: test/tex/16_03_11_k.tex   226
+
+Satz:  Geben Sie die Reihenfolge der Aufrufe explizit an.
+Datei: test/tex/16_03_11_k.tex   226
+
+Satz:  Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+Datei: test/tex/16_03_11_k.tex   226
+
+Satz:  $ $ [.
+Datei: test/tex/16_03_11_k.tex   228
+
+Satz:  f(3,-1) [.f(1,0) 2 ] [.f(3,0) [.f(1,1) 2 ] [.f(3,1) [.f(1,2) 2 ] [.f(3,3) [.f(1,3) 2 ] [.f(3,3) [.f(1,4) 1 ] [.f(3,4) 1 ] ] ] ] ] ]
+Datei: test/tex/16_03_11_k.tex   249
+
+Satz:  Somit ist f(3,-1) = 2, die Anzahl der Aufrufe ist 11 (Tabelle) und die maximale Rekursionstiefe ist 6 weil: $f(3,-1) f(3,0) f(3,1) f(3,2) f(3,3) f(3,4)$ hat eine Tiefe von 6.
+Datei: test/tex/16_03_11_k.tex   250
+
+Satz:  Gegeben sei die Klasse Rational zur Darstellung von positiven rationalen Zahlen, d.
+Datei: test/tex/16_03_11_k.tex   256
+
+Satz:  h. von Zahlen $q , q > 0$.
+Datei: test/tex/16_03_11_k.tex   257
+
+Satz:  Die Methode add soll den Parameter r zur aktuellen Zahl addieren.
+Datei: test/tex/16_03_11_k.tex   257
+
+Satz:  Die Methode compareTo soll rationale Zahlen ihrer Größe nach vergleichen.
+Datei: test/tex/16_03_11_k.tex   258
+
+Satz:  Außerdem sei das folgende Programmfragment gegeben:
+Datei: test/tex/16_03_11_k.tex   261
+
+Satz:  Die Programmzeilen 1 bis 32 enthalten Fehler.
+Datei: test/tex/16_03_11_k.tex   299
+
+Satz:  Markieren Sie die Fehler im Programmtext.
+Datei: test/tex/16_03_11_k.tex   299
+
+Satz:  Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.
+Datei: test/tex/16_03_11_k.tex   299
+
+Satz:  Geben Sie die korrigierten Zeilen an.
+Datei: test/tex/16_03_11_k.tex   312
+
+Satz:  Was gibt das korrigierte Programm aus?
+Datei: test/tex/16_03_11_k.tex   312
+
+Satz:  Gegeben sei eine Folge von Integer-Werten $x_1$, $x_2$, ldots , $x_n$, $n >= 1$.
+Datei: test/tex/16_03_11_k.tex   325
+
+Satz:  Die Zahl, die am häufigsten in der Folge vorkommt, heißt Modus der Folge.
+Datei: test/tex/16_03_11_k.tex   326
+
+Satz:  Beispielsweise ist 4 der Modus der Folge 3,-1,4,12,4,3,4,0,1.
+Datei: test/tex/16_03_11_k.tex   326
+
+Satz:  Der Modus einer Folge ist i.
+Datei: test/tex/16_03_11_k.tex   326
+
+Satz:  nicht eindeutig bestimmt.
+Datei: test/tex/16_03_11_k.tex   326
+
+Satz:  Zum Beispiel besitzt die Folge 3,3,4,12,4,3,4,0,1 die Modi 3 und 4.
+Datei: test/tex/16_03_11_k.tex   326
+
+Satz:  Schreiben Sie eine Methode static void modus(int[] a), die ein Feld ganzer Zahlen als Parameter erhält und den Modus des Felds ausgibt.
+Datei: test/tex/16_03_11_k.tex   328
+
+Satz:  Falls der Modus nicht eindeutig bestimmt ist, sollen die Modi aufsteigend sortiert ausgegeben werden.
+Datei: test/tex/16_03_11_k.tex   329
+
+Satz:  Für die obigen Beispiele soll die Ausgabe daher " Modus: 4" bzw.
+Datei: test/tex/16_03_11_k.tex   329
+
+Satz:  " Modus: 3 4" lauten.
+Datei: test/tex/16_03_11_k.tex   329
+
+Satz:  Falls das Parameterfeld $a$ keine Werte enthält, soll beim Aufruf der Methode eine IllegalArgumentException ausgelöst werden.
+Datei: test/tex/16_03_11_k.tex   329
+
+Satz:  Sie dürfen keine Klassen importieren.
+Datei: test/tex/16_03_11_k.tex   329
+
+Satz:  Erläutern Sie Ihren Algorithmus.
+Datei: test/tex/16_03_11_k.tex   329
+
+Satz:  sieht durch die Kommentare mehr aus, als es ist!
+Datei: test/tex/16_03_11_k.tex   335
+
+Satz:  Schreiben Sie die Dezimalzahl 43 als Binär-, Oktal- und Hexadezimalzahl.
+Datei: test/tex/20_03_12_k.tex   3
+
+Satz:  Durch welche Bitfolge wird der Byte-Wert -37 in Java gespeichert?
+Datei: test/tex/20_03_12_k.tex   4
+
+Satz:  $43_{(10)} = 32 + 8 + 2 + 1 = 2^5 + 2^3 + 2^1 + 2^0 = 10 1011_{(2)}$
+Datei: test/tex/20_03_12_k.tex   6
+
+Satz:  $43_{(10)} = 5 * 8 + 3 * 1 = 5 * 8^1 + 3 * 8^0 = 53_{(8)}$
+Datei: test/tex/20_03_12_k.tex   8
+
+Satz:  $43_{(10)} = 2 * 16 + 11 * 1 = 2 * 16^1 + 11 * 16^0 = 2B_{(16)}$
+Datei: test/tex/20_03_12_k.tex   10
+
+Satz:  $37 = 32 + 4 + 1 = 0010 0101$
+Datei: test/tex/20_03_12_k.tex   12
+
+Satz:  Einerkomplement: $1101 1010$
+Datei: test/tex/20_03_12_k.tex   12
+
+Satz:  Zweierkomplement: $1101 1011$
+Datei: test/tex/20_03_12_k.tex   13
+
+Satz:  Ein Byte besteht aus 8 Bit!
+Datei: test/tex/20_03_12_k.tex   14
+
+Satz:  Bitte kreuzen Sie an.
+Datei: test/tex/20_03_12_k.tex   19
+
+Satz:  Für jede richtige Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen.
+Datei: test/tex/20_03_12_k.tex   19
+
+Satz:  Kein Kreuz bzw.
+Datei: test/tex/20_03_12_k.tex   21
+
+Satz:  zwei Kreuze bedeuten 0 Punkte.
+Datei: test/tex/20_03_12_k.tex   21
+
+Satz:  Die minimale Gesamtpunktzahl für diese Aufgabe beträgt 0 Punkte.
+Datei: test/tex/20_03_12_k.tex   21
+
+Satz:  Gegeben seien die Methode sowie das Programmfragment
+Datei: test/tex/20_03_12_k.tex   58
+
+Satz:  Welchen Wert berechnet die Methode wasPassiert(int[][] a)?
+Datei: test/tex/20_03_12_k.tex   84
+
+Satz:  Geben Sie den Wert in Abhängigkeit vom Parameter a an.
+Datei: test/tex/20_03_12_k.tex   84
+
+Satz:  Wie lautet die Ausgabe des Programmfragments?
+Datei: test/tex/20_03_12_k.tex   97
+
+Satz:  Welche Fehler können bei einem Aufruf der Methode ggf.
+Datei: test/tex/20_03_12_k.tex   108
+
+Satz:  Begründen Sie Ihre Aussagen
+Datei: test/tex/20_03_12_k.tex   108
+
+Satz:  Welche der folgenden Schleifen terminieren?
+Datei: test/tex/20_03_12_k.tex   119
+
+Satz:  Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen, nachdem die jeweiligen Anweisungen ausgeführt wurden.
+Datei: test/tex/20_03_12_k.tex   120
+
+Satz:  Die Schleife terminiert, $a = 3$ und $b = 5$
+Datei: test/tex/20_03_12_k.tex   136
+
+Satz:  Die Schleife terminiert, $a = 10$ und $b = 4$
+Datei: test/tex/20_03_12_k.tex   158
+
+Satz:  Die Schleife terminiert nicht weil: $b = 2 * (0 + 1 + ldots + a) = a * (a + 1)$
+Datei: test/tex/20_03_12_k.tex   178
+
+Satz:  Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an.
+Datei: test/tex/20_03_12_k.tex   179
+
+Satz:  Setzen Sie vor jedem Ausdruck die Deklaration int i = 15; voraus.
+Datei: test/tex/20_03_12_k.tex   189
+
+Satz:  Typ: double, da automatisch von int nach double gecastet (-1.0) wird
+Datei: test/tex/20_03_12_k.tex   197
+
+Satz:  Wert: $3 * 3 - 1.0 = 8$
+Datei: test/tex/20_03_12_k.tex   197
+
+Satz:  Grund: $i$ wird mit 3 überschrieben $i--$ wird erst nach dem Auswerten von $i$ angewendet also wäre der Ausdruck: i = (i=3)*(i--)-1.0; gewesen, wäre das Ergebnis 7.
+Datei: test/tex/20_03_12_k.tex   198
+
+Satz:  Typ: int, weil es werden die Bits in Binärdarstellung hin und her geschoben
+Datei: test/tex/20_03_12_k.tex   206
+
+Satz:  $0000 1111_{(2)} >> 2_{(10)} = 0000 0011_{(2)} = 3_{(10)}$
+Datei: test/tex/20_03_12_k.tex   207
+
+Satz:  $0000 0011_{(2)} << 2_{(10)} = 0000 1100_{(2)} = 12_{(10)}$
+Datei: test/tex/20_03_12_k.tex   208
+
+Satz:  Typ: int, werde die Zahlen 15 und 2 verXORt
+Datei: test/tex/20_03_12_k.tex   216
+
+Satz:  Wert: $0000 1111_{(2)}$ $ 0000 0010_{(2)} = 0000 1101_{(2)} = 13_{(10)}$
+Datei: test/tex/20_03_12_k.tex   216
+
+Satz:  Gegeben sei die folgende rekursive Methode:
+Datei: test/tex/20_03_12_k.tex   221
+
+Satz:  Welchen Wert liefert der Aufruf f(4,13)?
+Datei: test/tex/20_03_12_k.tex   223
+
+Satz:  In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen?
+Datei: test/tex/20_03_12_k.tex   233
+
+Satz:  Geben Sie die Reihenfolge der Aufrufe explizit an.
+Datei: test/tex/20_03_12_k.tex   233
+
+Satz:  Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+Datei: test/tex/20_03_12_k.tex   233
+
+Satz:  Terminiert für alle $x >= 0, y >= 0$ der Aufruf f(x,y) mit der Rückgabe eines int-Wertes?
+Datei: test/tex/20_03_12_k.tex   235
+
+Satz:  Begründen Sie Ihre Antwort.
+Datei: test/tex/20_03_12_k.tex   236
+
+Satz:  $ $ [.
+Datei: test/tex/20_03_12_k.tex   238
+
+Satz:  f(4,13) [.f(2,6) [.f(0,3) 2 ] [.f(0,6) 2 ] ] [.f(2,13) [.f(0,6) 2 ] [.f(0,13) 2 ] ] ]
+Datei: test/tex/20_03_12_k.tex   254
+
+Satz:  Somit ist f(4,13) = 2, die Anzahl der Aufrufe ist 7 (Tabelle) und die maximale Rekursionstiefe ist 3 weil: $f(4,13) f(2,6) f(0,3)$ hat eine Tiefe von 3.
+Datei: test/tex/20_03_12_k.tex   255
+
+Satz:  (alle anderen 3 Zweige des Baums sind gleich lang)
+Datei: test/tex/20_03_12_k.tex   258
+
+Satz:  Wenn $x$ ungerade und $y > 1$ ist, terminiert nie der 2*f(x-2,y) Zweig.
+Datei: test/tex/20_03_12_k.tex   260
+
+Satz:  Grund: $y$ bleibt immer gleich und erfüllt damit nie y <= 1 und $x$ wird immer und 2 verringert, somit kann $x$ nie x == 0 erfüllen.
+Datei: test/tex/20_03_12_k.tex   260
+
+Satz:  Eine Zahl wird Palindrom genannt, falls ihre Dezimaldarstellung von vorne und von hinten gelesen die gleiche Ziffernfolge besitzt.
+Datei: test/tex/20_03_12_k.tex   264
+
+Satz:  Beispielsweise sind 7, -121, 4554, 0 und 66 Palindrome.
+Datei: test/tex/20_03_12_k.tex   264
+
+Satz:  20, 31 und 23 sind keine Palindrome.
+Datei: test/tex/20_03_12_k.tex   264
+
+Satz:  Schreiben Sie eine Methode static void palindrom(int[] a), die ein Feld ganzer Zahlen als Parameter erhält und die die Palindrome des Feldes ausgibt.
+Datei: test/tex/20_03_12_k.tex   266
+
+Satz:  Falls das Parameterfeld $a$ die Zahlen (7, 23, -121, 4554, 0, 66, 31, 20) enthält, sollen also 7, -121, 4554, 0 und 66 ausgegeben werden.
+Datei: test/tex/20_03_12_k.tex   266
+
+Satz:  Falls das Parameterfeld $a$ keine Werte enthält, soll beim Aufruf der Methode eine Fehlermeldung ausgegeben werden.
+Datei: test/tex/20_03_12_k.tex   269
+
+Satz:  Sie dürfen keine Klassen importieren.
+Datei: test/tex/20_03_12_k.tex   269
+
+Satz:  Eigene Hilfsmethoden dürfen Sie erstellen.
+Datei: test/tex/20_03_12_k.tex   269
+
+Satz:  Erläutern Sie Ihren Algorithmus.
+Datei: test/tex/20_03_12_k.tex   269
+
+Satz:  sieht durch die Kommentare mehr aus, als es ist!
+Datei: test/tex/20_03_12_k.tex   275
+
+Satz:  Gegeben seien die Methode sowie das Programmfragment
+Datei: test/tex/03_09_12_k.tex   3
+
+Satz:  Beschreiben Sie das Rückgabeobjekt der Methode wasPassiert(int[] a, int[] b) in Abhängigkeit von den Parametern a und b.
+Datei: test/tex/03_09_12_k.tex   27
+
+Satz:  (Exceptions sollen mit angegeben werden, obwohl es nicht in der Aufgabe stand)
+Datei: test/tex/03_09_12_k.tex   28
+
+Satz:  Wie lautet die Ausgabe des Programmfragments?
+Datei: test/tex/03_09_12_k.tex   41
+
+Satz:  Welche der folgenden Schleifen terminieren?
+Datei: test/tex/03_09_12_k.tex   53
+
+Satz:  Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen, nachdem die jeweiligen Anweisungen ausgeführt wurden.
+Datei: test/tex/03_09_12_k.tex   54
+
+Satz:  Die Schleife terminiert, $a = 7$ und $b = 6$
+Datei: test/tex/03_09_12_k.tex   71
+
+Satz:  Die Schleife terminiert, $a = 4$ und $b = 17$ Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an.
+Datei: test/tex/03_09_12_k.tex   92
+
+Satz:  Setzen Sie vor jedem Ausdruck die Deklaration int x = 10; voraus.
+Datei: test/tex/03_09_12_k.tex   102
+
+Satz:  Typ: int, weil es werden die Bits in Binärdarstellung um eine Stelle nach rechts verschoben
+Datei: test/tex/03_09_12_k.tex   110
+
+Satz:  Wert: $10_{(10)} = 1010_{(2)} >> 1_{(10)} = 0101_{(2)} = 5_{(10)}$
+Datei: test/tex/03_09_12_k.tex   110
+
+Satz:  Typ: boolean, weil es wird x/4 mit
+Datei: test/tex/03_09_12_k.tex   118
+
+Satz:  Grund: Es wird zuerst berechnet $x = x $ $ 2$ also $1010_{(2)} $ $ 2_{(10)} = 1000_{(2)} = 8_{(10)}$ und dann $8 * 8 = 64$.
+Datei: test/tex/03_09_12_k.tex   127
+
+Satz:  Das x++ wird erst nach dem Auswerten des Terms ausgewertet.
+Datei: test/tex/03_09_12_k.tex   129
+
+Satz:  Also ist x am Ende $9$.
+Datei: test/tex/03_09_12_k.tex   129
+
+Satz:  Würde statt x++ ein ++x stehen, würde dies vor dem Auswerten des Teilterms ausgewertet werden!
+Datei: test/tex/03_09_12_k.tex   129
+
+Satz:  Es sei a durch int[] a = new int[6] deklariert.
+Datei: test/tex/03_09_12_k.tex   133
+
+Satz:  Geben Sie den Inhalt des Felds nach Ausführung der beiden folgenden Anweisungen an:
+Datei: test/tex/03_09_12_k.tex   133
+
+Satz:  Die erste For-Schleife ist recht einfach, jedoch muss man bei der zweiten aufpassen, deswegen habe ich hier für jeden Schritt eine neue Tabelle angelegt (damit man den Rechenweg besser erkennen kann).
+Datei: test/tex/03_09_12_k.tex   136
+
+Satz:  $ $ a[5] = a[(5 - 3) = 2] (= 1)
+Datei: test/tex/03_09_12_k.tex   143
+
+Satz:  $ $ a[4] = a[(5 - 4) = 1] (= 2)
+Datei: test/tex/03_09_12_k.tex   144
+
+Satz:  $ $ a[3] = a[(5 - 0) = 5] (= 1)
+Datei: test/tex/03_09_12_k.tex   144
+
+Satz:  $ $ a[2] = a[(5 - 1) = 4] (= 2)
+Datei: test/tex/03_09_12_k.tex   145
+
+Satz:  $ $ a[1] = a[(5 - 2) = 3] (= 1)
+Datei: test/tex/03_09_12_k.tex   146
+
+Satz:  $ $ a[0] = a[(5 - 3) = 2] (= 2)
+Datei: test/tex/03_09_12_k.tex   147
+
+Satz:  Die letzte Zeile der letzten Tabelle, ist die Lösung.
+Datei: test/tex/03_09_12_k.tex   148
+
+Satz:  Alle Fragen dieser Aufgabe beziehen sich auf Java
+Datei: test/tex/03_09_12_k.tex   195
+
+Satz:  Gegeben sei die folgende rekursive Methode:
+Datei: test/tex/03_09_12_k.tex   230
+
+Satz:  Welchen Wert liefert der Aufruf f(9,7)?
+Datei: test/tex/03_09_12_k.tex   232
+
+Satz:  In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen?
+Datei: test/tex/03_09_12_k.tex   242
+
+Satz:  Geben Sie die Reihenfolge der Aufrufe explizit an.
+Datei: test/tex/03_09_12_k.tex   242
+
+Satz:  Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+Datei: test/tex/03_09_12_k.tex   242
+
+Satz:  Terminiert für alle $x >= 0, y >= 0$ der Aufruf f(x,y) mit der Rückgabe eines int-Wertes?
+Datei: test/tex/03_09_12_k.tex   244
+
+Satz:  Begründen Sie Ihre Antwort.
+Datei: test/tex/03_09_12_k.tex   245
+
+Satz:  $ $ [.
+Datei: test/tex/03_09_12_k.tex   247
+
+Satz:  f(9,7) [.f(7,4) 1 ] [.f(7,7) [.f(5,4) 1 ] [.f(5,7) [.f(3,4) 1 ] [.f(3,7) [.f(1,4) 3 ] [.f(1,7) 3 ] ] ] ] ]
+Datei: test/tex/03_09_12_k.tex   265
+
+Satz:  Somit ist f(9,7) = -15, die Anzahl der Aufrufe ist 9 (Tabelle) und die maximale Rekursionstiefe ist 5.
+Datei: test/tex/03_09_12_k.tex   266
+
+Satz:  Wenn x gerade ist und y > 4 ist, terminiert nie der 2*f(x-2,y) Zweig.
+Datei: test/tex/03_09_12_k.tex   270
+
+Satz:  Grund: $y$ bleibt gleich und damit ist y <= 4 nie gültig, $x$ wird immer um 2 verringert aber ist nie gültig für x == 1.
+Datei: test/tex/03_09_12_k.tex   270
+
+Satz:  Gegeben sei die Klasse Rechteck zur Darstellung von Rechtecken durch die Länge $l$ und die Breite $b$.
+Datei: test/tex/03_09_12_k.tex   276
+
+Satz:  Die Methode flaeche() soll den Flächeninhalt des aktuellen Rechtecks berechnen.
+Datei: test/tex/03_09_12_k.tex   276
+
+Satz:  Die Methode diagonale() soll die Länge der Diagonalen des aktuellen Rechtecks berechnen.
+Datei: test/tex/03_09_12_k.tex   276
+
+Satz:  Die Methode compareTo() soll das aktuelle Rechteck entsprechend seinem Flächeninhalt mit dem Parameter vergleichen.
+Datei: test/tex/03_09_12_k.tex   276
+
+Satz:  Außerdem sei das folgende Programmfragment gegeben:
+Datei: test/tex/03_09_12_k.tex   278
+
+Satz:  Die Programmzeilen 01 bis 25 enthalten Fehler.
+Datei: test/tex/03_09_12_k.tex   309
+
+Satz:  Markieren Sie die Fehler im Programmtext.
+Datei: test/tex/03_09_12_k.tex   309
+
+Satz:  Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.
+Datei: test/tex/03_09_12_k.tex   309
+
+Satz:  Geben Sie die korrigierten Zeilen an.
+Datei: test/tex/03_09_12_k.tex   323
+
+Satz:  Was gibt das korrigierte Programm aus?
+Datei: test/tex/03_09_12_k.tex   323
+
+Satz:  Eine Folge $a$ von int-Werten $a_0, ldots , a_{n-1},$ $n >= 1$, soll nach der Anzahl der Vorkommen ihrer Elemente sortiert werden.
+Datei: test/tex/03_09_12_k.tex   334
+
+Satz:  Elemente, die in der Folge gleich oft enthalten sind, sollen der Größe nach sortiert werden.
+Datei: test/tex/03_09_12_k.tex   334
+
+Satz:  Schreiben Sie eine Methode static void quantitySort(int[] a), die ein Feld ganzer Zahlen als Parameter erhält und den Parameter wie beschrieben sortiert.
+Datei: test/tex/03_09_12_k.tex   334
+
+Satz:  Beispiel: Falls der Parameter $a$ die Folge 2, 0, 1, 0, 0, 2, 3, 1 ist, soll $a$ in die Folge 3, 1, 1, 2, 2, 0, 0, 0 umsortiert werden, da 3 einmal, 1 und 2 zweimal und 0 dreimal in $a$ vorkommen.
+Datei: test/tex/03_09_12_k.tex   337
+
+Satz:  Falls das Parameterfeld $a$ keine Werte enthält oder das Null-Objekt ist, soll beim Aufruf der Methode eine IllegalArgumentException ausgelöst werden.
+Datei: test/tex/03_09_12_k.tex   339
+
+Satz:  Sie dürfen weder Methoden noch Klassen importieren, aber Hilfsmethoden oder -klassen schreiben.
+Datei: test/tex/03_09_12_k.tex   339
+
+Satz:  sieht durch die Kommentare mehr aus, als es ist!
+Datei: test/tex/03_09_12_k.tex   345
+
+Satz:  Schreiben Sie die Dezimalzahl 29 und 92 als Binär-, Oktal- und Hexadezimalzahl.
+Datei: test/tex/25_01_13_u.tex   3
+
+Satz:  Durch welche Bitfolge wird der int-Wert -29 in Java gespeichert?
+Datei: test/tex/25_01_13_u.tex   4
+
+Satz:  $29_{(10)} = 16 + 8 + 4 + 1 = 2^4 + 2^3 + 2^2 + 2^0 = 1 1101_{(2)}$
+Datei: test/tex/25_01_13_u.tex   6
+
+Satz:  $92_{(10)} = 64 + 16 + 8 + 4 = 2^6 + 2^4 + 2^3 + 2^2 = 101 1100_{(2)}$
+Datei: test/tex/25_01_13_u.tex   6
+
+Satz:  $29_{(10)} = 24 + 5 = 3 * 8^1 + 5 * 8^0 = 35_{(8)}$
+Datei: test/tex/25_01_13_u.tex   9
+
+Satz:  $92_{(10)} = 64 + 24 + 4 = 1 * 8^2 + 3 * 8^1 + 4 * 8^0 = 134_{(8)}$
+Datei: test/tex/25_01_13_u.tex   9
+
+Satz:  $29_{(10)} = 16 + 13 = 16^1 + 13 * 16^0 = 1D_{(16)}$
+Datei: test/tex/25_01_13_u.tex   12
+
+Satz:  $92_{(10)} = 80 + 12 = 5 * 16^1 + 12 * 16^0 = 5C_{(16)}$
+Datei: test/tex/25_01_13_u.tex   12
+
+Satz:  $29_{(10)} = 16 + 8 + 4 + 1 = 0001 1101$
+Datei: test/tex/25_01_13_u.tex   15
+
+Satz:  Einerkomplement: $1111 1111 1111 1111 1111 1111 1110 0010$
+Datei: test/tex/25_01_13_u.tex   15
+
+Satz:  Zweierkomplement: $1111 1111 1111 1111 1111 1111 1110 0011$
+Datei: test/tex/25_01_13_u.tex   16
+
+Satz:  Ein int besteht aus 4 Byte also 32 Bit.
+Datei: test/tex/25_01_13_u.tex   17
+
+Satz:  (gleiche Aufgabe wie in Klausur 20.03.12)
+Datei: test/tex/25_01_13_u.tex   23
+
+Satz:  Gegeben sei die folgende rekursive Methode:
+Datei: test/tex/25_01_13_u.tex   23
+
+Satz:  Welchen Wert liefert der Aufruf f(4,13)?
+Datei: test/tex/25_01_13_u.tex   25
+
+Satz:  In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen?
+Datei: test/tex/25_01_13_u.tex   36
+
+Satz:  Geben Sie die Reihenfolge der Aufrufe explizit an.
+Datei: test/tex/25_01_13_u.tex   36
+
+Satz:  Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+Datei: test/tex/25_01_13_u.tex   36
+
+Satz:  Terminiert für alle $x >= 0, y >= 0$ der Aufruf f(x,y) mit der Rückgabe eines int-Wertes?
+Datei: test/tex/25_01_13_u.tex   38
+
+Satz:  Begründen Sie Ihre Antwort.
+Datei: test/tex/25_01_13_u.tex   39
+
+Satz:  $ $ [.
+Datei: test/tex/25_01_13_u.tex   41
+
+Satz:  f(4,13) [.f(2,6) [.f(0,3) 2 ] [.f(0,6) 2 ] ] [.f(2,13) [.f(0,6) 2 ] [.f(0,13) 2 ] ] ]
+Datei: test/tex/25_01_13_u.tex   57
+
+Satz:  Somit ist f(4,13) = 2, die Anzahl der Aufrufe ist 7 (Tabelle) und die maximale Rekursionstiefe ist 3 weil: $f(4,13) f(2,6) f(0,3)$ hat eine Tiefe von 3.
+Datei: test/tex/25_01_13_u.tex   58
+
+Satz:  (alle anderen 3 Zweige des Baums sind gleich lang)
+Datei: test/tex/25_01_13_u.tex   61
+
+Satz:  Wenn $x$ ungerade und $y > 1$ ist, terminiert nie der 2*f(x-2,y) Zweig.
+Datei: test/tex/25_01_13_u.tex   63
+
+Satz:  Grund: $y$ bleibt immer gleich und erfüllt damit nie y <= 1 und $x$ wird immer und 2 verringert, somit kann $x$ nie x == 0 erfüllen.
+Datei: test/tex/25_01_13_u.tex   63
+
+Satz:  Alle Fragen dieser Aufgabe beziehen sich auf Java
+Datei: test/tex/25_01_13_u.tex   68
+
+Satz:  (gleiche Aufgabe wie in Klausur vom 16.03.11)
+Datei: test/tex/25_01_13_u.tex   102
+
+Satz:  Welche der folgenden Schleifen terminieren?
+Datei: test/tex/25_01_13_u.tex   102
+
+Satz:  Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen, nachdem die jeweiligen Anweisungen ausgeführt wurden.
+Datei: test/tex/25_01_13_u.tex   104
+
+Satz:  Die Schleife terminiert, $a = 3$ und $b = 0$.
+Datei: test/tex/25_01_13_u.tex   120
+
+Satz:  Die Schleife terminiert, $a = 11$ und $b = 3$.
+Datei: test/tex/25_01_13_u.tex   143
+
+Satz:  Die Schleife terminiert, $a = 3$ und $b = 4$.
+Datei: test/tex/25_01_13_u.tex   163
+
+Satz:  Die Schleife terminiert, $a = -2$ und $b = 1$.
+Datei: test/tex/25_01_13_u.tex   184
+
+Satz:  Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an.
+Datei: test/tex/25_01_13_u.tex   192
+
+Satz:  Setzen Sie vor jedem Ausdruck die Deklaration int x = 27; voraus.
+Datei: test/tex/25_01_13_u.tex   194
+
+Satz:  Typ: double, da automatisch von int nach double gecastet wird
+Datei: test/tex/25_01_13_u.tex   202
+
+Satz:  Typ: boolean, da 27 mit 3 verglichen wird
+Datei: test/tex/25_01_13_u.tex   211
+
+Satz:  Typ: int, weil es werden die Bits in Binärdarstellung um 3 Stellen nach rechts verschoben
+Datei: test/tex/25_01_13_u.tex   220
+
+Satz:  Wert: $0001 1011_{(2)} >> 3_{(10)} = 0000 0011_{(2)} = 3_{(10)}$
+Datei: test/tex/25_01_13_u.tex   221
+
+Satz:  Ein int besteht zwar auch 4 Byte (also 32 Bit) jedoch habe ich nur das erste Byte der Übersicht halber geschrieben.
+Datei: test/tex/25_01_13_u.tex   222
+
+Satz:  (fast gleiche (99\%) Aufgabe wie in Klausur vom 16.03.11)
+Datei: test/tex/25_01_13_u.tex   226
+
+Satz:  Gegeben sei die Klasse Rational zur Darstellung von positiven rationalen Zahlen, d.
+Datei: test/tex/25_01_13_u.tex   226
+
+Satz:  h. von Zahlen $q , q > 0$.
+Datei: test/tex/25_01_13_u.tex   228
+
+Satz:  Die Methode add soll den Parameter r zur aktuellen Zahl addieren.
+Datei: test/tex/25_01_13_u.tex   228
+
+Satz:  Die Methode compareTo soll rationale Zahlen ihrer Größe nach vergleichen.
+Datei: test/tex/25_01_13_u.tex   229
+
+Satz:  Außerdem sei das folgende Programmfragment gegeben:
+Datei: test/tex/25_01_13_u.tex   232
+
+Satz:  Die Programmzeilen 1 bis 32 enthalten Fehler.
+Datei: test/tex/25_01_13_u.tex   270
+
+Satz:  Markieren Sie die Fehler im Programmtext.
+Datei: test/tex/25_01_13_u.tex   270
+
+Satz:  Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.
+Datei: test/tex/25_01_13_u.tex   270
+
+Satz:  Geben Sie die korrigierten Zeilen an.
+Datei: test/tex/25_01_13_u.tex   283
+
+Satz:  Was gibt das korrigierte Programm aus?
+Datei: test/tex/25_01_13_u.tex   283
+
+Satz:  (gleiche Aufgabe wie in Klausur 20.03.12)
+Datei: test/tex/25_01_13_u.tex   296
+
+Satz:  Eine Zahl wird Palindrom genannt, falls ihre Dezimaldarstellung von vorne und von hinten gelesen die gleiche Ziffernfolge besitzt.
+Datei: test/tex/25_01_13_u.tex   296
+
+Satz:  Beispielsweise sind 7, -121, 4554, 0 und 66 Palindrome.
+Datei: test/tex/25_01_13_u.tex   297
+
+Satz:  20, 31 und 23 sind keine Palindrome.
+Datei: test/tex/25_01_13_u.tex   297
+
+Satz:  Schreiben Sie eine Methode static void palindrom(int[] a), die ein Feld ganzer Zahlen als Parameter erhält und die die Palindrome des Feldes ausgibt.
+Datei: test/tex/25_01_13_u.tex   299
+
+Satz:  Falls das Parameterfeld $a$ die Zahlen (7, 23, -121, 4554, 0, 66, 31, 20) enthält, sollen also 7, -121, 4554, 0 und 66 ausgegeben werden.
+Datei: test/tex/25_01_13_u.tex   299
+
+Satz:  Falls das Parameterfeld $a$ keine Werte enthält, soll beim Aufruf der Methode eine Fehlermeldung ausgegeben werden.
+Datei: test/tex/25_01_13_u.tex   302
+
+Satz:  Sie dürfen keine Klassen importieren.
+Datei: test/tex/25_01_13_u.tex   302
+
+Satz:  Eigene Hilfsmethoden dürfen Sie erstellen.
+Datei: test/tex/25_01_13_u.tex   302
+
+Satz:  Erläutern Sie Ihren Algorithmus.
+Datei: test/tex/25_01_13_u.tex   302
+
+Satz:  sieht durch die Kommentare mehr aus, als es ist!
+Datei: test/tex/25_01_13_u.tex   308
+
+Satz:  (gleiche Aufgabe wie in Klausur vom 03.09.12)
+Datei: test/tex/25_01_13_u.tex   326
+
+Satz:  Gegeben seien die Methode sowie das Programmfragment
+Datei: test/tex/25_01_13_u.tex   326
+
+Satz:  Beschreiben Sie das Rückgabeobjekt der Methode wasPassiert(int[] a, int[] b) in Abhängigkeit von den Parametern a und b.
+Datei: test/tex/25_01_13_u.tex   351
+
+Satz:  (Exceptions sollen mit angegeben werden, obwohl es nicht in der Aufgabe stand)
+Datei: test/tex/25_01_13_u.tex   352
+
+Satz:  Wie lautet die Ausgabe des Programmfragments?
+Datei: test/tex/25_01_13_u.tex   365
+
+Satz:  Alle Fragen dieser Aufgabe beziehen sich auf Java
+Datei: test/tex/25_01_13_u.tex   377
+
+Satz:  Schreiben Sie die Dezimalzahl 47 als Binär-, Oktal- und Hexadezimalzahl.
+Datei: test/tex/06_03_13_k.tex   3
+
+Satz:  Durch welche Bitfolge wird der Byte-Wert -47 in Java gespeichert?
+Datei: test/tex/06_03_13_k.tex   4
+
+Satz:  $47_{(10)} = 32 + 8 + 4 + 2 + 1 = 2^5 + 2^3 + 2^2 + 2^1 + 2^0 = 10 1111_{(2)}$
+Datei: test/tex/06_03_13_k.tex   6
+
+Satz:  $47_{(10)} = 40 + 7 = 5 * 8^1 + 7 * 8^0 = 57_{(8)}$
+Datei: test/tex/06_03_13_k.tex   8
+
+Satz:  $47_{(10)} = 32 + 15 = 2 * 16^1 + 15 * 16^0 = 2F_{(16)}$
+Datei: test/tex/06_03_13_k.tex   10
+
+Satz:  $47_{(10)} = 32 + 8 + 4 + 2 +1 = 0010 1111$
+Datei: test/tex/06_03_13_k.tex   12
+
+Satz:  Einerkomplement: $1101 0000$
+Datei: test/tex/06_03_13_k.tex   12
+
+Satz:  Zweierkomplement: $1101 0001$
+Datei: test/tex/06_03_13_k.tex   13
+
+Satz:  Byte = 8 Bit!
+Datei: test/tex/06_03_13_k.tex   14
+
+Satz:  Bitte kreuzen Sie an.
+Datei: test/tex/06_03_13_k.tex   20
+
+Satz:  Für jede richtige Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen.
+Datei: test/tex/06_03_13_k.tex   20
+
+Satz:  Kein Kreuz bzw.
+Datei: test/tex/06_03_13_k.tex   22
+
+Satz:  zwei Kreuze bedeuten 0 Punkte.
+Datei: test/tex/06_03_13_k.tex   22
+
+Satz:  Die minimale Gesamtpunktzahl für diese Aufgabe beträgt 0 Punkte.
+Datei: test/tex/06_03_13_k.tex   22
+
+Satz:  Gegeben seien die Methode sowie das Programmfragment
+Datei: test/tex/06_03_13_k.tex   61
+
+Satz:  Wie lautet die Ausgabe des Programmfragments?
+Datei: test/tex/06_03_13_k.tex   87
+
+Satz:  Beschreiben Sie die Funktionsweise der Methode wasPassiert(int[] a) in Abhängigkeit vom Parameter a.
+Datei: test/tex/06_03_13_k.tex   131
+
+Satz:  Welche der folgenden Schleifen terminieren?
+Datei: test/tex/06_03_13_k.tex   144
+
+Satz:  Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen, nachdem die jeweiligen Anweisungen ausgeführt wurden.
+Datei: test/tex/06_03_13_k.tex   145
+
+Satz:  Die Schleife terminiert, $a = 4$ und $b = 9$.
+Datei: test/tex/06_03_13_k.tex   162
+
+Satz:  Es existiert kein break!
+Datei: test/tex/06_03_13_k.tex   170
+
+Satz:  Die Schleife terminiert, $a = 11$ und $b = 13$
+Datei: test/tex/06_03_13_k.tex   186
+
+Satz:  Die Schleife terminiert, $a = 3$ und $b = 18$ Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an.
+Datei: test/tex/06_03_13_k.tex   209
+
+Satz:  Setzen Sie vor jedem Ausdruck die Deklaration int i = 17; voraus.
+Datei: test/tex/06_03_13_k.tex   220
+
+Satz:  Typ: int, weil Modulo-Rechnung
+Datei: test/tex/06_03_13_k.tex   228
+
+Satz:  Wert: $17 \% 8 = 1$
+Datei: test/tex/06_03_13_k.tex   228
+
+Satz:  Typ: boolean, weil es wird i>>2 mit i/2 durch > verglichen
+Datei: test/tex/06_03_13_k.tex   236
+
+Satz:  $17_{(10)} = 16 + 1 = 1 0001_{(2)}$
+Datei: test/tex/06_03_13_k.tex   236
+
+Satz:  $1 0001_{(2)} >> 2_{(10)} = 0 0100_{(2)} = 4$
+Datei: test/tex/06_03_13_k.tex   237
+
+Satz:  $4 > 8 $ = false
+Datei: test/tex/06_03_13_k.tex   239
+
+Satz:  $17 >> 1$ = $17 / 2 = 8$
+Datei: test/tex/06_03_13_k.tex   239
+
+Satz:  $17 >> 2$ = $17 / 2 / 2 = 4$
+Datei: test/tex/06_03_13_k.tex   240
+
+Satz:  $17 >> 3$ = $17 / 2 / 2 / 2 = 2$
+Datei: test/tex/06_03_13_k.tex   243
+
+Satz:  $17 >> 4$ = $17 / 2 / 2 / 2 / 2 = 1$
+Datei: test/tex/06_03_13_k.tex   244
+
+Satz:  $17 >> 5$ = $17 / 2 / 2 / 2 / 2 / 2 = 0$
+Datei: test/tex/06_03_13_k.tex   245
+
+Satz:  wir formen um zu:
+Datei: test/tex/06_03_13_k.tex   256
+
+Satz:  Gegeben sei die folgende rekursive Methode:
+Datei: test/tex/06_03_13_k.tex   274
+
+Satz:  Welchen Wert liefert der Aufruf f(5,4)?
+Datei: test/tex/06_03_13_k.tex   276
+
+Satz:  In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen?
+Datei: test/tex/06_03_13_k.tex   286
+
+Satz:  Geben Sie die Reihenfolge der Aufrufe explizit an.
+Datei: test/tex/06_03_13_k.tex   286
+
+Satz:  Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+Datei: test/tex/06_03_13_k.tex   286
+
+Satz:  Terminiert für alle $x >= 0, y >= 0$ der Aufruf f(x,y) mit der Rückgabe eines int-Wertes?
+Datei: test/tex/06_03_13_k.tex   288
+
+Satz:  Begründen Sie Ihre Antwort.
+Datei: test/tex/06_03_13_k.tex   289
+
+Satz:  $ $ [.
+Datei: test/tex/06_03_13_k.tex   291
+
+Satz:  f(5,4) [.f(6,1) [.f(7,-2) 1 ] [.f(3,1) [.f(4,-2) 1 ] [.f(0,1) 2 ] ] ] [.f(2,4) [.f(3,1) [.f(4,-2) 1 ] [.f(0,1) 2 ] ] [.f(-1,4) 2 ] ] ]
+Datei: test/tex/06_03_13_k.tex   311
+
+Satz:  Somit ist f(5,4) = 21, die Anzahl der Aufrufe ist 1 (Tabelle) und die maximale Rekursionstiefe ist 4.
+Datei: test/tex/06_03_13_k.tex   312
+
+Satz:  Da $y$ im ersten und $x$ im zweiten Zweig immer verringert wird und beide Abbruchbedingungen für x <= 1 bzw.
+Datei: test/tex/06_03_13_k.tex   316
+
+Satz:  y <= 0 gelten, werden diese immer erreicht.
+Datei: test/tex/06_03_13_k.tex   316
+
+Satz:  Dadurch terminiert die Rekursion für alle Aufrufe.
+Datei: test/tex/06_03_13_k.tex   316
+
+Satz:  Die Fälle für int x = Integer.
+Datei: test/tex/06_03_13_k.tex   318
+
+Satz:  sehr nahe ignorieren wir.
+Datei: test/tex/06_03_13_k.tex   318
+
+Satz:  Schreiben Sie eine Methode static int[] intersection(int[] a, int[] b) { }, die als Parameter zwei int-Arrays int[] a und int[] b erhält.
+Datei: test/tex/06_03_13_k.tex   322
+
+Satz:  Diese Methode soll ein int-Array zurückgeben, das die Elemente genau einmal enthält, die sowohl in a als auch in b vorkommen.
+Datei: test/tex/06_03_13_k.tex   322
+
+Satz:  Auf die Reihenfolge der Elemente in der Rückgabe kommt es nicht an.
+Datei: test/tex/06_03_13_k.tex   324
+
+Satz:  Wenn einer oder beide der Parameter das Null-Objekt sind oder keine Int-Werte enthält, soll das Rückgabefeld ein int-Array sein, das keinen Int-Wert enthält.
+Datei: test/tex/06_03_13_k.tex   324
+
+Satz:  Sie dürfen keine Klassen importieren.
+Datei: test/tex/06_03_13_k.tex   324
+
+Satz:  Eigene Hilfsmethoden dürfen Sie erstellen.
+Datei: test/tex/06_03_13_k.tex   325
+
+Satz:  Erläutern Sie Ihren Algorithmus.
+Datei: test/tex/06_03_13_k.tex   325
+
+Satz:  Beispiel: Es seien $x$ und $y$ die folgenden Felder: int[] x={2,4,3,2,7,0,2,7}, int[] y={7,7,8,4,2,4,3,5}.
+Datei: test/tex/06_03_13_k.tex   327
+
+Satz:  Zulässige Rückgabewerte sind beispielsweise die Felder intersection(x,x)={4,3,0,2,7} (steht zwar so in der Aufgabenstellung aber ergibt keinen Sinn mit der 0, da die 0 ein Element ist und nicht die Leeremenge), intersection(x,y)={4,3,2,7} und intersection(y,x)={7,2,4,3}.
+Datei: test/tex/06_03_13_k.tex   328
+
+Satz:  sieht durch die Kommentare mehr aus, als es ist!
+Datei: test/tex/06_03_13_k.tex   334
+
+Satz:  Gegeben seien die Methode sowie das Programmfragment
+Datei: test/tex/26_08_13_k.tex   4
+
+Satz:  Beschreiben Sie den Rückgabewert der Methode wasPassiert in Abhängigkeit vom Parameter a.
+Datei: test/tex/26_08_13_k.tex   31
+
+Satz:  Wie lautet die Ausgabe des Programmfragments
+Datei: test/tex/26_08_13_k.tex   41
+
+Satz:  die Größte Differenz ist $13-8 = 5$ deswegen wird $ (5) $ ausgegeben.
+Datei: test/tex/26_08_13_k.tex   43
+
+Satz:  Welche der folgenden Schleifen terminieren?
+Datei: test/tex/26_08_13_k.tex   51
+
+Satz:  Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen, nachdem die jeweiligen Anweisungen ausgeführt wurden.
+Datei: test/tex/26_08_13_k.tex   52
+
+Satz:  Die Schleife terminiert, $a = 7$ und $b = 21$.
+Datei: test/tex/26_08_13_k.tex   69
+
+Satz:  Es existiert kein break!
+Datei: test/tex/26_08_13_k.tex   77
+
+Satz:  Die Schleife terminiert, $a = 7$ und $b = 20$
+Datei: test/tex/26_08_13_k.tex   94
+
+Satz:  Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an.
+Datei: test/tex/26_08_13_k.tex   95
+
+Satz:  Setzen Sie vor jedem Ausdruck die Deklaration int x = 11; voraus.
+Datei: test/tex/26_08_13_k.tex   104
+
+Satz:  Wert: $(11 - 2) * (9 + 2) = 99$
+Datei: test/tex/26_08_13_k.tex   112
+
+Satz:  $11_{10} >> 1_{10} = 1011_{2} >> 1_{10} = 101_{2}$
+Datei: test/tex/26_08_13_k.tex   121
+
+Satz:  $101_{2}$ = 111_{2} = 7_{10}$
+Datei: test/tex/26_08_13_k.tex   122
+
+Satz:  $2 * 11 / 2 == 11 / 2 * 2 22 / 2 == 5 * 2 11 == 10 $ false
+Datei: test/tex/26_08_13_k.tex   131
+
+Satz:  Es sei a durch int[] a = new int[6] deklariert.
+Datei: test/tex/26_08_13_k.tex   132
+
+Satz:  Geben Sie den Inhalt des Felds nach Ausführung der beiden folgenden Anweisungen an:
+Datei: test/tex/26_08_13_k.tex   135
+
+Satz:  nach der ersten for-Schleife:
+Datei: test/tex/26_08_13_k.tex   137
+
+Satz:  nach der zweiten for-Schleife:
+Datei: test/tex/26_08_13_k.tex   138
+
+Satz:  Bitte kreuzen Sie an.
+Datei: test/tex/26_08_13_k.tex   168
+
+Satz:  Für jede richtige Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen.
+Datei: test/tex/26_08_13_k.tex   168
+
+Satz:  Kein Kreuz bzw.
+Datei: test/tex/26_08_13_k.tex   169
+
+Satz:  zwei Kreuze bedeuten 0 Punkte.
+Datei: test/tex/26_08_13_k.tex   169
+
+Satz:  Die minimale Gesamtpunktzahl für diese Aufgabe beträgt 0 Punkte.
+Datei: test/tex/26_08_13_k.tex   169
+
+Satz:  Gegeben sei die folgende rekursive Methode:
+Datei: test/tex/26_08_13_k.tex   194
+
+Satz:  Welchen Wert liefert der Aufruf f(8,4)?
+Datei: test/tex/26_08_13_k.tex   196
+
+Satz:  In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen?
+Datei: test/tex/26_08_13_k.tex   206
+
+Satz:  Geben Sie die Reihenfolge der Aufrufe explizit an.
+Datei: test/tex/26_08_13_k.tex   206
+
+Satz:  Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+Datei: test/tex/26_08_13_k.tex   206
+
+Satz:  Terminiert für alle $x >= 0, y >= 0$ der Aufruf f(x,y) mit der Rückgabe eines int-Wertes?
+Datei: test/tex/26_08_13_k.tex   208
+
+Satz:  Begründen Sie Ihre Antwort.
+Datei: test/tex/26_08_13_k.tex   209
+
+Satz:  $ $ [.
+Datei: test/tex/26_08_13_k.tex   211
+
+Satz:  f(8,4) [.f(6,2) 2 ] [.f(6,4) [.f(4,2) 2 ] [.f(4,4) [.f(2,2) 2 ] [.f(2,4) [.f(0,2) 1 ] [.f(0,4) 1 ] ] ] ] ]
+Datei: test/tex/26_08_13_k.tex   229
+
+Satz:  Somit ist f(8,4) = 14, die Anzahl der Aufrufe ist 9 (Tabelle) und die maximale Rekursionstiefe ist 5.
+Datei: test/tex/26_08_13_k.tex   230
+
+Satz:  Für $x$ ist ungerade, Terminiert die Funktion nicht, da wir auf Aufrufe kommen wie: $ [.
+Datei: test/tex/26_08_13_k.tex   234
+
+Satz:  f(-1,2) 2 ] [.
+Datei: test/tex/26_08_13_k.tex   238
+
+Satz:  f(-3,2) 2 ] [.
+Datei: test/tex/26_08_13_k.tex   240
+
+Satz:  f(-3,4) { } ] ] ] $
+Datei: test/tex/26_08_13_k.tex   241
+
+Satz:  Ein Intervall $[a, b]$ wird durch zwei Zahlen $a$ und $b$ definiert.
+Datei: test/tex/26_08_13_k.tex   252
+
+Satz:  Das Intervall enthält alle Zahlen von $a$ bis $b$: $ [a,b] = \{x | a <= x <= b\} $
+Datei: test/tex/26_08_13_k.tex   252
+
+Satz:  Gegeben sei die Klasse Iliz7r5etuw4rz3qhestjdfjntervall zur Darstellung von Intervallen.
+Datei: test/tex/26_08_13_k.tex   254
+
+Satz:  Die Methode laenge() soll die Länge des aktuellen Intervalls liefern.
+Datei: test/tex/26_08_13_k.tex   257
+
+Satz:  Die Methode geschachtelt(Intervall i) soll den Wert true liefern, falls das Intervall $i$ Teilmenge des aktuellen Intervalls ist.
+Datei: test/tex/26_08_13_k.tex   257
+
+Satz:  Die Methode compareTo() soll das aktuelle Intervall entsprechend seiner Länge mit dem Parameter vergleichen.
+Datei: test/tex/26_08_13_k.tex   257
+
+Satz:  Außerdem sei das folgende Programmfragment gegeben:
+Datei: test/tex/26_08_13_k.tex   259
+
+Satz:  Die Programmzeilen 01 bis 27 enthalten Fehler.
+Datei: test/tex/26_08_13_k.tex   295
+
+Satz:  Markieren Sie die Fehler im Programmtext.
+Datei: test/tex/26_08_13_k.tex   295
+
+Satz:  Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.
+Datei: test/tex/26_08_13_k.tex   295
+
+Satz:  Geben Sie die korrigierten Zeilen an.
+Datei: test/tex/26_08_13_k.tex   310
+
+Satz:  Was gibt das korrigierte Programm aus?
+Datei: test/tex/26_08_13_k.tex   310
+
+Satz:  Gegeben sei eine Folge $a$ von verschiedenen int-Werten $a_0 , ldots , a_{n-1}, n >= 1$ sowie ein int-Wert $x$, der in der Folge $a$ enthalten ist.
+Datei: test/tex/26_08_13_k.tex   320
+
+Satz:  Schreiben Sie eine Methode static int next(int[] a, int x), die solch ein Feld $a$ und solch einen Wert $x$ als Parameter erhält.
+Datei: test/tex/26_08_13_k.tex   321
+
+Satz:  Die Methode soll den kleinsten Wert von $a$ liefern, der größer als $x$ ist.
+Datei: test/tex/26_08_13_k.tex   325
+
+Satz:  Falls der Parameter $a$ das Null-Objekt ist oder keine Werte enthält oder nicht alle Elemente verschieden sind oder x nicht enthält, soll beim Aufruf der Methode eine IllegalArgumentException ausgelöst werden.
+Datei: test/tex/26_08_13_k.tex   325
+
+Satz:  Falls $x$ der größte Wert von $a$ ist, soll $x$ das Ergebnis sein.
+Datei: test/tex/26_08_13_k.tex   325
+
+Satz:  Sie dürfen weder Methoden noch Klassen importieren, aber Hilfsmethoden schreiben.
+Datei: test/tex/26_08_13_k.tex   325
+
+Satz:  Die Folge $a$ soll durch einen Aufruf von next nicht geändert werden.
+Datei: test/tex/26_08_13_k.tex   325
+
+Satz:  Beispiel: Falls $a$ die Folge $(12, 7, 5, 9, 13, 24)$ und $x$ der Wert $5$ ist, soll der Aufruf next(a,x) den Wert $7$ liefern, da $7$ die nächstgrößere Zahl von $5$ ist.
+Datei: test/tex/26_08_13_k.tex   327
+
+Satz:  sieht durch die Kommentare mehr aus, als es ist!
+Datei: test/tex/26_08_13_k.tex   331
+

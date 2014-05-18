@@ -1,0 +1,2545 @@
+
+\documentclass[
+  10pt,                   
+  DIV12,
+  german,                 
+  oneside,                
+  
+  parskip=half,           
+  headings=normal,        
+  captions=tableheading,  
+  
+]{scrreprt}       
+
+
+
+\usepackage{etex}
+
+
+
+
+
+
+
+
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage[ngerman]{babel}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{stmaryrd}
+
+
+
+\newcommand \zz{$\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z}}$}
+\newcommand \zw{$\mathrm{Z\kern-.3em\raise-0.5ex\hbox{W}}$}
+\newcommand{\monus}{\stackrel{{}^{\scriptstyle .}}{\smash{-}}}
+
+
+
+\usepackage{geometry}
+\geometry{verbose,                     
+                                       
+      paper=a4paper,                   
+      top=25mm,                        
+      left=25mm,                       
+      right=25mm,                      
+      bottom=40mm,                     
+      pdftex                           
+                                       
+                                       
+}
+
+\newcommand \tab{\noindent\hspace*{0.3cm}}
+
+
+
+
+
+
+
+
+
+
+\def\@seccntformat#1{\csname the#1\endcsname\hspace*{0.5em}$|$\hspace*{0.5em}}
+
+\setcounter{tocdepth}{1}
+
+
+
+
+
+
+
+
+\usepackage[headsepline, footsepline, ilines]{scrpage2}
+
+
+
+
+
+\usepackage{soul}
+
+\newcommand \ol[1]{\overline{#1}}
+
+\usepackage{rotating}
+
+
+\usepackage{tikz} 
+\usepackage{tikz-qtree}
+
+\usetikzlibrary{arrows,automata,decorations.pathmorphing,backgrounds,shapes,positioning,fit,matrix}
+
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=15em, text centered, rounded corners, minimum height=4em, node distance=2cm]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm, text width=8em,
+    minimum height=2em]
+
+
+
+
+
+
+
+
+\usepackage{cases}
+\usepackage{sidecap}
+\usepackage{array}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash} m{#1} }
+
+\usepackage{float}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{wasysym}
+	
+
+
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[absolute]{textpos}
+\usepackage{color}
+
+\definecolor{tubsRed}{cmyk}{0.1,1.0,0.8,0.0}
+\definecolor{tuRed}{cmyk}{0.1,1.0,0.8,0.0}
+\definecolor{darkgreen}{rgb}{0.2,0.6,0.2}
+
+\definecolor{hellgrau}{rgb}{0.95,0.95,0.95}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\definecolor{javared}{rgb}{0.6,0,0} 
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} 
+\definecolor{javapurple}{rgb}{0.5,0,0.35} 
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} 
+
+
+\usepackage{listings}
+\lstset{language=Java,
+numbers=left,
+numbersep=5pt,
+stepnumber=1,
+
+breaklines=true,
+keywordstyle=\color{green!40!black},
+commentstyle=\color{magenta!40!black},
+identifierstyle=\color{blue},
+stringstyle=\color{orange},
+otherkeywords={$, \{, \}, \[, \]},
+frame=single,
+tabsize=2
+}
+
+
+\usepackage{pdfpages}
+
+
+
+\usepackage[normalem]{ulem}
+\newcommand* \duline[1]{\ensuremath{\underline{\underline{#1}}}}
+
+
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+
+
+\renewcommand* \chapterpagestyle{scrheadings}
+\renewcommand \headfont{\normalfont}
+
+
+
+
+
+
+
+
+\newcommand \RT [1]{\rotatebox{180}{#1}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+  
+\newcommand\um[2]{
+	\makebox[0pt][l]{$\smash{\underbrace{\phantom{
+    	\begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+  
+\newcommand\om[2]{
+	\makebox[0pt][l]{$\smash{\overbrace{\phantom{
+    	\begin{matrix}#2\end{matrix}}}^{\text{$#1$}}}$}#2}
+    	
+    	
+
+\makeatletter
+\renewcommand*\env@matrix[1][r]{\hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols #1}}
+\makeatother
+ 
+\usepackage{hyperref}
+
+\newcommand{\srcDir}{java/}
+\renewcommand \thesection{Aufgabe: \arabic{section}}
+\renewcommand \thesubsection{\alph{subsection})}
+\renewcommand \thesubsubsection{\roman{subsubsection})}
+
+\newcommand{\mychapter}[1]{
+   \phantomsection
+   \renewcommand{\rightmark}{#1}\chapter{#1}
+}
+
+\newcommand{\mysection}[1]{
+   \phantomsection
+   \renewcommand{\leftmark}{#1} \section{#1}
+}
+
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{\thesection \; (#1)}{} }
+
+
+\title{Programmieren I Klausurzusammenfassung}
+\date{\today}
+
+\chead{}
+\ihead{\leftmark}
+\ohead{\rightmark}
+
+
+\begin{document}
+
+\maketitle
+
+\chapter*{Disclaimer}
+Diese Klausurzusammenfassung ist keine offizielle Lösungssammlung, sondern nur eine nach bestem Wissen und Gewissen erstellte Lernhilfe für die Klausur Programmieren I. In den Lösungen können noch Fehler enthalten sein, deswegen hinterfragt selbst alle Lösungen. Wer sich in der Klausureinsicht auf Lösungen, aus dieser Zusammenfassung, beruft ist selbst schuld!
+\newpage
+\begingroup
+\let\orignumberline\numberline
+\def\numberline#1{\orignumberline{#1}\kern+9ex}
+\tableofcontents
+\endgroup
+\mychapter[CS]{Cheat Sheet}
+\phantomsection
+\section*{Zahlenumrechnen}
+\subsection*{Rechenweg}
+\begin{align*}
+x_1 &= \mbox{ Zahl zur Basis 10}\\
+b &= \mbox{ Zielbasis z.B. 2 für Binärzahlen}\\
+z &= r_1, r_2, \ldots, r_n \mbox{ Zahl zur Zielbasis}\\
+\\
+x_1\; \% \;b &= r_n			& \lfloor x_1 / b \rfloor &= x_2 \\
+x_2\; \% \;b &= r_{n - 1}	& \lfloor x_2 / b \rfloor &= x_3 \\
+& \;\vdots\vdots &  & \;\vdots\vdots &\\ 
+x_{n - 1}\; \% \;b &=r_1& \lfloor x_n / b \rfloor &= 0 \\
+\end{align*}
+
+\subsection*{Beispiel Binär}
+\subsubsection*{43}
+\begin{align*}
+x_1 &= 43\\
+b &= 2\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+43 \% 2 &= 1	& \lfloor 43 / 2 \rfloor &= 21 \\
+21 \% 2 &= 1	& \lfloor 21 / 2 \rfloor &= 10 \\
+10 \% 2 &= 0	& \lfloor 11 / 2 \rfloor &=  5 \\
+5  \% 2 &= 1	& \lfloor  5 / 2 \rfloor &=  2 \\
+2  \% 2 &= 0	& \lfloor  2 / 2 \rfloor &=  1 \\
+1  \% 2 &= 1	& \lfloor  1 / 2 \rfloor &=  0 \\
+\\
+z &= 10\;1011
+\end{align*}
+\subsubsection*{92}
+\begin{align*}
+x_1 &= 92\\
+b &= 2\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+92 \% 2 &= 0	& \lfloor 92 / 2 \rfloor &= 46 \\
+46 \% 2 &= 0	& \lfloor 46 / 2 \rfloor &= 23 \\
+23 \% 2 &= 1	& \lfloor 23 / 2 \rfloor &= 11 \\
+11 \% 2 &= 1	& \lfloor 11 / 2 \rfloor &=  5 \\
+5  \% 2 &= 1	& \lfloor  5 / 2 \rfloor &=  2 \\
+2  \% 2 &= 0	& \lfloor  2 / 2 \rfloor &=  1 \\
+1  \% 2 &= 1	& \lfloor  1 / 2 \rfloor &=  0 \\
+\\
+z &= 101\;1100
+\end{align*}
+\subsubsection*{47}
+\begin{align*}
+x_1 &= 47\\
+b &= 2\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+47 \% 2 &= 1	& \lfloor 47 / 2 \rfloor &= 23 \\
+23 \% 2 &= 1	& \lfloor 23 / 2 \rfloor &= 11 \\
+11 \% 2 &= 1	& \lfloor 11 / 2 \rfloor &=  5 \\
+5  \% 2 &= 1	& \lfloor  5 / 2 \rfloor &=  2 \\
+2  \% 2 &= 0	& \lfloor 2 / 2  \rfloor &=  1 \\
+1  \% 2 &= 1	& \lfloor 1 / 2  \rfloor &=  0 \\
+\\
+z &= 10\;1111
+\end{align*}
+\subsection*{Beispiel Oktal}
+\subsubsection*{43}
+\begin{align*}
+x_1 &= 43\\
+b &= 8\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+43 \% 8 &= 3	& \lfloor 43 / 8 \rfloor &= 5 \\
+5  \% 8 &= 5	& \lfloor 5  / 8 \rfloor &= 0 \\
+\\
+z &= 53
+\end{align*}
+\subsubsection*{92}
+\begin{align*}
+x_1 &= 92\\
+b &= 8\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+92 \% 8 &= 4	& \lfloor 92 / 8 \rfloor &= 11 \\
+11 \% 8 &= 3	& \lfloor 11 / 8 \rfloor &= 1 \\
+1  \% 8 &= 1	& \lfloor 1  / 8 \rfloor &= 0 \\
+\\
+z &= 134
+\end{align*}
+\subsubsection*{47}
+\begin{align*}
+x_1 &= 47\\
+b &= 8\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+47 \% 8 &= 7	& \lfloor 47 / 8 \rfloor &= 5 \\
+5  \% 8 &= 5	& \lfloor 5 / 8  \rfloor &= 0 \\
+\\
+z &= 57
+\end{align*}
+\subsection*{Beispiel Hexadezimal}
+\subsubsection*{43}
+\begin{align*}
+x_1 &= 43\\
+b &= 16\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+43 \% 16 &= 11 (= B)	& \lfloor 43 / 16 \rfloor &= 2 \\
+2  \% 16 &= 2			& \lfloor 2 / 16  \rfloor &= 0 \\
+\\
+z &= 2B
+\end{align*}
+\subsubsection*{92}
+\begin{align*}
+x_1 &= 92\\
+b &= 16\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+92 \% 16 &= 12 (= C)	& \lfloor 92 / 16 \rfloor &= 5 \\
+5  \% 16 &= 5	& \lfloor 5 / 16  \rfloor &= 0 \\
+\\
+z &= 5C
+\end{align*}
+\subsubsection*{47}
+\begin{align*}
+x_1 &= 47\\
+b &= 16\\
+z &= r_1, r_2, \ldots, r_n \\
+\\
+47 \% 16 &= 15 (= F)	& \lfloor 47 / 16 \rfloor &= 2 \\
+2  \% 16 &= 2	& \lfloor 2 / 16  \rfloor &= 0 \\
+\\
+z &= 2F
+\end{align*}
+\newpage
+\phantomsection
+\section*{Rechenoperationen - Bitoperationen}
+
+\subsection*{Shift-Operationen}
+
+Damit nicht jedes mal binär gerechnet werden muss hier ein paar Formeln.\\
+
+Ein Linksshift $x << y$ verschiebt man die Zahl $x$ in Binärdarstellung um $y$ stellen. Somit ergibt sich die Formel
+\begin{displaymath}
+x \cdot 2^y.
+\end{displaymath} Als Beispiel nehmen wir den Aufruf $9_{10} << 3_{10}$ = $000\;1001_{2} << 3_{10} = 100\;1000_{2} = 72_{10}$ und mit der Formel ergibt sich $9 \cdot 2^3 = 9 \cdot 8 = 72$. Falls jedoch das Ergebnis größer als der maximale Wert des Datentyps ist, ist das Ergebnis der Formel falsch!\\
+
+Beim Rechtsshift $x >> y$ verschiebt man die Zahl $x$ in Binärdarstellung um $y$ stellen. Hier ergeben sich zwei Formeln. Für den Fall $x > 0$ gilt
+\begin{displaymath}
+\left\lfloor x \cdot \left(\frac{1}{2}\right)^y\right\rfloor \mbox{ (abrunden)}
+\end{displaymath}
+und für den Fall $x \leq 0$ gilt 
+\begin{displaymath}
+\left\lceil x \cdot \left(\frac{1}{2}\right)^y\right\rceil \mbox{ (aufrunden).}
+\end{displaymath}Beispiel $9_{10} >> 2_{10}$ = $1001_{2} >> 2_{10} = 10_{2} = 2_{10}$ und mit der Formel ergibt sich $\left\lfloor 9 \cdot \left(\frac{1}{2}\right)^2 \right\rfloor =  \left\lfloor 9 \cdot \frac{1}{4} \right\rfloor = 2$. Bei $-9_{10} >> 2_{10}$ (Byte) = $1111\;0111_{2} >> 2_{10} = 1111\;1101_{2} = -3_{10}$ und mit der Formel ergibt sich $\left\lceil -9 \cdot \left(\frac{1}{2}\right)^2 \right\rceil =  \left\lceil -9 \cdot \frac{1}{4} \right\rceil = -3$.\\
+
+\subsection*{Logische- und Bit-Operatoren}
+\subsubsection*{Unterschiede}
+Die Logischen-Operatoren sind z.B. alle Vergleiche wie $<$, $>$, $==$, usw. und $\&\&$ (AND) sowie $||$ (OR). Diese können nur auf den Datentyp boolean angewendet werden. Die beiden Operatoren AND und OR besitzen eine Besonderheit, wenn bei der Auswertung von $x_1$ AND $x_2$ das Ergebnis von $x_1$ schon false ist, wird $x_2$ nicht mehr ausgewertet. Das OR verhält sich ähnlich, hier gilt jedoch bei $x_1$ OR $x_2$ wenn $x_1$ schon true ist, wird $x_2$ nicht mehr ausgewertet.
+  
+Bei Bit-Operatoren sind die Operatoren $\&$, $|$ und \textasciiacute gemeint, diese können auf alle primitiven Datentypen angewendet werden und arbeitet direkt auf der Binärdarstellung. Leider gibt es keine mathematischen Formeln wie bei den Shift-Operatoren somit muss in diesem Fall binär gerechnet werden.
+
+\subsubsection*{Wertetabellen}
+\begin{array}{ll|l}
+a & b & \lstinline|a && b| und \lstinline|a & b| \\ \hline
+0 & 0 & 0\\
+0 & 1 & 0\\
+1 & 0 & 0\\
+1 & 1 & 1
+\end{array}
+
+\begin{array}{ll|l}
+a & b & \lstinline!a || b! und \lstinline!a | b! \\ \hline
+0 & 0 & 0\\
+0 & 1 & 1\\
+1 & 0 & 1\\
+1 & 1 & 1
+\end{array}
+
+\begin{array}{ll|l}
+a & b & \lstinline|a ^ b| \\ \hline
+0 & 0 & 0\\
+0 & 1 & 1\\
+1 & 0 & 1\\
+1 & 1 & 0
+\end{array}
+
+
+\mychapter{Programmieren 1 Klausur vom 16.03.11}
+\mysection{Programmverständnis}
+Gegeben seien die Methode
+\begin{lstlisting}
+static int wasPassiert(int[][] a) {
+	int i = 0,
+	l = a[0].length;
+	for (int j=1; j<a.length; j++) {
+		if (a[j].length>=l) {
+			i = j;
+			l = a[j].length;
+		}
+	}
+	int s = 0;
+	for (int x : a[i]) s += x;
+	return s;
+}
+\end{lstlisting}
+sowie das Programmfragment
+\begin{lstlisting}[firstnumber=last]
+int[][] a = {{},{-1,3,5},{0},{},{-1,-2,-5},{1,4}};
+System.out.println("Ergebnis: "+wasPassiert(a));
+\end{lstlisting}
+\subsection{}
+Welchen Wert berechnet die Methode \lstinline|wasPassiert(int[][] a)|? 
+Geben Sie den Wert in Abhängigkeit vom Parameter \lstinline|a| an. 
+Welche \textbf{Exceptions} können ggf. ausgelöst werden? 
+\newline
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die Methode erhält ein Zweidimensionales Array \lstinline|int[][] a|
+  \item wir holen uns die Länge des ersten Teilarrays \lstinline|l = a[0].length|
+  \item wir vergleichen jedes Teilarray \lstinline|a[j]| mit der momentan bekannten Maximallänge \lstinline|l|
+  \item wir haben nach der ersten \textbf{for}-Schleife den Index des letzten längsten Teilarrays \lstinline|a[i]|
+  \item in der zweiten \textbf{for}-Schleife summieren wir alle Werte von \lstinline|a[i]| auf und geben die Summe aus
+  \item falls \lstinline|a = null| (oder ein Teilarray) ist, wird in Zeile 3 eine \textbf{NullPointerException} ausgelöst.
+  \item falls \lstinline|a = {}| ist, also keine Elemente enthält, wird in Zeile 3 eine \textbf{ArrayIndexOutOfBoundsException} ausgelöst.
+\end{itemize}
+
+\subsection{}
+Wie lautet die Ausgabe des Programmfragments?\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item \lstinline|l = 3|
+  \item \lstinline|i = 4|
+  \item \lstinline|s = 0 + (-1) + (-2) + (-5)|
+  \item Die Ausgabe ist dann: Ergebnis: -8
+\end{itemize}
+\newpage
+
+\mysection{Kontrollstrukturen, Operatoren}
+Welche der folgenden Schleifen terminieren?
+Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen,
+nachdem die jeweiligen Anweisungen ausgeführt wurden.
+
+\subsection{}
+\begin{lstlisting}
+int a = 4;
+int b = 1;
+for (int i = a; i < 4*a; i = i+3) {
+	switch (i 
+		case 0: a = a - 1; b = b / 3; break;
+		case 1: a = a + 1; b = b + 2; break;
+	}
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r||r|r|r}
+ a	& b & i	& i < 4*a	& i \% 4 	& a'	& b'	& i = i+3		\\ \hline
+ 4	& 1 & 4	& 4 < 16	& 0 		& 3		& 0		& 7				\\
+ 3	& 0 & 7	& 7 < 12	& 3			& 3		& 0		& 10			\\
+ 3	& 0 & 10& 10 < 12	& 2			& 3		& 0		& 13			\\
+ 3	& 0	& 13& 13 < 12 	& -			& -		& -		& -				
+\end{array}$
+
+Die Schleife terminiert, $a = 3$ und $b = 0$.
+\subsection{}
+\begin{lstlisting}
+int a = 3;
+int b = 1;
+do {
+	a = a + b;
+	if ((b 
+	b = b + 2;
+	if ((b 
+	a++;
+} while (a < 10);
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r||r|r|r|r|r|r}
+a & b & a = a + b	& b \% 3 == 0 	& b = b + 2 	& b \% 3 == 1	& a = a + 1		& a < 10\\ \hline
+3 & 1 & 4			& 1 == 0		& 3				& 0 == 1		& 5				& 5 < 10\\
+5 & 3 & 8			& 0 == 0		& -				& -				& -		   		& 8 < 10\\
+8 & 3 & 11			& 0 == 0		& -				& -				& -				& 11 < 10
+\end{array}$
+
+Die Schleife terminiert, $a = 11$ und $b = 3$.
+\newpage
+\subsection{}
+\begin{lstlisting}
+int a = 9;
+int b = 1;
+while (a/2 != 1) {
+	a = - 2 + a;
+	b = 1 + a / b;
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r||r|r|r}
+a 	& b 	& a/2 != 1	& a =  - 2 + a	& b = 1 + a / b\\ \hline
+9 	& 1 	& 4 != 1	& 7				& 8			\\
+7 	& 8 	& 3 != 1	& 5				& 1			\\
+5 	& 1 	& 2 != 1	& 3				& 4			\\
+3	& 4		& 1 != 1	& -				& -			
+\end{array}$
+
+Die Schleife terminiert, $a = 3$ und $b = 4$.
+
+\subsection{}
+\begin{lstlisting}
+int a = 7;
+int b = 2;
+for (int i = a; i > a - 3; i = a * i) {
+	a = a - 3;
+	b = 3 - b;
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r|r|r}
+a	& b & i	& i > a - 3	&  a = a - 3& b = 3 - b & i = a * i \\ \hline
+7	& 2 & 7	& 7 > 4		&  4		& 1			& 28\\
+4	& 1 & 28& 28 > 1	&  1		& 2			& 28\\
+1	& 2 & 28& 28 > -2	&  -2		& 1			& -56\\
+-2	& 1	& -56& -56 > -5 & -			& -			& -
+\end{array}$
+
+Die Schleife terminiert, $a = -2$ und $b = 1$.\\
+\newpage
+
+Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an. Setzen Sie vor
+jedem Ausdruck die Deklaration \lstinline|int x = 27;| voraus.
+
+\subsection{}
+\begin{lstlisting}
+x / 3.0
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+Typ: double, da automatisch von int nach double gecastet wird\\
+Wert: 9.0
+
+\subsection{}
+\begin{lstlisting}
+x < 3
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+Typ: boolean, da 27 mit 3 verglichen wird\\
+Wert: false
+
+\subsection{}
+\begin{lstlisting}
+x >> 3
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+Typ: int, weil es werden die Bits in Binärdarstellung um 3 Stellen nach rechts verschoben.\\
+Wert: $0001\;1011_{(2)} >> 3_{(10)} = 0000\;0011_{(2)} = 3_{(10)}$.\\
+Ein int besteht zwar aus 4 Byte (also 32 Bit) jedoch habe ich nur das erste Byte der Übersicht halber geschrieben.
+\newpage
+\mysection{Programmzuverlässigkeit}
+Bitte kreuzen Sie an. Für jede richtige Antwort
+erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen. Kein Kreuz
+bzw. zwei Kreuze bedeuten 0 Punkte. Die minimale Gesamtpunktzahl für diese Aufgabe
+beträgt 0 Punkte.\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Eine \textbf{try-catch}-Anweisung muss mindestens eine \textbf{catch}-Klausel enthalten.  & & \CheckedBox \\
+2.& Falls \lstinline|a| ein Array ist, löst der Ausdruck \lstinline|a[-1]| eine
+\textbf{IllegalArgumentException} aus. & & \CheckedBox \\
+3.& Alle Laufzeitfehler sind Objekte von Unterklassen der Klasse \lstinline|Throwable|. & \CheckedBox & \\
+4.& Es gilt $\models\;\{x = 1\}\;while\;(true)\;\{x=0;\}\;\{x = 2\}$. & \CheckedBox & \\
+5.& Falls die Anweisung $S$ total-korrekt bezüglich der Spezifikation $(p,q)$ ist,
+dann terminiert die Ausführung von $S$ falls die Vorbedingung p erfüllt ist. & \CheckedBox & \\
+6.& Falls Zusicherungen zur Laufzeit aktiviert sind, löst die Anweisung
+\lstinline|assert false;| eine \textbf{AssertionError} aus. & \CheckedBox & \\
+7.& Ein C1-Test entdeckt nicht erreichbare Programmteile.  & \CheckedBox &\\
+8.& Um einen C1-Test für eine Methode durchführen zu können, muss
+der Quellcode der Methode bekannt sein & \CheckedBox  &  
+\end{tabular}\\
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate}
+  \item Ein try ohne catch Block ist eine \textbf{try-with-resources} Anweisung, die eine Untergruppe der \textbf{try-catch}-Anweisungen ist.
+  \item Das Argument wird nicht geprüft, deswegen führt es zu einer \textbf{ArrayIndexOutOfBoundsException}.
+  \setcounter{enumi}{3}
+  \item Uns ist die Formel $\frac{\textbf{irgendetwas}}{\{p\} \;while\;e\;do\;S\;od\;\{q\}}$ bekannt. In diesem Fall ist $p = \{x = 1\}$, $e = true$, $S = \{x = 0;\}$ und $q = \{x = 2\}$. Also, wenn $p$ gilt, somit wird die Schleife mit $S$ ausgeführt und wenn die Schleife terminiert muss $q$ gelten. Da die Schleife aber nie terminiert, ist die Aussage immer erfüllt. (Hoare-Kalkül)\\ Nebenbei das $\models$ steht für partielle Korrektheit
+  \item Ist die Definition von totaler Korrektheit.
+  \setcounter{enumi}{6}
+  \item C1 = Zweigüberdeckungstest, somit sind nicht erreichbare Zweige erkennbar.
+  \item Ohne Quellcode sind nicht die Programmverzweigungen erkennbar.
+\end{enumerate}
+
+\newpage
+\mysection{Rekursion}
+Gegeben sei die folgende rekursive Methode:
+
+\begin{lstlisting}
+static int f(int x, int y) {
+	if (y>=4)
+		return 1;
+	else if (x<=1)
+		return 2;
+	else
+		return 3*f(x-2,y+1)-f(x,y+1);
+}
+\end{lstlisting}
+
+Welchen Wert liefert der Aufruf \lstinline|f(3,-1)|? In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen? Geben Sie die Reihenfolge der Aufrufe explizit an. Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+
+\textbf{Lösung}:\\
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+$\begin{array}{r|r|r|r}
+\text{Aufruf} & f(x, y)	& \text{Term} 			& \text{Wert}	\\ \hline
+1			  & f(3,-1) & 3 * f(1, 0) - f(3, 0)	& 2\\
+2			  & f(1,0) 	& 2						& 2\\
+3			  & f(3,0) 	& 3 * f(1, 1) - f(3, 1)	& 4\\
+4			  & f(1,1)  & 2						& 2\\
+5			  & f(3,1)  & 3 * f(1, 2) - f(3, 2)	& 2\\
+6			  & f(1,2)  & 2						& 2\\
+7			  & f(3,2)  & 3 * f(1, 3) - f(3, 3)	& 4\\
+8			  & f(1,3)  & 2						& 2\\
+9			  & f(3,3)  & 3 * f(1, 4) - f(3, 4)	& 2\\
+10			  & f(1,4)  & 1						& 1\\
+11			  & f(3,4)  & 1						& 1\\
+\end{array}$
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\Tree [.f(3,-1) [.f(1,0) 2 ] [.f(3,0) [.f(1,1) 2 ] [.f(3,1) [.f(1,2) 2 ] [.f(3,3) [.f(1,3) 2 ] [.f(3,3) [.f(1,4) 1 ] [.f(3,4) 1 ] ] ] ] ] ]
+\end{minipage}
+                              
+Somit ist \lstinline|f(3,-1)| = 2, die Anzahl der Aufrufe ist 11 (Tabelle) und die maximale Rekursionstiefe ist 6 weil:
+$f(3,-1) \to f(3,0) \to f(3,1) \to f(3,2) \to f(3,3) \to f(3,4)$ hat eine Tiefe von 6.
+\newpage
+\mysection{Objektorientierung}
+Gegeben sei die Klasse \textbf{Rational} zur Darstellung von
+positiven rationalen Zahlen, d. h. von Zahlen $q \in \mathbb{Q}, q > 0$. Die Methode \lstinline|add| soll den
+Parameter \lstinline|r| zur aktuellen Zahl addieren. Die Methode \lstinline|compareTo| soll rationale Zahlen
+ihrer Größe nach vergleichen.
+
+\begin{lstlisting}
+class Rational extends Comparable {
+	private int x, y;
+	public Rational(int x, int y) {
+		if (x<=0 || y<=0) throw new IllegalArgumentException();
+		g = ggt(x,y);
+		this.x = x/g;
+		this.y = y/g;
+	}
+	private static int ggt(int a, int b) {
+		while ((b != 0)) {
+			int r = a 
+			a = b;
+			b = r;
+		}
+		return a;
+	}
+	public Rational add(Rational r) {
+		int z = x*r.y+r.x*y,
+			n = y*r.x;
+		return Rational(z, n);
+	}
+	public String toString() {
+		return "("+x+"/"+y+")";
+	}
+	public int compareTo(Object o) {
+		return x*o.y-o.x*y;
+	}
+}
+\end{lstlisting}
+Außerdem sei das folgende Programmfragment gegeben:
+\begin{lstlisting}[firstnumber=last]
+	Rational r1 = new Rational(2,3),
+	         r2 = new Rational(5,4);
+	System.out.println(add(r1,r2));
+	System.out.println(r1.compareTo(r2));
+\end{lstlisting}
+\subsection{}
+Die Programmzeilen 1 bis 32 enthalten Fehler. Markieren Sie die Fehler im Programmtext. Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Zeile 1: \lstinline|extends| erweitert Klassen, aber wir benötigen \lstinline|implements| für die Implementierung von \lstinline|Comparable|. \\\lstinline|class Rational implements Comparable|
+  \item Zeile 5: die Variable g hat muss vor dem Benutzen deklariert werden. \\\lstinline|int g = ggt(x,y);|
+  \item Zeile 19: logische Fehler, da sich der Nenner ($n$) aus $Nenner * Nenner$ ergibt und nicht $Nenner * Zähler$. \\\lstinline|n = y*r.y;|
+  \item Zeile 20: Es wird der \lstinline|new| Operator zum erzeugen neuer Objekte benötigt. \\ \lstinline|return new Rational(z, n);|
+  \item Zeile 26: Der Parameter ist vom Typ \lstinline|Object| und muss erst nach Rational gecastet werden.\\ \lstinline|int z = x*((Rational) o).y-((Rational) o).x*y;|
+  \item Zeile 31: Die Methode \lstinline|add| ist eine Methode der Klasse Rational und benötigt einen Parameter vom Typ Rational.\\ \lstinline|System.out.println(r1.add(r2));|
+\end{itemize}
+
+\subsection{}
+Geben Sie die korrigierten Zeilen an. Was gibt das korrigierte Programm aus?\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die \lstinline|add| Methode berechnet: $\frac{2}{3} + \frac{5}{4} = \frac{2 \cdot 4 + 5 \cdot 3}{12} = \frac{23}{12}$
+  \item Die \lstinline|compareTo| Methode berechnet: $2 \cdot 4 - 5 \cdot 3 = 8 - 15 = -7$
+  \item Somit ist die Ausgabe: \\ 
+  \tab (23/12)\\
+  \tab -7
+\end{itemize}
+
+\newpage 
+\mysection{Felder, Programmerstellung}
+Gegeben sei eine Folge von Integer-Werten
+$x_1$, $x_2$, \ldots , $x_n$, $n \geq 1$. Die Zahl, die am häufigsten in der Folge vorkommt, heißt Modus der Folge. Beispielsweise ist 4 der Modus der Folge 3,-1,4,12,4,3,4,0,1. Der Modus einer Folge ist i. Allg. nicht eindeutig bestimmt. Zum Beispiel besitzt die Folge 3,3,4,12,4,3,4,0,1 die Modi 3 und 4.
+
+Schreiben Sie eine Methode \lstinline|static void modus(int[] a)|, die ein Feld ganzer Zahlen
+als Parameter erhält und den Modus des Felds ausgibt. Falls der Modus nicht eindeutig bestimmt ist, sollen die Modi aufsteigend sortiert ausgegeben werden. Für die obigen Beispiele soll die Ausgabe daher "'Modus: 4"' bzw. "'Modus: 3 4"' lauten. Falls das Parameterfeld $a$ keine Werte enthält, soll beim Aufruf der Methode eine \textbf{IllegalArgumentException} ausgelöst werden. Sie dürfen keine Klassen importieren. Erläutern Sie Ihren Algorithmus.
+
+\textbf{Lösung}:\\
+
+Idee:
+
+\begin{itemize}
+  \item es wird geprüft ob \lstinline|int[] a| gültig ist, wenn nicht wird eine \textbf{IllegalArgumentException} ausgelöst
+  \item es wird ein Array \lstinline|int[] vorkommensListe| erstellt, bei dem der Key die Zahl und er Value die Anzahl angibt\\ somit: \lstinline|a = {3,3,2,5}| $\to$ \lstinline|werte = {0, 0, 1, 2, 0, 1}| über Offsets usw. machen wir uns erstmal keine Gedanken
+  \item es wird das Maximum von \lstinline|vorkommensListe| bestimmt und alle Keys bei denen die Values gleich dem Maximum sind ausgegeben
+  \item dazu erstellen wir uns eine Hilfsmethode \lstinline|int[] minMax(int[] a)| , die das Mini- und Maximum von \lstinline|a| bestimmt
+  \item des weiteren erstellen wir uns sie Hilfsmethode \lstinline|int[] gleicheWerte(int[] a, int e)|, die uns ein Array der Keys von \lstinline|a| zurück gibt, bei denen gilt: \lstinline|a[i] == e|
+\end{itemize}
+
+Code:\\
+sieht durch die Kommentare mehr aus, als es ist !
+
+\lstinputlisting[language=Java, linerange={3-77}]{\srcDir Klausur160311.java}
+
+\newpage
+ohne Kommentare:
+
+\lstinputlisting[language=Java, linerange={9-12, 17-22, 32-40, 42-42, 44-44, 55-56, 61-61, 66-69, 74-77}]{\srcDir Klausur160311.java}
+
+\mychapter{Programmieren 1 Klausur vom 20.03.12}
+\mysection{Zahldarstellung}
+Schreiben Sie die Dezimalzahl 43 als Binär-, Oktal- und
+Hexadezimalzahl. Durch welche Bitfolge wird der Byte-Wert -37 in Java gespeichert?
+\subsection{Binär}
+$43_{(10)} = 32 + 8 + 2 + 1 = 2^5 + 2^3 + 2^1 + 2^0 = 10\;1011_{(2)}$
+\subsection{Oktal}
+$43_{(10)} = 5 \cdot 8 + 3 \cdot 1 = 5 \cdot 8^1 + 3 \cdot 8^0 = 53_{(8)}$
+\subsection{Hexadezimal}  
+$43_{(10)} = 2 \cdot 16 + 11 \cdot 1 = 2 \cdot 16^1 + 11 \cdot 16^0 = 2B_{(16)}$
+\subsection{-37}
+$37 = 32 + 4 + 1 = 0010\;0101$\\
+Einerkomplement:  $1101\;1010$\\
+Zweierkomplement: \underline{$1101\;1011$}\\
+Ein Byte besteht aus 8 Bit!
+
+\newpage
+\mysection{Grundlagen, Objektorientierung}
+Bitte kreuzen Sie an. Für jede richtige
+Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen.
+Kein Kreuz bzw. zwei Kreuze bedeuten 0 Punkte. Die minimale Gesamtpunktzahl für
+diese Aufgabe beträgt 0 Punkte.\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Die Deklaration int \lstinline|d = (int) 5.3;| erzeugt eine Fehlermeldung.  & & \CheckedBox \\
+2.& / ist stets das letzte Zeichen eines Kommentars. & & \CheckedBox \\
+3.& Die Anzahl der Elemente eines Arrays kann stets
+vom Compiler bestimmt werden. &  & \CheckedBox\\
+4.& \lstinline|3.1415| ist ein Literal von Typ float. &  &\CheckedBox \\
+5.& Ein Bezeichner (identifier) darf nur aus Buchstaben,
+Ziffern und Unterstrichen (underscore-Zeichen) bestehen. &  & \CheckedBox\\
+6.& In jedem Ausdruck werden stets alle Operanden ausgewertet. &  & \CheckedBox\\
+7.& Eine lokale Variable muss vor der ersten Benutzung
+initialisiert werden.  & \CheckedBox &\\
+8.& Interfaces können nicht instanziiert werden. & \CheckedBox  &  \\
+9.& Statische Methoden können den this-Zeiger nicht verwenden. & \CheckedBox  & \\
+10.& Eine Methode kann höchstens einen Vararg-Parameter besitzen. & \CheckedBox  & 
+\end{tabular}\\
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate}
+  \item Die double Zahl 5.3 wird auf die int Zahl 5 gecastet.
+  \item \lstinline|// Kommentar ohne / am Ende :p|.
+  \item Arrays werden erst zur Laufzeit erzeugt. Somit kennt nur die JVM die Arrays und nicht der Compiler.
+  \item Nein aber das hier: \lstinline|3.1415f| (f am Ende).
+  \item \lstinline|int 1zahl| ist kein zulässiger Bezeichner jedoch ist \lstinline|int $zahl| gestattet. Somit haben wir einen Grund gegen das \textbf{nur} und gegen das \textbf{darf}.
+  \item \lstinline|boolean a = false && langeSchwachSinnigeBerechnung();| da and (\&\&) immer false ist wenn ein Wert false ist, wird die Überprüfung abgebrochen. (bei or(||) ist es mit true genauso).
+  \item Sonst kennt der Compiler die Variable nicht.
+  \item Aus Interfaces können keine Objekte erzeugt werden.
+  \item Da statische Methoden an keinem Objekt benutzt werden, steht auch kein this zur Verfügung.
+  \item Sonst wäre nicht klar, welcher Parameter was ist.
+\end{enumerate}
+
+\newpage
+
+\mysection{Programmverständnis}
+Gegeben seien die Methode
+\begin{lstlisting}
+static int wasPassiert(int[][] a) {
+	int i = 0,
+	m = a[0].length;
+	for (int j=1; j<a.length; j++) {
+		if (a[j].length>=m) {
+			i = j;
+			m = a[j].length;
+		}
+	}
+	int x = a[i][0],
+	y = a[i][0];
+	for (int r : a[i]) {
+		if (r>x) x=r;
+		if (r<y) y=r;
+	}
+	return x-y;
+}
+\end{lstlisting}
+sowie das Programmfragment
+\begin{lstlisting}[firstnumber=last]
+int[][] a = {{3,2},{},{-1,3,5,2},{0},{},{-1,-2,-5,4}};
+System.out.println("Ergebnis: "+wasPassiert(a));
+\end{lstlisting}
+\subsection{}
+Welchen Wert berechnet die Methode \lstinline|wasPassiert(int[][] a)|? Geben Sie den Wert in Abhängigkeit vom Parameter \lstinline|a| an. \\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die Methode erhält ein Zweidimensionales Array \lstinline|int[][] a|
+  \item wir holen uns die Länge des ersten Teilarrays \lstinline|m = a[0].length|
+  \item wir vergleichen jedes Teilarray \lstinline|a[j]| mit der momentan bekannten Maximallänge \lstinline|m|
+  \item wir haben nach der ersten \textbf{for}-Schleife den Index des letzten längsten Teilarrays \lstinline|a[i]|
+  \item in der zweiten \textbf{for}-Schleife wird das Minimum (y) und Maximum (x) von \lstinline|a[i]| bestimmt
+  \item es wird die Differenz von Minimum und Maximum ausgegeben
+\end{itemize}
+
+\subsection{}
+Wie lautet die Ausgabe des Programmfragments?\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item \lstinline|m = 4|
+  \item \lstinline|i = 5|
+  \item \lstinline|4 - (-5)|
+  \item Die Ausgabe ist: \\ \tab Ergebnis: 9
+\end{itemize}
+
+\subsection{}
+Welche Fehler können bei einem Aufruf der Methode ggf. auftreten? Begründen Sie Ihre Aussagen\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item falls \lstinline|a = null| (oder ein Teilarray) ist, wird in Zeile 3 eine \textbf{NullPointerException} ausgelöst.
+  \item falls \lstinline|a = {}| ist, also keine Elemente enthält, wird in Zeile 3 eine \textbf{ArrayIndexOutOfBoundsException} ausgelöst.
+\end{itemize}
+
+\newpage
+
+\mysection{Kontrollstrukturen, Operatoren}
+Welche der folgenden Schleifen terminieren?
+Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen,
+nachdem die jeweiligen Anweisungen ausgeführt wurden.
+
+\subsection{}
+\begin{lstlisting}
+int a = 2;
+int b = 3;
+for (int i = a; i <= a; i++) {
+	switch (i 
+		case 0: a = a - 1; b = b + 4; break;
+		case 1: a = a + 1; b = b + 2; break;
+		case 2: a = a + 2; b = b / 3; break;
+	}
+}
+\end{lstlisting}
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r||r|r|r}
+ a	& b & i	& i <= a	& i \% 4 	& a'	& b'	& i++		\\ \hline
+ 2	& 3 & 2	& 2 <= 2	& 2 		& 4		& 1		& 3			\\
+ 4	& 1 & 3	& 3 <= 4	& 3			& 4		& 1		& 4			\\
+ 4	& 1 & 4 & 4 <= 4	& 0			& 3		& 5		& 5			\\
+ 3	& 5	& 5 & 5 <= 3 	& -			& -		& -		& -				
+\end{array}$
+
+Die Schleife terminiert, $a = 3$ und $b = 5$
+\subsection{}
+\begin{lstlisting}
+int a = 4;
+int b = 2;
+do {
+	a++;
+	if ((b 
+	a = a + b;
+	if ((b 
+	b = b + 2;
+	} while (a < 10);
+\end{lstlisting}
+\textbf{Lösung}:\\
+$\begin{array}{r|r||r|r|r|r|r|r}
+a & b & a++			& b \% 3 == 1 	& a = a + b 	& b \% 2 == 1	& b = b + 2		& a < 10\\ \hline
+4 & 2 & 5			& 2 == 1		& 7				& 0 == 1		& 4				& 7 < 10\\
+7 & 4 & 8			& 1 == 1		& -				& -				& -		   		& 8 < 10\\
+8 & 4 & 9			& 1 == 1		& -				& -				& -				& 9 < 10\\
+9 & 4 & 10			& 1 == 1		& -				& -				& -				& 10 < 10
+\end{array}$
+
+Die Schleife terminiert, $a = 10$ und $b = 4$
+\newpage
+\subsection{}
+\begin{lstlisting}
+int a = 0;
+int b = 0;
+while (a*(a+1)==b) {
+	a = 1 + a;
+	b = 2*a + b;
+}
+\end{lstlisting}
+\textbf{Lösung}:\\
+$\begin{array}{r|r||r|r|r}
+a 	& b 	& a*(a+1) == b	& a = 1 + a		& b = 2*a + b / b\\ \hline
+0 	& 0 	& 0 == 0		& 1				& 2		\\
+1 	& 2 	& 2 == 2		& 2				& 6		\\
+2 	& 6 	& 6 == 6		& 3				& 12	\\
+3	& 12	& 12 == 12		& \ldots		& \ldots			
+\end{array}$
+
+Die Schleife terminiert \underline{nicht} weil: $b = 2 \cdot (0 + 1 + \ldots + a) = a \cdot (a + 1)$\\
+
+\newpage
+Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an. Setzen Sie vor
+jedem Ausdruck die Deklaration \lstinline|int i = 15;| voraus.
+
+\subsection{}
+\begin{lstlisting}
+(i=3)*(i--)-1.0
+\end{lstlisting}
+
+Typ: double, da automatisch von int nach double gecastet (-1.0) wird\\
+Wert: $3 \cdot 3 - 1.0 = 8$\\
+Grund: $i$ wird mit 3 überschrieben $i--$ wird erst nach dem Auswerten von $i$ angewendet also wäre der Ausdruck: \lstinline|i = (i=3)*(i--)-1.0;| gewesen, wäre das Ergebnis 7.
+
+\subsection{}
+\begin{lstlisting}
+(i>>2)<<2
+\end{lstlisting}
+
+Typ: int, weil es werden die Bits in Binärdarstellung hin und her geschoben\\
+Wert: \\
+\tab $0000\;1111_{(2)} >> 2_{(10)} = 0000\;0011_{(2)} = 3_{(10)}$\\
+\tab $0000\;0011_{(2)} << 2_{(10)} = 0000\;1100_{(2)} = 12_{(10)}$
+
+\subsection{}
+\begin{lstlisting}
+i^2
+\end{lstlisting}
+
+Typ: int, werde die Zahlen 15 und 2 verXORt\\
+Wert: $0000\;1111_{(2)}$ \textasciicircum $\;0000\;0010_{(2)} = 0000\;1101_{(2)} = 13_{(10)}$
+
+\newpage
+\mysection{Rekursion}
+Gegeben sei die folgende rekursive Methode:
+
+\begin{lstlisting}
+static int f(int x, int y) {
+	if (y <= 1)
+		return 1;
+	else if (x == 0)
+		return 2;
+	else
+		return f(x-2,y/2) - 2*f(x-2,y);
+}
+\end{lstlisting}
+Welchen Wert liefert der Aufruf \lstinline|f(4,13)|? In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen? Geben Sie die Reihenfolge der Aufrufe explizit an. Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+
+Terminiert für alle $x \geq 0, y \geq 0$ der Aufruf \lstinline|f(x,y)| mit der Rückgabe eines int-Wertes?
+Begründen Sie Ihre Antwort.
+
+\textbf{Lösung}:\\
+\begin{minipage}[hbt]{7cm}
+	\centering
+$\begin{array}{r|r|r|r}
+\text{Aufruf} & f(x, y)	& \text{Term} 			& \text{Wert}	\\ \hline
+1			  & f(4,13) & f(2,6) - 2*f(2,13)	& 2\\
+2			  & f(2,6) 	& f(0,3) - 2*f(0,6)		& -2\\
+3			  & f(0,3) 	& 2						& 2\\
+4			  & f(0,6)  & 2						& 2\\
+5			  & f(2,13) & f(0, 6) - 2* f(0, 13)	& -2\\
+6			  & f(0, 6) & 2						& 2\\
+7			  & f(0, 13)& 2						& 2\\
+\end{array}$
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\Tree [.f(4,13) [.f(2,6) [.f(0,3) 2 ] [.f(0,6) 2 ] ] [.f(2,13) [.f(0,6) 2 ] [.f(0,13) 2 ] ] ]
+\end{minipage}
+
+Somit ist \lstinline|f(4,13)| = 2, die Anzahl der Aufrufe ist 7 (Tabelle) und die maximale Rekursionstiefe ist 3 weil:
+$f(4,13) \to f(2,6) \to f(0,3)$ hat eine Tiefe von 3. (alle anderen 3 Zweige des Baums sind gleich lang)
+
+Wenn $x$ ungerade und $y > 1$ ist, terminiert \underline{nie} der \lstinline|2*f(x-2,y)| Zweig.\\
+Grund: $y$ bleibt immer gleich und erfüllt damit nie  \lstinline|y <= 1| und $x$ wird immer und 2 verringert, somit kann $x$ nie \lstinline|x == 0| erfüllen.
+\newpage
+\mysection{Felder, Programmerstellung}
+Eine Zahl wird Palindrom genannt, falls ihre Dezimaldarstellung von vorne und von hinten gelesen die gleiche Ziffernfolge besitzt. Beispielsweise sind 7, -121, 4554, 0 und 66 Palindrome. 20, 31 und 23 sind keine Palindrome.
+
+Schreiben Sie eine Methode \lstinline|static void palindrom(int[] a)|, die ein Feld ganzer Zahlen als Parameter erhält und die die Palindrome des Feldes ausgibt. Falls das Parameterfeld $a$ die Zahlen (7, 23, -121, 4554, 0, 66, 31, 20) enthält, sollen also 7, -121, 4554, 0
+und 66 ausgegeben werden.
+
+Falls das Parameterfeld $a$ keine Werte enthält, soll beim Aufruf der Methode eine Fehlermeldung ausgegeben werden. Sie dürfen keine Klassen importieren. Eigene Hilfsmethoden dürfen Sie erstellen. Erläutern Sie Ihren Algorithmus.
+
+\textbf{Lösung}:\\
+
+Idee:
+
+\begin{itemize}
+  \item es wird geprüft ob \lstinline|int[] a| gültig ist, wenn nicht wird eine \textbf{IllegalArgumentException} ausgelöst
+  \item wir schreiben uns eine Hilfsmethode \lstinline|int[] number2Array(int z)| die eine Zahl in ein Array ihrer Ziffern umwandelt
+  \item dieses Array wird intern in der Hilfsmethode \lstinline|boolean isPalindrom(int z)| benutzt und testet ob es ein Palindrom ist
+  \item die Methode \lstinline|void palindrom(int[] a)| testet für alle Zahlen aus \lstinline|a| mit \lstinline|boolean isPalindrom(int z)| ob es ein Palindrom ist, falls ja, wird die Zahl ausgegeben
+\end{itemize}
+
+Code:\\
+sieht durch die Kommentare mehr aus, als es ist !
+
+\lstinputlisting[language=Java, linerange={3-77}]{\srcDir Klausur200312.java}
+
+\newpage
+ohne Kommentare:
+
+\lstinputlisting[language=Java, linerange={6-8, 16-18, 25-30, 38-40, 48-52, 59-60, 63-67, 69-77}]{\srcDir Klausur200312.java}
+
+\mychapter{Programmieren 1 Klausur vom 03.09.12}
+\mysection{Programmverständnis}
+Gegeben seien die Methode
+\begin{lstlisting}
+static int[] wasPassiert(int[] a, int[] b) {
+	int i = 0,
+	    j = 0,
+	    k = 0;
+	int[] c = new int[a.length+b.length];
+	while (i<a.length && j<b.length)
+		{c[k++] = (a[i]<b[j] ? a[i++] : b[j++]);}
+	if (j==b.length)
+		while (i<a.length) {c[k++] = a[i++];}
+	else
+		while (j<b.length) {c[k++] = b[j++];}
+	return c;
+}
+\end{lstlisting}
+sowie das Programmfragment
+\begin{lstlisting}[firstnumber=last]
+int[] a = {4,6,0,1},
+      b = {5,7,2,3},
+      c = wasPassiert(a,b);
+for (int i: c) System.out.print(i+";");
+\end{lstlisting}
+\subsection{}
+Beschreiben Sie das Rückgabeobjekt der Methode \lstinline|wasPassiert(int[] a, int[] b)| in Abhängigkeit von
+den Parametern \lstinline|a| und \lstinline|b|. (Exceptions sollen mit angegeben werden, obwohl es nicht in der Aufgabe stand)\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die Methode erhält zwei Arrays \lstinline|int[] a| und \lstinline|int[] b|
+  \item Es wird ein neues Array \lstinline|int[] c| erstellt mit der Kapazität von \lstinline|int[] a| und \lstinline|int[] b|
+  \item Es werden die Elemente von \lstinline|int[] a| und \lstinline|int[] b| der Größe nach in \lstinline|int[] c| eingefügt \\
+  		Aber es ist keine richtige Sortierung, da \lstinline|int[] c| nur sortiert ist, wenn \lstinline|int[] a| und \lstinline|int[] b| es davor schon 		waren !
+  \item es wird \lstinline|int[] c| zurückgegeben, indem beide Arrays \lstinline|int[] a| und \lstinline|int[] b| vereint und etwas sortiert sind.
+  \item falls \lstinline|a = null| oder \lstinline|b = null|  ist, wird in Zeile 5 eine \textbf{NullPointerException} ausgelöst.
+\end{itemize}
+\subsection{}
+
+Wie lautet die Ausgabe des Programmfragments?\\
+\textbf{Lösung}:
+\begin{itemize}
+  \item \lstinline|int[] a = {4,6,0,1}|
+  \item \lstinline|int[] b = {5,7,2,3}|
+  \item \lstinline|int[] c = {4,5,6,0,1,7,2,3}|
+  \item Die Ausgabe ist dann: 4;5;6;0;1;7;2;3;
+\end{itemize}
+
+\newpage
+
+\mysection{Kontrollstrukturen, Operatoren}
+Welche der folgenden Schleifen terminieren?
+Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen,
+nachdem die jeweiligen Anweisungen ausgeführt wurden.
+
+
+\subsection{}
+\begin{lstlisting}
+int a = 1;
+int b = 4;
+do {
+	a = a + 3;
+	b = b + 2;
+	if ((b 
+	b = b - 2;
+	if ((b 
+} while (a!=0);
+\end{lstlisting}
+\textbf{Lösung}:\\ 
+$\begin{array}{r|r||r|r|r|r|r|r}
+a 	& b 	& a = a + 3	& b = b + 2 & b \% 6 == 0 	& b = b - 2 	& b \% 6 == 0	& a != 0\\ \hline
+1	& 4 	& 4			& 6			& 0 == 0		& -				& -				& 4 != 0\\
+4 	& 6		& 7			& 8			& 2 == 0		& 6				& 0 == 0   		& -		
+\end{array}$
+
+Die Schleife terminiert, $a = 7$ und $b = 6$
+
+\subsection{}
+\begin{lstlisting}
+int a = 1;
+int b = 1;
+while (b < 5) {
+	a = a + 1;
+	switch (a
+		case 0 : b= a+b; break;
+		case 1 : b=1+a*b; break;
+	}
+}
+\end{lstlisting}
+\textbf{Lösung}:\\ 
+$\begin{array}{r|r||r|r|r|r}
+a 	& b 	& b < 5	& a = a + 1	& a \% 3	& b'	\\ \hline
+1 	& 1		& 1 < 5 &	2		& 2			& -		\\
+2 	& 1 	& 1 < 5	&	3		& 0			& 4		\\
+3 	& 4 	& 4	< 5	&	4		& 1			& 17	\\
+4	& 17	& 17 < 5&	-		& -			& -			
+\end{array}$
+
+Die Schleife terminiert, $a = 4$ und $b = 17$
+\newpage
+Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an. Setzen Sie vor
+jedem Ausdruck die Deklaration \lstinline|int x = 10;| voraus.
+
+\subsection{}
+\begin{lstlisting}
+x>>1
+\end{lstlisting}
+
+Typ: int, weil es werden die Bits in Binärdarstellung um eine Stelle nach rechts verschoben\\
+Wert: $10_{(10)} = 1010_{(2)} >> 1_{(10)} = 0101_{(2)} = 5_{(10)}$
+
+\subsection{}
+\begin{lstlisting}
+x/4!=x
+\end{lstlisting}
+
+Typ: boolean, weil es wird \lstinline|x/4| mit \lstinline|x
+Wert: $2 \;!=\; 2\; =$ false
+
+\subsection{}
+\begin{lstlisting}
+(x=x^2)*(x++)
+\end{lstlisting}
+
+Typ: int\\
+Wert: 64\\
+Grund: Es wird zuerst berechnet $x = x $ \textasciicircum $\;2$ also $1010_{(2)} $ \textasciicircum $\;2_{(10)} = 1000_{(2)} = 8_{(10)}$ und dann $8 \cdot 8 = 64$.
+Das \lstinline|x++| wird erst nach dem Auswerten des Terms ausgewertet. Also ist \lstinline|x| am Ende $9$.\\
+Würde statt \lstinline|x++| ein \lstinline|++x| stehen, würde dies vor dem Auswerten des Teilterms ausgewertet werden !
+
+\subsection{}
+Es sei \lstinline|a| durch \lstinline|int[] a = new int[6]| deklariert. Geben Sie den Inhalt des Felds nach
+Ausführung der beiden folgenden Anweisungen an:
+
+\begin{lstlisting}
+for (int i = 0; i < a.length; i++) a[i] = (4*i+3)
+for (int i = a.length-1; i >= 0; i--) a[i] = a[5-a[i]];
+\end{lstlisting}
+
+Die erste For-Schleife ist recht einfach, jedoch muss man bei der zweiten aufpassen, deswegen habe ich hier für jeden Schritt eine neue Tabelle angelegt (damit man den Rechenweg besser erkennen kann).
+
+$\begin{array}{l||r|r|r|r|r|r}
+\text{Index} 	& 0 & 1	& 2	& 3	& 4 & 5	\\ \hline
+a(\text{Anfang})& 0	& 0 & 0	& 0	& 0	& 0	\\
+a(\text{1. For})& 3	& 2	& 1	& 0	& 4	& 3 \\
+a(\text{2. For})& 	& 	& 	& 	& 	& 1
+\end{array}$
+\lstinline|a[5] = a[(5 - 3) = 2] (= 1)|
+
+$\begin{array}{l||r|r|r|r|r|r}
+\text{Index} 	& 0 & 1	& 2	& 3	& 4 & 5	\\ \hline
+a(\text{Anfang})& 0	& 0 & 0	& 0	& 0	& 0	\\
+a(\text{1. For})& 3	& 2	& 1	& 0	& 4	& 3 \\
+a(\text{2. For})& 	& 	& 	& 	& 2	& 1
+\end{array}$
+\lstinline|a[4] = a[(5 - 4) = 1] (= 2)|
+
+$\begin{array}{l||r|r|r|r|r|r}
+\text{Index} 	& 0 & 1	& 2	& 3	& 4 & 5	\\ \hline
+a(\text{Anfang})& 0	& 0 & 0	& 0	& 0	& 0	\\
+a(\text{1. For})& 3	& 2	& 1	& 0	& 4	& 3 \\
+a(\text{2. For})& 	& 	& 	& 1	& 2	& 1
+\end{array}$
+\lstinline|a[3] = a[(5 - 0) = 5] (= 1)|
+
+$\begin{array}{l||r|r|r|r|r|r}
+\text{Index} 	& 0 & 1	& 2	& 3	& 4 & 5	\\ \hline
+a(\text{Anfang})& 0	& 0 & 0	& 0	& 0	& 0	\\
+a(\text{1. For})& 3	& 2	& 1	& 0	& 4	& 3 \\
+a(\text{2. For})& 	& 	& 2	& 1	& 2	& 1
+\end{array}$
+\lstinline|a[2] = a[(5 - 1) = 4] (= 2)|
+
+$\begin{array}{l||r|r|r|r|r|r}
+\text{Index} 	& 0 & 1	& 2	& 3	& 4 & 5	\\ \hline
+a(\text{Anfang})& 0	& 0 & 0	& 0	& 0	& 0	\\
+a(\text{1. For})& 3	& 2	& 1	& 0	& 4	& 3 \\
+a(\text{2. For})& 	& 1	& 2	& 1	& 2	& 1
+\end{array}$
+\lstinline|a[1] = a[(5 - 2) = 3] (= 1)|
+
+$\begin{array}{l||r|r|r|r|r|r}
+\text{Index} 	& 0 & 1	& 2	& 3	& 4 & 5	\\ \hline
+a(\text{Anfang})& 0	& 0 & 0	& 0	& 0	& 0	\\
+a(\text{1. For})& 3	& 2	& 1	& 0	& 4	& 3 \\
+a(\text{2. For})& 2	& 1	& 2	& 1	& 2	& 1
+\end{array}$
+\lstinline|a[0] = a[(5 - 3) = 2] (= 2)|
+
+Die letzte Zeile der letzten Tabelle, ist die Lösung.
+\newpage
+
+\mysection{Grundlagen}
+Alle Fragen dieser Aufgabe beziehen sich auf Java\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Der größte Wert vom Typ short ist $2^{15}-1$. &\CheckedBox &  \\
+2.& Die Deklaration \lstinline|int x = 08;| erzeugt einen Fehler. &\CheckedBox &  \\
+3.& Der Modifikator \lstinline|static| darf vor Methoden, jedoch nicht vor Attributen stehen. &   & \CheckedBox \\
+4.& Jede Klasse muss eine Methode mit den Namen main enthalten. &   & \CheckedBox \\
+5.& Jede Klassendefinition muss einen Konstruktor enthalten. &   & \CheckedBox \\
+6.& Es ist möglich, dass ein Interface nur Konstanten enthält. &\CheckedBox  & 
+\end{tabular}
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate} 
+  \item Der Typ short ist 16 Bit groß, da er vorzeichenbehaftet ist, bleiben 15 Bit für die Speicherung der Zahl übrig. Die größte Zahl mit 15 Bit ist $2^{15} - 1$. \\ Denkt daran, das das 15. Bit die Wertigkeit $2^{14}$ hat und \underline{nicht} $2^{15}$!\\
+  Byte als Beispiel: 
+$\begin{array}{l|l|l|l|l|l|l|l|l}
+\text{Stelle} 	& 8. 					& 7.	& 6.	& 5.	& 4.	& 3. 	& 2. 	& 1.\\
+\text{Wert}		& \text{Vorzeichen}		& 2^6 	& 2^5	& 2^4	& 2^3	& 2^2	& 2^1 	& 2^0
+\end{array}$\\
+  Somit ergibt \begin{align*}
+  01111111_{(2)} &= 2^6 + 2^5 + 2^4 +2^3 + 2^2 +2^1 + 2^0 = 64 + 32 + 16 + 8 + 4 + 2 + 1 = 127\\
+  11111111_{(2)} &= (-2^7) + 2^6 + 2^5 + 2^4 +2^3 + 2^2 +2^1 + 2^0 = (-128) + 64 + 32 + 16 + 8 + 4 + 2 + 1 = -128 + 127 = -1
+  \end{align*}
+  Denkt an das Zweierkomplement.
+  \item Die Zahl wird als Oktalzahl interpretiert und hier existiert die Ziffer 8 nicht.
+  \item Es gibt statische (Klassen-)Methoden und (Klassen-)Attribute.
+  \item Jede Java Applikation braucht nur mindestens eine main Methode zum Starten. Mit den Klassen hat das ganze nichts zu tun.
+  \item Wenn kein Konstruktor existiert, wird vom Compiler der Default-Konstruktor für die Klasse erzeugt.
+  \item Ja ein Interface kann auch ganz leer sein, dann ist es ein Marker-Interface wie, z.B.: Serializable, usw.
+\end{enumerate}
+
+\newpage
+
+\mysection{Rekursion}
+Gegeben sei die folgende rekursive Methode:
+
+\begin{lstlisting}
+static int f(int x, int y) {
+	if (x == 1)
+		return 3;
+	else if (y <= 4)
+		return 1;
+	else
+		return 3*f(x-2,y-3)-2*f(x-2,y);
+}
+\end{lstlisting}
+Welchen Wert liefert der Aufruf \lstinline|f(9,7)|? In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen? Geben Sie die Reihenfolge der Aufrufe explizit an. Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+
+Terminiert für alle $x \geq 0, y \geq 0$ der Aufruf \lstinline|f(x,y)| mit der Rückgabe eines int-Wertes?
+Begründen Sie Ihre Antwort.
+
+\textbf{Lösung}:\\
+\begin{minipage}[hbt]{7cm}
+	\centering
+$\begin{array}{r|r|r|r}
+\text{Aufruf} & f(x, y)	& \text{Term} 			& \text{Wert}	\\ \hline
+1			  & f(9,7)  & 3*f(7,4) - 2*f(7,7)	& -15\\
+2			  & f(7,4) 	& 1						& 1\\
+3			  & f(7,7) 	& 3*f(5,4) - 2*f(5,7)	& 9\\
+4			  & f(5,4)  & 1						& 1\\
+5			  & f(5,7)  & 3*f(3,4) - 2*f(3,7)	& -3\\
+6			  & f(3,4)  & 1						& 1\\
+7			  & f(3,7)  & 3*f(1,4) - 2*f(1,7)   & 3\\
+8			  & f(1,4)  & 3						& 3\\
+9			  & f(1,7)  & 3						& 3
+\end{array}$
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+\Tree [.f(9,7) [.f(7,4) 1 ] [.f(7,7) [.f(5,4) 1 ] [.f(5,7) [.f(3,4) 1 ] [.f(3,7) [.f(1,4) 3 ] [.f(1,7) 3 ] ] ] ] ]
+\end{minipage}
+
+Somit ist \lstinline|f(9,7)| = -15, die Anzahl der Aufrufe ist 9 (Tabelle) und die maximale Rekursionstiefe ist 5.
+
+Wenn x gerade ist und y > 4 ist, terminiert nie der \lstinline|2*f(x-2,y)| Zweig.\\
+Grund: $y$ bleibt gleich und damit ist \lstinline|y <= 4| nie gültig, $x$ wird immer um 2 verringert aber ist nie gültig für \lstinline|x == 1|.
+
+\newpage
+
+\mysection{Objektorientierung}
+Gegeben sei die Klasse \textbf{Rechteck} zur Darstellung von Rechtecken durch die Länge $l$ und die Breite $b$. Die Methode \lstinline|flaeche()| soll den Flächeninhalt des aktuellen Rechtecks berechnen. Die Methode \lstinline|diagonale()| soll die Länge der Diagonalen des aktuellen Rechtecks berechnen. Die Methode \lstinline|compareTo()| soll das aktuelle Rechteck entsprechend seinem Flächeninhalt mit dem Parameter vergleichen.
+
+\begin{lstlisting}
+public class Rechteck implements Comparable {
+	privat double l, b;
+	public Rechteck(double l, double b) {
+		this.l = l,
+		this.b = b;
+	}
+	public double flaeche() {
+		return l*b;
+	}
+	public double diagonale() {
+		return Math.sqr(l*l+b*b);
+	}
+	public int compareTo(Object o) {
+		Rechteck r = o;
+		if (flaeche() = r.flaeche())
+			return 0;
+		if (flaeche() < r.flaeche())
+			return -1;
+		else
+			return 1;
+	}
+}
+\end{lstlisting}
+Außerdem sei das folgende Programmfragment gegeben:
+\begin{lstlisting}[firstnumber=last]
+	Rechteck q = new Rechteck(4.0,3.0);
+	System.out.printf("Diagonale: 
+	System.out.printf("Flaeche: 
+\end{lstlisting}
+\subsection{}
+Die Programmzeilen 01 bis 25 enthalten Fehler. Markieren Sie die Fehler im Programmtext. Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Zeile 2: es muss private und nicht privat heißen\\ \lstinline|private double l, b;|
+  \item Zeile 4: ; und nicht ,\\ \lstinline|this.l = l;|
+  \item Zeile 11: es heißt sqrt und nicht sqr\\ \lstinline|return Math.sqrt(l*l+b*b);|
+  \item Zeile 14: die Variable o muss erst nach Rechteck gecastet werden\\ \lstinline|Rechteck r = (Rechteck)o;|
+  \item Zeile 15: Nur ein = ist eine Zuweisung und kein Vergleich\\  \lstinline|if (flaeche() == r.flaeche())|
+  \item Zeile 25: Ein neues Objekt wird mit \lstinline|new| Operator erzeugt\\ \lstinline|System.out.printf("Flaeche: 
+\end{itemize}
+
+
+\subsection{}
+Geben Sie die korrigierten Zeilen an. Was gibt das korrigierte Programm aus?\\ 
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Das Programm berechnet die Diagonale von $q$ mit $l = 4.0$ und $b = 3.0$ damit ist $d = \sqrt{4^2 + 3^2} = \sqrt{25} = 5 $
+  \item Dann Berechnet das Programm die Fläche vom einem Rechteck mit $l = 2$ und $b = 2$ damit ist $A = 2 \cdot 2 = 4$
+  \item Die Ausgabe ist:\\ \tab Diagonale: 5,00\\ \tab Flaeche: 4,00
+\end{itemize}
+
+\newpage
+\mysection{Felder, Programmerstellung}
+Eine Folge $a$ von int-Werten $a_0, \ldots , a_{n-1},$ $n \geq 1$, soll nach der Anzahl der Vorkommen ihrer Elemente sortiert werden. Elemente, die in der Folge gleich oft enthalten sind, sollen der Größe nach sortiert werden. Schreiben Sie eine
+Methode \lstinline|static void quantitySort(int[] a)|, die ein Feld ganzer Zahlen als Parameter erhält und den Parameter wie beschrieben sortiert.
+
+Beispiel: Falls der Parameter $a$ die Folge 2, 0, 1, 0, 0, 2, 3, 1 ist, soll $a$ in die Folge 3, 1, 1, 2, 2, 0, 0, 0 umsortiert werden, da 3 einmal, 1 und 2 zweimal und 0 dreimal in $a$ vorkommen.
+
+Falls das Parameterfeld $a$ keine Werte enthält oder das Null-Objekt ist, soll beim Aufruf der Methode eine \textbf{IllegalArgumentException} ausgelöst werden. Sie dürfen weder Methoden noch Klassen importieren, aber Hilfsmethoden oder -klassen schreiben.
+
+\textbf{Lösung}:\\
+
+Idee:
+
+\begin{itemize}
+  \item es wird geprüft ob \lstinline|int[] a| gültig ist, wenn nicht wird eine \textbf{IllegalArgumentException} ausgelöst
+  \item wir erzeugen uns wie bei CountSort eine Vorkommensliste, dafür benötigen wir zwei Hilfsmethoden.
+  \item 1. \lstinline|int getMax(int[] folge)| diese Hilfsmethode gibt das Maximum im Array zurück
+  \item 2. \lstinline|int[] countList(int[] folge)| diese Hilfsmethode erzeugt die Vorkommensliste, da die Elemente der Folge immer $\geq 0$ sind, muss nicht mit Offsets gearbeitet werden.
+  \item um aus der Vorkommensliste die geforderte Folge zu bilden, benötigen wir eine Hilfsmethode\\ \lstinline|int getNext(int[] numberList)|, die uns immer das "`kleinste"' Element nach der Bedingung zurückgibt und dieses dann aus der Vorkommensliste löscht.
+\end{itemize}
+
+Code:\\
+sieht durch die Kommentare mehr aus, als es ist !
+
+\lstinputlisting[language=Java, linerange={5-57}]{\srcDir Klausur030912.java}
+
+\newpage
+ohne Kommentare:
+
+\lstinputlisting[language=Java, linerange={10-16, 22-28, 35-44, 46-57}]{\srcDir Klausur030912.java}
+
+\mychapter{Programmieren 1 Übungsklausur vom 25.01.13}
+\mysection{Zahldarstellung}
+Schreiben Sie die Dezimalzahl 29 und 92 als Binär-, Oktal- und
+Hexadezimalzahl. Durch welche Bitfolge wird der int-Wert -29 in Java gespeichert?
+\subsection{Binär}
+$29_{(10)} = 16 + 8 + 4 + 1 = 2^4 + 2^3 + 2^2 + 2^0 = 1\;1101_{(2)}$\\
+$92_{(10)} = 64 + 16 + 8 + 4  = 2^6 + 2^4 + 2^3 + 2^2  = 101\;1100_{(2)}$
+\subsection{Oktal}
+$29_{(10)} = 24 + 5  = 3 \cdot 8^1 + 5 \cdot 8^0 = 35_{(8)}$\\
+$92_{(10)} = 64 + 24 + 4  = 1 \cdot 8^2 + 3 \cdot 8^1 + 4 \cdot 8^0 = 134_{(8)}$
+\subsection{Hexadezimal}  
+$29_{(10)} = 16 + 13 = 16^1 + 13 \cdot 16^0 = 1D_{(16)}$\\
+$92_{(10)} = 80 + 12 = 5 \cdot 16^1 + 12 \cdot 16^0 = 5C_{(16)}$
+\subsection{-29}
+$29_{(10)} = 16 + 8 + 4 + 1 = 0001\;1101$\\
+Einerkomplement: $1111\;1111\;1111\;1111\;1111\;1111\;1110\;0010$\\
+Zweierkomplement: \underline{$1111\;1111\;1111\;1111\;1111\;1111\;1110\;0011$}\\
+Ein int besteht aus 4 Byte also 32 Bit.
+
+
+\newpage
+\mysection{Rekursion}
+(gleiche Aufgabe wie in Klausur 20.03.12)\\
+Gegeben sei die folgende rekursive Methode:
+
+\begin{lstlisting}
+static int f(int x, int y) {
+	if (y <= 1)
+		return 1;
+	else if (x == 0)
+		return 2;
+	else
+		return f(x-2,y/2) - 2*f(x-2,y);
+}
+\end{lstlisting}
+Welchen Wert liefert der Aufruf \lstinline|f(4,13)|? In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen? Geben Sie die Reihenfolge der Aufrufe explizit an. Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+
+Terminiert für alle $x \geq 0, y \geq 0$ der Aufruf \lstinline|f(x,y)| mit der Rückgabe eines int-Wertes?
+Begründen Sie Ihre Antwort.
+
+\textbf{Lösung}:\\
+\begin{minipage}[hbt]{7cm}
+	\centering
+$\begin{array}{r|r|r|r}
+\text{Aufruf} & f(x, y)	& \text{Term} 			& \text{Wert}	\\ \hline
+1			  & f(4,13) & f(2,6) - 2*f(2,13)	& 2\\
+2			  & f(2,6) 	& f(0,3) - 2*f(0,6)		& -2\\
+3			  & f(0,3) 	& 2						& 2\\
+4			  & f(0,6)  & 2						& 2\\
+5			  & f(2,13) & f(0, 6) - 2* f(0, 13)	& -2\\
+6			  & f(0, 6) & 2						& 2\\
+7			  & f(0, 13)& 2						& 2\\
+\end{array}$
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\Tree [.f(4,13) [.f(2,6) [.f(0,3) 2 ] [.f(0,6) 2 ] ] [.f(2,13) [.f(0,6) 2 ] [.f(0,13) 2 ] ] ]
+\end{minipage}
+
+Somit ist \lstinline|f(4,13)| = 2, die Anzahl der Aufrufe ist 7 (Tabelle) und die maximale Rekursionstiefe ist 3 weil:
+$f(4,13) \to f(2,6) \to f(0,3)$ hat eine Tiefe von 3. (alle anderen 3 Zweige des Baums sind gleich lang)
+
+Wenn $x$ ungerade und $y > 1$ ist, terminiert \underline{nie} der \lstinline|2*f(x-2,y)| Zweig.\\
+Grund: $y$ bleibt immer gleich und erfüllt damit nie  \lstinline|y <= 1| und $x$ wird immer und 2 verringert, somit kann $x$ nie \lstinline|x == 0| erfüllen.
+\newpage
+
+\mysection{Objektorientierung}
+Alle Fragen dieser Aufgabe beziehen sich auf Java\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Die Deklaration \lstinline|double d = 5;| erzeugt eine Fehlermeldung.  & & \CheckedBox \\
+2.& Eine Klassenmethode wird durch den Modifikator \lstinline|static| definiert. &\CheckedBox &  \\
+3.& Jede Klasse muss eine Methode mit dem Namen main enthalten. &  & \CheckedBox\\
+4.& Eine abstrakte Klasse \textbf{kann} konkrete Methoden enthalten. &\CheckedBox  & \\
+5.& Von jeder Klasse wird mindestens ein Objekt erzeugt. &  & \CheckedBox\\
+6.& Innerhalb einer Klasse darf eine Methode
+den gleichen Namen wie ein Attribut besitzen. &  \CheckedBox& \\
+7.& Für jede Klasse muss ein Konstruktor definiert werden.  &  &\CheckedBox\\
+8.& Eine abstrakte Klasse kann von mehreren
+Klassen implementiert werden. & \CheckedBox  &  \\
+9.& Zu jeder Klasse existiert der parameterlose Default-Konstruktor. &   & \CheckedBox\\
+10.& Die Klasse Math ist final. & \CheckedBox  & 
+\end{tabular}
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate}
+  \item Jeder int Wert (in diesem Fall 5) ist mit double kompatibel.
+  \item Laut Vorlesung sind Klassenmethoden statisch und Objektmethoden nicht statisch.
+  \item Nur jede Java Applikation benötigt mindestens eine main Methode über die, die App gestartet wird.
+  \item Default Implementierungen für Methoden sind in abstrakten Klassen gestattet, im Gegensatz zu Interfaces.
+  \item Von jeder Klasse wird zwar beim Laden von der JVM ein Objekt mit allen Verwaltungsinformationen erstellt, aber dieses Objekt ist hier nicht gemeint.
+  \item Wir können einer Klasse das Attribut \lstinline|private int a;|. und die Methode \lstinline|public int a(){};| geben. Weil Methoden können durch die Klammern von Attributen unterschieden werden (in Funktionalen Sprachen ist es anders, jedoch hier geht es nur um Java).
+  \item Wenn der Programmierer keinen Konstruktor festlegt wird vom Compiler automatisch der Default-Konstruktor mit \lstinline|public Klassenname(){};| erstellt.
+  \item Das ist der Sinn von Vererbung, das ein Elter (die (abstrakte) Klasse) mehrere Kinder (Unterklassen) haben kann.
+  \item Wenn wir einen Konstruktor angeben somit wird kein Default-Konstruktor erstellt.
+  \item \lstinline|public final class Math|
+\end{enumerate} 
+
+\newpage
+\mysection{Kontrollstrukturen, Operatoren}
+(gleiche Aufgabe wie in Klausur vom 16.03.11)\\
+Welche der folgenden Schleifen terminieren?
+Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen,
+nachdem die jeweiligen Anweisungen ausgeführt wurden.
+
+\subsection{}
+\begin{lstlisting}
+int a = 4;
+int b = 1;
+for (int i = a; i < 4*a; i = i+3) {
+	switch (i 
+		case 0: a = a - 1; b = b / 3; break;
+		case 1: a = a + 1; b = b + 2; break;
+	}
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r||r|r|r}
+ a	& b & i	& i < 4*a	& i \% 4 	& a'	& b'	& i = i+3		\\ \hline
+ 4	& 1 & 4	& 4 < 16	& 0 		& 3		& 0		& 7				\\
+ 3	& 0 & 7	& 7 < 12	& 3			& 3		& 0		& 10			\\
+ 3	& 0 & 10& 10 < 12	& 2			& 3		& 0		& 13			\\
+ 3	& 0	& 13& 13 < 12 	& -			& -		& -		& -				
+\end{array}$
+
+Die Schleife terminiert, $a = 3$ und $b = 0$.
+\subsection{}
+\begin{lstlisting}
+int a = 3;
+int b = 1;
+do {
+	a = a + b;
+	if ((b 
+	b = b + 2;
+	if ((b 
+	a++;
+} while (a < 10);
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r||r|r|r|r|r|r}
+a & b & a = a + b	& b \% 3 == 0 	& b = b + 2 	& b \% 3 == 1	& a = a + 1		& a < 10\\ \hline
+3 & 1 & 4			& 1 == 0		& 3				& 0 == 1		& 5				& 4 < 10\\
+5 & 3 & 8			& 0 == 0		& -				& -				& -		   		& 8 < 10\\
+8 & 3 & 11			& 0 == 0		& -				& -				& -				& 11 < 10
+\end{array}$
+
+Die Schleife terminiert, $a = 11$ und $b = 3$.
+\newpage
+\subsection{}
+\begin{lstlisting}
+int a = 9;
+int b = 1;
+while (a/2 != 1) {
+	a = - 2 + a;
+	b = 1 + a / b;
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r||r|r|r}
+a 	& b 	& a/2 != 1	& a =  - 2 + a	& b = 1 + a / b\\ \hline
+9 	& 1 	& 4 != 1	& 7				& 8			\\
+7 	& 8 	& 3 != 1	& 5				& 1			\\
+5 	& 1 	& 2 != 1	& 3				& 4			\\
+3	& 4		& 1 != 1	& -				& -			
+\end{array}$
+
+Die Schleife terminiert, $a = 3$ und $b = 4$.
+
+\subsection{}
+\begin{lstlisting}
+int a = 7;
+int b = 2;
+for (int i = a; i > a - 3; i = a * i) {
+	a = a - 3;
+	b = 3 - b;
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r|r|r}
+a	& b & i	& i > a - 3	&  a = a - 3& b = 3 - b & i = a * i \\ \hline
+7	& 2 & 7	& 7 > 4		&  4		& 1			& 28\\
+4	& 1 & 28& 28 > 1	&  1		& 2			& 28\\
+1	& 2 & 28& 28 > -2	&  -2		& 1			& -56\\
+-2	& 1	& -56& -56 > -5 & -			& -			& -
+\end{array}$
+
+Die Schleife terminiert, $a = -2$ und $b = 1$.\\
+\newpage
+Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an. Setzen Sie vor
+jedem Ausdruck die Deklaration \lstinline|int x = 27;| voraus.
+
+\subsection{}
+\begin{lstlisting}
+x / 3.0
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+Typ: double, da automatisch von int nach double gecastet wird\\
+Wert: 9.0
+
+\subsection{}
+\begin{lstlisting}
+x < 3
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+Typ: boolean, da 27 mit 3 verglichen wird\\
+Wert: false
+
+\subsection{}
+\begin{lstlisting}
+x >> 3
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+Typ: int, weil es werden die Bits in Binärdarstellung um 3 Stellen nach rechts verschoben\\
+Wert: $0001\;1011_{(2)} >> 3_{(10)} = 0000\;0011_{(2)} = 3_{(10)}$\\
+Ein int besteht zwar auch 4 Byte (also 32 Bit) jedoch habe ich nur das erste Byte der Übersicht halber geschrieben.
+\newpage
+\mysection{Programmverständnis, Fehlerkorrektur}
+(fast gleiche (99\%) Aufgabe wie in Klausur vom 16.03.11)\\
+Gegeben sei die Klasse \textbf{Rational} zur Darstellung von
+positiven rationalen Zahlen, d. h. von Zahlen $q \in \mathbb{Q}, q > 0$. Die Methode \lstinline|add| soll den
+Parameter \lstinline|r| zur aktuellen Zahl addieren. Die Methode \lstinline|compareTo| soll rationale Zahlen
+ihrer Größe nach vergleichen.
+
+\begin{lstlisting}
+class Rational extends Comparable {
+	private int x, y;
+	public Rational(int x, int y) {
+		if (x<=0 || y<=0) System.out.println("Eingabefehler.");
+		g = ggt(x,y);
+		this.x = x/g;
+		this.y = y/g;
+	}
+	private static int ggt(int a, int b) {
+		while ((b != 0)) {
+			int r = a 
+			a = b;
+			b = r;
+		}
+		return a;
+	}
+	public Rational add(Rational r) {
+		int z = x*r.y+r.x*y,
+			n = y*r.x;
+		return Rational(z, n);
+	}
+	public String toString() {
+		return "("+x+"/"+y+")";
+	}
+	public int compareTo(Object o) {
+		return x*o.y-o.x*y;
+	}
+}
+\end{lstlisting}
+Außerdem sei das folgende Programmfragment gegeben:
+\begin{lstlisting}[firstnumber=last]
+	Rational r1 = new Rational(2,3),
+	         r2 = new Rational(5,4);
+	System.out.println(add(r1,r2));
+	System.out.println(r1.compareTo(r2));
+\end{lstlisting}
+\subsection{}
+Die Programmzeilen 1 bis 32 enthalten Fehler. Markieren Sie die Fehler im Programmtext. Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Zeile 1:\lstinline|extends| erweitert Klassen, jedoch wir benötigen \lstinline|implements| für die Implementierung von \lstinline|Comparable|. \\\lstinline|class Rational implements Comparable|
+  \item Zeile 5: die Variable g hat muss vor dem Benutzen deklariert werden. \\\lstinline|int g = ggt(x,y);|
+  \item Zeile 19: logische Fehler, da sich der Nenner ($n$) aus $n \cdot n$ ergibt und nicht Nenner * Zähler. \\\lstinline|n = y*r.y;|
+  \item Zeile 20: Es wird der \lstinline|new| Operator zum erzeugen neuer Objekte benötigt. \\ \lstinline|return new Rational(z, n);|
+  \item Zeile 26: Der Parameter ist vom Typ \lstinline|Object| und muss erst nach Rational gecastet werden.\\ \lstinline|int z = x*((Rational) o).y-((Rational) o).x*y;|
+  \item Zeile 31: Die Methode \lstinline|add| ist eine Methode der Klasse Rational und benötigt einen Parameter vom Typ Rational.\\ \lstinline|System.out.println(r1.add(r2));|
+\end{itemize}
+
+\subsection{}
+Geben Sie die korrigierten Zeilen an. Was gibt das korrigierte Programm aus?\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die \lstinline|add| Methode berechnet: $\frac{2}{3} + \frac{5}{4} = \frac{2 \cdot 4 + 5 \cdot 3}{12} = \frac{23}{12}$
+  \item Die \lstinline|compareTo| Methode berechnet: $2 \cdot 4 - 5 \cdot 3 = 8 - 15 = -7$
+  \item Somit ist die Ausgabe: \\ 
+  \tab (23/12)\\
+  \tab -7
+\end{itemize}
+
+\newpage 
+\mysection{Felder, Programmerstellung}
+(gleiche Aufgabe wie in Klausur 20.03.12)\\
+Eine Zahl wird Palindrom genannt, falls ihre Dezimaldarstellung von vorne und von hinten gelesen die gleiche Ziffernfolge besitzt. Beispielsweise sind 7, -121, 4554, 0 und 66 Palindrome. 20, 31 und 23 sind keine Palindrome.
+
+Schreiben Sie eine Methode \lstinline|static void palindrom(int[] a)|, die ein Feld ganzer Zahlen als Parameter erhält und die die Palindrome des Feldes ausgibt. Falls das Parameterfeld $a$ die Zahlen (7, 23, -121, 4554, 0, 66, 31, 20) enthält, sollen also 7, -121, 4554, 0
+und 66 ausgegeben werden.
+
+Falls das Parameterfeld $a$ keine Werte enthält, soll beim Aufruf der Methode eine Fehlermeldung ausgegeben werden. Sie dürfen keine Klassen importieren. Eigene Hilfsmethoden dürfen Sie erstellen. Erläutern Sie Ihren Algorithmus.
+
+\textbf{Lösung}:\\
+
+Idee:
+
+\begin{itemize}
+  \item es wird geprüft ob \lstinline|int[] a| gültig ist, wenn nicht wird eine \textbf{IllegalArgumentException} ausgelöst
+  \item wir schreiben uns eine Hilfsmethode \lstinline|int[] number2Array(int z)| die eine Zahl in ein Array ihrer Ziffern umwandelt
+  \item dieses Array wird intern in der Hilfsmethode \lstinline|boolean isPalindrom(int z)| benutzt und testet ob es ein Palindrom ist
+  \item die Methode \lstinline|void palindrom(int[] a)| testet für alle Zahlen aus \lstinline|a| mit \lstinline|boolean isPalindrom(int z)| ob es ein Palindrom ist, falls ja, wird die Zahl ausgegeben
+\end{itemize}
+
+Code:\\
+sieht durch die Kommentare mehr aus, als es ist !
+
+\lstinputlisting[language=Java, linerange={3-77}]{\srcDir Klausur200312.java}
+
+\newpage
+ohne Kommentare:
+
+\lstinputlisting[language=Java, linerange={6-8, 16-18, 25-30, 38-40, 48-52, 59-60, 63-67, 69-77}]{\srcDir Klausur200312.java}
+\newpage 
+\mysection{Programmverständnis}
+(gleiche Aufgabe wie in Klausur vom 03.09.12)\\
+Gegeben seien die Methode
+\begin{lstlisting}
+static int[] wasPassiert(int[] a, int[] b) {
+	int i = 0,
+	    j = 0,
+	    k = 0;
+	int[] c = new int[a.length+b.length];
+	while (i<a.length && j<b.length)
+		{c[k++] = (a[i]<b[j] ? a[i++] : b[j++]);}
+	if (j==b.length)
+		while (i<a.length) {c[k++] = a[i++];}
+	else
+		while (j<b.length) {c[k++] = b[j++];}
+	return c;
+}
+\end{lstlisting}
+sowie das Programmfragment
+\begin{lstlisting}[firstnumber=last]
+int[] a = {4,6,0,1},
+      b = {5,7,2,3},
+      c = wasPassiert(a,b);
+for (int i: c) System.out.print(i+";");
+\end{lstlisting}
+\subsection{}
+Beschreiben Sie das Rückgabeobjekt der Methode \lstinline|wasPassiert(int[] a, int[] b)| in Abhängigkeit von
+den Parametern \lstinline|a| und \lstinline|b|. (Exceptions sollen mit angegeben werden, obwohl es nicht in der Aufgabe stand)
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die Methode erhält zwei Arrays \lstinline|int[] a| und \lstinline|int[] b|
+  \item Es wird ein neues Array \lstinline|int[] c| erstellt mit der Kapazität von \lstinline|int[] a| und \lstinline|int[] b|
+  \item Es werden die Elemente von \lstinline|int[] a| und \lstinline|int[] b| der Größe nach in \lstinline|int[] c| eingefügt \\
+  		Aber es ist keine richtige Sortierung, da \lstinline|int[] c| nur sortiert ist, wenn \lstinline|int[] a| und \lstinline|int[] b| es davor schon 		waren !
+  \item es wird \lstinline|int[] c| zurückgegeben, indem beide Arrays \lstinline|int[] a| und \lstinline|int[] b| vereint und etwas sortiert sind.
+  \item falls \lstinline|a = null| oder \lstinline|b = null|  ist, wird in Zeile 6 eine \textbf{NullPointerException} ausgelöst.
+\end{itemize}
+\subsection{}
+
+Wie lautet die Ausgabe des Programmfragments?\\
+\textbf{Lösung}:
+\begin{itemize}
+  \item \lstinline|int[] a = {4,6,0,1}|
+  \item \lstinline|int[] b = {5,7,2,3}|
+  \item \lstinline|int[] c = {4,5,6,0,1,7,2,3}|
+  \item Die Ausgabe ist dann: 4;5;6;0;1;7;2;3;
+\end{itemize}
+
+\newpage
+
+\mysection{Grundlagen}
+Alle Fragen dieser Aufgabe beziehen sich auf Java\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Der größte Wert vom Typ short ist $2^{15}-1$. &\CheckedBox &  \\
+2.& Die Deklaration \lstinline|int x = 08;| erzeugt einen Fehler. &\CheckedBox &  \\
+3.& Der Modifikator \lstinline|static| darf vor Methoden, aber nicht vor Attributen stehen. &   & \CheckedBox \\
+4.& Es ist möglich, dass ein Interface nur Konstanten enthält. &\CheckedBox  & 
+\end{tabular}
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate}
+  \item Der Typ short ist 16 Bit groß, da er Vorzeichenbehaftet ist, bleiben 15 Bit für die Speicherung der Zahl übrig. Die Größte Zahl mit 15 Bit ist $2^{15} - 1$. Denk daran das 15. Bit hat die Wertigkeit $2^{14}$ und \underline{nicht} $2^{15}$ !
+  \item Die Zahl wird als Oktalzahl interpretiert und hier existiert die Ziffer 8 nicht.
+  \item Es gibt statische (Klassen-)Methoden und (Klassen-)Attribute.
+  \item Ja ein Interface kann auch ganz leer sein, dann ist es ein Marker-Interface wie, z.B.: Serializable, usw.
+\end{enumerate} 
+
+\mychapter{Programmieren 1 Klausur vom 06.03.13}
+\mysection{Zahldarstellung}
+Schreiben Sie die Dezimalzahl 47 als Binär-, Oktal- und
+Hexadezimalzahl. Durch welche Bitfolge wird der Byte-Wert -47 in Java gespeichert?
+\subsection{Binär}
+$47_{(10)} = 32 + 8 + 4 + 2 + 1 = 2^5 + 2^3 + 2^2 + 2^1 + 2^0 = 10\;1111_{(2)}$
+\subsection{Oktal}
+$47_{(10)} = 40 + 7  = 5 \cdot 8^1 + 7 \cdot 8^0 = 57_{(8)}$
+\subsection{Hexadezimal}  
+$47_{(10)} = 32 + 15 = 2 \cdot 16^1 + 15 \cdot 16^0 = 2F_{(16)}$
+\subsection{-47}
+$47_{(10)} = 32 + 8 + 4 + 2 +1 = 0010\;1111$\\
+Einerkomplement:  $1101\;0000$\\
+Zweierkomplement: \underline{$1101\;0001$}\\
+Byte = 8 Bit !
+
+\newpage
+
+\mysection{Grundlagen, Objektorientierung}
+Bitte kreuzen Sie an. Für jede richtige
+Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen.
+Kein Kreuz bzw. zwei Kreuze bedeuten 0 Punkte. Die minimale Gesamtpunktzahl für
+diese Aufgabe beträgt 0 Punkte.\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Die Deklaration \lstinline|int d = 's';| erzeugt eine Fehlermeldung.  & & \CheckedBox \\
+2.& Jede Klasse kann zu einer Unterklasse abgeleitet werden. & & \CheckedBox \\
+3.& Zwei abgeleitete Klassen können die gleiche Basisklasse besitzen. &\CheckedBox  & \\
+4.& Es kann Variablen geben, die während ihrer Existenz nicht immer
+auf Objekte des gleichen Typs verweisen müssen. &  &\CheckedBox \\
+5.& Statische Methoden dürfen den this-Zeiger nicht verwenden. & \CheckedBox & \\
+6.& In der Anweisung \lstinline|return e| muss der Typ des Ausdrucks
+\lstinline|e| stets vom Rückgabetyp der zugehörigen Methode sein. &  & \CheckedBox \\
+7.& Für jede Klasse existiert ein Konstruktor ohne Parameter.  &  &\CheckedBox\\
+8.& Interfaces dürfen nur Methoden enthalten. &   & \CheckedBox
+\end{tabular}\\
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate}
+  \item Das $s$ ist vom Typ char und wird als Zahlenwert interpretiert, somit ist er Kompatibel zu int.\\
+  \begin{savenotes}
+  \begin{tabular}[H]{lllllllllll}
+  byte (1 B) &$<$& short (2 B) &=& char(2 B) &$<$& int (4 B) &$<$& long (8 B)& & \\
+  byte (1 B) &$<$& short (2 B) &=& char(2 B) &$<$& int (4 B) &$<$& double (8 B\footnote{Mantisse 52 Bit, 11 Bit Exponent und 1 Bit Vorzeichen}) \\
+  byte (1 B) &$<$& short (2 B) &=& char(2 B) &$<$& float (4 B \footnote{Mantisse 23 Bit, 8 Bit Exponent und 1 Bit Vorzeichen}) &$<$& double (8 B)
+  \end{tabular}
+  \end{savenotes}
+  		
+  \item Wenn eine Klasse final ist, können von ihr keine Unterklassen abgeleitet werden.
+  \item Alle Klassen haben z.B. \lstinline|Object| als Basisklasse.
+  \item Da Java eine typsichere Sprache ist, können Variablen nur Objekte ihres Typs, Basistypen von ihrem Typ und Null aus Ausnahme aufnehmen. \\ Für mich ist das immer noch ein kompatibler Typ und somit ist meiner Meinung nach die Aussage falsch.
+  \item In statischen Methoden gibt es keinen this-Zeiger.
+  \item e muss vom Rückgabetyp, eines Basistyps davon oder Null sein. \\ Für mich ist das immer noch ein kompatibler Typ und somit ist meiner Meinung nach die Aussage wahr. (laut Struckmann soll es aber falsch sein.)
+  \item Wenn ein Konstruktor angegeben wurde, wird nicht der Default Konstruktor erstellt.
+  \item Interfaces können auch Konstanten enthalten.
+\end{enumerate}
+
+\newpage
+\mysection{Programmverständnis}
+Gegeben seien die Methode
+\begin{lstlisting}
+static void wasPassiert(int[] a) {
+	int n = a.length-1;
+	int i = 0,
+	    j = n;
+	while (i < j) {
+		while (j >= 0 && a[j] <= 0) j--;
+		while (i <= n && a[i] > 0) i++;
+		if (i < j) {
+			int t = a[i];
+			a[i] = a[j];
+			a[j] = t;
+		}
+	}
+	for (int k : a) {
+		System.out.print(k+";");
+	}
+}
+\end{lstlisting}
+sowie das Programmfragment
+\begin{lstlisting}[firstnumber=last]
+int[] a = {0,1,-2,3,4,-5,6,7,-8};
+wasPassiert(a);
+\end{lstlisting}
+\subsection{}
+Wie lautet die Ausgabe des Programmfragments?\\
+\textbf{Lösung}:
+\begin{itemize}
+  \item \begin{itemize}
+    \item i = 0;
+    \item j = 8;
+    \item a = 
+$\begin{array}{r|r|r|r|r|r|r|r|r}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+0 & 1 & -2& 3 & 4 & -5& 6 & 7 & -8
+\end{array}$
+  \end{itemize}
+  \item \begin{itemize}
+    \item i = 0;
+    \item j = 7;
+    \item a = 
+$\begin{array}{r|r|r|r|r|r|r|r|r}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+7 & 1 & -2& 3 & 4 & -5& 6 & 0 & -8
+\end{array}$
+  \end{itemize}
+  \item \begin{itemize}
+    \item i = 2;
+    \item j = 6;
+    \item a = 
+$\begin{array}{r|r|r|r|r|r|r|r|r}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+7 & 1 & 6 & 3 & 4 & -5& -2& 0 & -8
+\end{array}$
+  \end{itemize}
+  \item \begin{itemize}
+    \item i = 5;
+    \item j = 4;
+    \item a = 
+$\begin{array}{r|r|r|r|r|r|r|r|r}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+7 & 1 & 6 & 3 & 4 & -5& -2& 0 & -8
+\end{array}$
+  \item das Array verändert sich nicht, weil \lstinline|i < j| nicht erfüllt ist.
+  \end{itemize}
+  \item Die Ausgabe ist: 7;1;6;3;4;-5;-2;0;-8;
+\end{itemize}
+
+\subsection{}
+Beschreiben Sie die Funktionsweise der Methode \lstinline|wasPassiert(int[] a)| in Abhängigkeit vom Parameter \lstinline|a|.\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Die Methode erhält ein \lstinline|int[] a|
+  \item Es wird in jedem Schritt die erste Zahl $ <= 0$ mit der letzten Zahl $ > 0$ getauscht, bis die Hälfte des Arrays erreicht ist.
+  \item Am ende sind in der ersten Hälfte nur Zahlen $ > 0$ und in der zweiten Hälfte nur Zahlen $ <= 0$
+  \item Falls \lstinline|int[] a = null| ist, dann tritt in Zeile 2 eine \textbf{NullPointerException} auf
+\end{itemize}
+
+\newpage
+
+\mysection{Kontrollstrukturen, Operatoren}
+Welche der folgenden Schleifen terminieren?
+Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen,
+nachdem die jeweiligen Anweisungen ausgeführt wurden.
+
+\subsection{}
+\begin{lstlisting}
+int a = 5;
+int b = a - 2;
+for (int i = a; i <= a + 3; i++) {
+	switch (i 
+		case 0: a = a - 1; b = b - 4;
+		case 1: a = a + 1; b = b + 2;
+		case 2: a = a - 1; b = 2 + b;
+	}
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r||r|r|r}
+ a	& b & i	& i <= a + 3& i \% 4 	& a'	& b'	& i++		\\ \hline
+ 5	& 3 & 5	& 5 <= 8    & 1 		& 5		& 7		& 6			\\
+ 5	& 7 & 6	& 6 <= 8 	& 2			& 4		& 9		& 7			\\
+ 4	& 9 & 7 & 7 <= 7	& 3			& -		& -		& 8			\\
+ 4	& 9	& 8 & 8 <= 7 	& -			& -		& -		& -				
+\end{array}$
+
+Die Schleife terminiert, $a = 4$ und $b = 9$.\\
+Es existiert kein \lstinline|break| !
+
+\subsection{}
+\begin{lstlisting}
+int a = 3;
+int b = a + 1;
+do {
+	a++;
+	if ((b 
+	a = b + 1;
+	if ((a 
+	b = b + 3;
+} while (a != 11);
+\end{lstlisting}
+\textbf{Lösung}:\\ 
+$\begin{array}{r|r||r|r|r|r|r|r}
+a 	& b 	& a++	& b \% a == 3 	& a = b + 1 	& a \% b == 2 	& b = b + 3	& a != 11\\ \hline
+3	& 4 	& 4		& 0 == 3		& 5				& 1 == 2		& 7			& 5 != 11\\
+5 	& 7		& 6		& 1 == 3		& 8				& 1 == 2   		& 10		& 8 != 11\\
+8 	& 10	& 9		& 1 == 3		& 11			& 1 == 2   		& 13		& 11 != 11		
+\end{array}$
+
+Die Schleife terminiert, $a = 11$ und $b = 13$
+\newpage
+\subsection{}
+\begin{lstlisting}
+int a = 1;
+int b = 2;
+while (b < 4*a) {
+	if (a < 4) {
+		a++;
+	} else {
+		a--;
+	}
+	b = a + b + 1;
+}
+\end{lstlisting}
+\textbf{Lösung}:\\ 
+$\begin{array}{r|r||r|r|r|r}
+a 	& b 	& b < 4*a	& a < 4	& a'	& b	\\ \hline
+1 	& 2		& 2 < 4 	& 1 < 4	& 2		& 5		\\
+2 	& 5 	& 5 < 8		& 2 < 4	& 3		& 9		\\
+3 	& 9 	& 9	< 12	& 3 < 4	& 4		& 14	\\
+4	& 14	& 14 < 16	& 4 < 4	& 3		& 18   	\\
+3	& 18	& 18 < 12	& -		& -		& -   			
+\end{array}$
+
+Die Schleife terminiert, $a = 3$ und $b = 18$
+\newpage
+Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an. Setzen Sie vor
+jedem Ausdruck die Deklaration \lstinline|int i = 17;| voraus.
+
+\subsection{}
+\begin{lstlisting}
+(i--)
+\end{lstlisting}
+
+Typ: int, weil Modulo-Rechnung\\
+Wert: $17 \% 8 = 1$
+
+\subsection{}
+\begin{lstlisting}
+(i>>2)>(i/2)
+\end{lstlisting}
+
+Typ: boolean, weil es wird \lstinline|i>>2| mit \lstinline|i/2| durch \lstinline|>| verglichen \\
+Wert:\\
+$17_{(10)} = 16 + 1 = 1\;0001_{(2)}$\\
+$1\;0001_{(2)} >> 2_{(10)} = 0\;0100_{(2)} = 4$\\
+$4 > 8 $ = false\\
+
+Einfacher:\\
+$17 >> 1$ = $17 / 2 = 8$\\
+$17 >> 2$ = $17 / 2 / 2 = 4$\\
+$17 >> 3$ = $17 / 2 / 2 / 2 = 2$\\
+$17 >> 4$ = $17 / 2 / 2 / 2 / 2 = 1$\\
+$17 >> 5$ = $17 / 2 / 2 / 2 / 2 / 2 = 0$\\
+
+
+\subsection{}
+\begin{lstlisting}
+i += i -= i+3
+\end{lstlisting}
+
+Typ: int\\
+Wert: \\
+wir formen um zu:
+\begin{lstlisting}
+int ret = i + 3;
+    ret = i - ret;
+    ret = i + ret;
+\end{lstlisting}
+
+\begin{itemize}
+  \item $ret = 17 + 3 = 20$
+  \item $ret = 17 - 20 = -3$
+  \item $ret = 17 + (-3) = 14$ 
+  \item Somit ist das Ergebnis 14
+\end{itemize}
+
+\newpage
+
+\mysection{Rekursion}
+Gegeben sei die folgende rekursive Methode:
+
+\begin{lstlisting}
+static int f(int x, int y) {
+	if (x <= 1) {
+		return 2;
+	} else if (y <= 0) {
+		return 1;
+	} else
+		return 2*(f(x+1,y-3)-f(x-3,y))+1;
+}
+\end{lstlisting}
+Welchen Wert liefert der Aufruf \lstinline|f(5,4)|? In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen? Geben Sie die Reihenfolge der Aufrufe explizit an. Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+
+Terminiert für alle $x \geq 0, y \geq 0$ der Aufruf \lstinline|f(x,y)| mit der Rückgabe eines int-Wertes?
+Begründen Sie Ihre Antwort.
+
+\textbf{Lösung}:\\
+\begin{minipage}[hbt]{7cm}
+	\centering
+$\begin{array}{r|r|r|r}
+\text{Aufruf} & f(x, y)	& \text{Term} 				& \text{Wert}	\\ \hline
+1			  & f(5,4)  & 2*(f(6,1)-f(2,4))+1		& 21\\
+2			  & f(6,1)	& 2*(f(7,-2)-f(3,1))+1		& 5\\
+3			  & f(7,-2) & 1							& 1\\
+4			  & f(3,1) 	& 2*(f(4,-2)-f(0,1))+1		& -1\\
+5			  & f(4,-2) & 1							& 1\\
+6			  & f(0,1)  & 2							& 2\\
+7			  & f(2,4)  & 2*(f(3,1)-f(-1,4))+1		& -5\\
+8			  & f(3,1) 	& 2*(f(4,-2)-f(0,1))+1		& -1\\
+9			  & f(4,-2) & 1							& 1\\
+10			  & f(0,1)  & 2							& 2\\
+11			  & f(-1,4) & 2							& 2
+\end{array}$
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+\Tree [.f(5,4) [.f(6,1) [.f(7,-2) 1 ] [.f(3,1) [.f(4,-2) 1 ] [.f(0,1) 2 ] ] ] [.f(2,4) [.f(3,1) [.f(4,-2) 1 ] [.f(0,1) 2 ] ] [.f(-1,4) 2 ] ] ]
+\end{minipage}
+
+Somit ist \lstinline|f(5,4)| = 21, die Anzahl der Aufrufe ist 1 (Tabelle) und die maximale Rekursionstiefe ist 4.
+
+Da $y$ im ersten und $x$ im zweiten Zweig immer verringert wird und beide Abbruchbedingungen für \lstinline|x <= 1| bzw. \lstinline|y <= 0| gelten, werden diese immer erreicht. Dadurch terminiert die Rekursion für alle Aufrufe.\\
+
+Die Fälle für \lstinline|int x = Integer.MAX_VALUE;| bzw. sehr nahe ignorieren wir.
+
+\newpage
+\mysection{Felder, Programmerstellung}
+Schreiben Sie eine Methode \lstinline|static int[] intersection(int[] a, int[] b) { ... }|, die als Parameter zwei int-Arrays \lstinline|int[] a| und \lstinline|int[] b| erhält. Diese Methode soll ein int-Array zurückgeben, das die Elemente genau einmal enthält, die sowohl in \lstinline|a| als auch in \lstinline|b| vorkommen.
+
+Auf die Reihenfolge der Elemente in der Rückgabe kommt es nicht an. Wenn einer oder beide der Parameter das Null-Objekt sind oder keine Int-Werte enthält, soll das Rückgabefeld ein int-Array sein, das keinen Int-Wert enthält. Sie dürfen keine Klassen importieren.
+Eigene Hilfsmethoden dürfen Sie erstellen. Erläutern Sie Ihren Algorithmus.
+
+Beispiel: Es seien $x$ und $y$ die folgenden Felder: \lstinline|int[] x={2,4,3,2,7,0,2,7}|, \lstinline|int[] y={7,7,8,4,2,4,3,5}|.
+Zulässige Rückgabewerte sind beispielsweise die Felder \lstinline|intersection(x,x)={4,3,0,2,7}| (steht zwar so in der Aufgabenstellung aber ergibt keinen Sinn mit der 0, da die 0 ein Element ist und nicht die Leeremenge),\lstinline|intersection(x,y)={4,3,2,7}| und \lstinline|intersection(y,x)={7,2,4,3}|.
+
+\textbf{Lösung}:\\
+
+Idee:
+
+\begin{itemize}
+  \item der Methodenname und die Aufgabenstellung zeigen, das es sich um die Mengenoperation Schnitt handelt
+  \item der Schnitt zweier Mengen enthält alle Elemente, die in beiden Mengen enthalten sind
+  \item hierfür erstellen wir und die Hilfsmethode \lstinline|boolean isIn(int[] a, int e)|, die angibt ob ein Element zur Menge gehört oder nicht
+  \item Jetzt der Algorithmus
+  \item es wird geprüft ob \lstinline|int[] a| und \lstinline|int[] b|  gültig sind, wenn nicht, geben wir ein leeres Array zurück
+  \item wir erzeugen uns ein neues Array, das mindestens alle Elemente von \lstinline|a| oder \lstinline|b| aufnehmen könnte
+  \item wir gehen eine Menge, Element für Element, durch und prüfen ob das Element in der anderen Menge enthalten ist, und ob es sich schon im Schnitt befindet
+  \item am ende kürzen wir unser Array, da wir es mit Sicherheit zu groß gewählt haben.
+\end{itemize}
+
+Code:\\
+sieht durch die Kommentare mehr aus, als es ist !
+
+\lstinputlisting[language=Java, linerange={3-43}]{\srcDir Klausur060313.java}
+
+\newpage
+ohne Kommentare:
+
+\lstinputlisting[language=Java, linerange={9-9, 11-11, 13-16, 18-18, 20-21, 25-26, 28-28, 31-32, 38-43}]{\srcDir Klausur060313.java}
+
+\mychapter{Programmieren 1 Wiederholungsklausur vom 26.08.13}
+
+\mysection{Programmverständnis}
+Gegeben seien die Methode
+\begin{lstlisting}
+static int wasPassiert(int[] a) {
+	int[] b = new int[a.length];
+	for (int i=0; i<a.length; i++)
+		b[i] = a[i];
+	for (int j=1; j<b.length; j++) {
+		int k = b[j],
+		i = j-1;
+		while (i>=0 && b[i]>k) {
+			b[i+1] = b[i];
+			i--;
+		}
+		b[i+1] = k;
+	}
+	int c = 0;
+	for (int i=0; i<b.length-1; i++)
+		if (b[i+1]-b[i]>c) c = b[i+1]-b[i];
+	return c;
+}
+\end{lstlisting}
+sowie das Programmfragment
+\begin{lstlisting}[firstnumber=last]
+int[] a = {0,4,6,0,1,8,13};
+System.out.println("("+wasPassiert(a)+")");
+\end{lstlisting}
+\subsection{}
+Beschreiben Sie den Rückgabewert der Methode \lstinline|wasPassiert| in Abhängigkeit vom
+Parameter \lstinline|a|.\\
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item in der ersten for-Schleife (Zeile 3) wird das Array b erstellst und erhält die selben Werte wie Array a
+  \item in der zweiten for-Schleife (Zeile 5) wird mittels verbesserten Bubble Sort das b Array aufsteigend sortiert
+  \item in der dritten for-Schleife (Zeile 15) wird die größte Differenz zweier aufeinander folgender Array Felder ermittelt\\ dies wäre z.B. \lstinline|b[i]| und \lstinline|b[i+1]| also \lstinline|c = b[i+1] - b[i]| 
+\end{itemize}
+\subsection{}
+Wie lautet die Ausgabe des Programmfragments\\
+
+\textbf{Lösung}:\\
+\tab die Größte Differenz ist $13-8 = 5$ deswegen wird 
+\begin{displaymath}
+(5)
+\end{displaymath} ausgegeben. 
+\newpage
+
+\mysection{Kontrollstrukturen, Operatoren}
+Welche der folgenden Schleifen terminieren?
+Geben Sie im Falle der Terminierung an, welche Werte die Variablen $a$ und $b$ besitzen,
+nachdem die jeweiligen Anweisungen ausgeführt wurden.
+
+\subsection{}
+\begin{lstlisting}
+int a = 1;
+int b = 2;
+while (a < 6) {
+	a = a + 2;
+	switch (a
+		case 0 : b = a-b;
+		case 1 : b = a*b;
+	}
+}
+\end{lstlisting}
+
+\textbf{Lösung}:\\
+$\begin{array}{r|r|r|r||r||r|r|r}
+ a	& b & a < 6	& a + 2		& a \% 3 	& a'	& b'		\\ \hline
+ 1	& 2 & 1 < 6	& 3   		& 0 		& 3		& 3			\\
+ 3	& 3 & 3	< 6 & 5 		& 2			& 5		& 3			\\
+ 5	& 3 & 5 < 6	& 7			& 1			& 7		& 21		\\
+ 7	& 21& 7 < 6 & - 		& -			& -		& -						
+\end{array}$
+
+Die Schleife terminiert, $a = 7$ und $b = 21$.\\
+Es existiert kein \lstinline|break| !
+
+\subsection{}
+\begin{lstlisting}
+int a = 1;
+int b = 2;
+do {
+	a = a + 2;
+	b = a + b;
+	if ((b 
+	b = b + 1;
+	if ((b 
+} while (a!=0);
+\end{lstlisting}
+
+\textbf{Lösung}:\\ 
+$\begin{array}{r|r||r|r|r|r|r|r}
+a 	& b 	& a=a+2	& b=a + b & b \% 3 == 0 & b + 1 	& b \% 3 == 2	& a != 0\\ \hline
+1	& 2 	& 3		& 5		& 2 != 0		& 6			& 0 != 2		& 3 != 0\\
+3 	& 6		& 5		& 11	& 2 != 0		& 12   		& 0 != 2		& 5 != 0\\
+5	& 12	& 7		& 19	& 1 != 0		& 20		& 2 == 2		& -		
+\end{array}$
+
+Die Schleife terminiert, $a = 7$ und $b = 20$\\
+
+\newpage
+Geben Sie für jeden der folgenden Ausdrücke den Typ und den Wert an. Setzen Sie vor
+jedem Ausdruck die Deklaration \lstinline|int x = 11;| voraus.
+
+\subsection{}
+\begin{lstlisting}
+(x-=2)*(x+=2)
+\end{lstlisting}
+
+Typ: int\\
+Wert: $(11 - 2) \cdot (9 + 2) = 99$
+
+\subsection{}
+\begin{lstlisting}
+(x>>1)^2
+\end{lstlisting}
+
+Typ: int\\
+Wert:\\
+$11_{10} >> 1_{10} = 1011_{2} >> 1_{10} = 101_{2}$\\
+$101_{2}$\textasciicircum$010_{2} = 111_{2} = 7_{10}$ 
+
+\subsection{}
+\begin{lstlisting}
+2*x/2==x/2*2
+\end{lstlisting}
+
+Typ: boolean\\
+Wert: \\
+$2 * 11 / 2 == 11 / 2 * 2 \Leftrightarrow 22 / 2 == 5 * 2 \Leftrightarrow 11 == 10 \Rightarrow$ false\\
+
+
+Es sei \lstinline|a| durch \lstinline|int[] a = new int[6]| deklariert. Geben Sie den Inhalt des Felds nach Ausführung der beiden folgenden Anweisungen an:
+
+\begin{lstlisting}
+for (int i = 0; i < a.length; i++)    a[i] = (4*(i+1))
+for (int i = a.length-1; i >= 0; i--) a[i] = a[1+a[i]];
+\end{lstlisting}
+
+nach der ersten for-Schleife:\\
+$\begin{array}{r|r|r|r|r|r|r}
+i			& 0		& 1	 	& 2		& 3 	& 4 	& 5 \\
+4*(i+1)		& 4		& 8		& 12	& 16	& 20	& 24\\
+(4*(i+1))\%5& 4		& 3		& 2		& 1		& 0		& 4 \\
+a[i]		& 4		& 3		& 2		& 1		& 0		& 4
+\end{array}$
+
+nach der zweiten for-Schleife:\\
+$\begin{array}{r|r|r|r|r|r|r}
+i			& 5		& 4	 	& 3		& 2 	& 1 	& 0 \\
+a[i]		& 4		& 0		& 1		& 2		& 3		& 4 \\
+1+a[i]		& 5		& 1		& 2		& 2		& 4		& 5 \\   
+a[1+a[i]]	& 4		& 3		& 2		& 2		& 3		& 4 \\
+a[i]		& 4		& 3		& 2		& 2		& 3		& 4
+\end{array}$
+
+\begin{tabular}[H]{ll}
+\lstinline|a[0] = 4| & \lstinline|a[3] = 2| \\
+\lstinline|a[1] = 3| & \lstinline|a[4] = 3| \\
+\lstinline|a[2] = 2| & \lstinline|a[5] = 4| 
+\end{tabular}
+
+\newpage
+
+\mysection{Grundlagen}
+Bitte kreuzen Sie an. Für jede richtige
+Antwort erhalten Sie einen Punkt, für jede falsche Antwort wird ein Punkt abgezogen. Kein Kreuz bzw. zwei Kreuze bedeuten 0 Punkte. Die minimale Gesamtpunktzahl für diese Aufgabe beträgt 0 Punkte.\\
+\begin{tabular}{lp{13cm}ll}
+& & wahr & falsch\\ 
+1.& Alle Kommentare beginnen und enden mit dem folgenden Zeichen: \lstinline|/|  & & \CheckedBox \\
+2.& Die Deklaration \lstinline|float x = '5';| erzeugt einen Fehler. & & \CheckedBox \\
+3.& Der Operator + darf auch auf Objekte der Klasse String angewendet werden. & \CheckedBox & \\
+4.& Statische Methoden einer Klasse dürfen nicht auf die Instanzvariablen ihrer Klasse zugreifen. & \CheckedBox & \\
+5.& Ein Bezeichner/identifier muss mindestens einen Buchstaben enthalten. &  & \CheckedBox \\
+6.& Eine Klasse darf höchstens eine Methode mit dem Namen main enthalten. & & \CheckedBox
+\end{tabular}\\
+
+\textbf{Anmerkungen}:\\
+
+\begin{enumerate}
+  \item \lstinline|// noe :p|
+  \item \lstinline|'5'| ist vom Typ Char, dieser ist mit Int kompatibel und Int mit Float.
+  \item \lstinline|String x = "Hello" + " " + "World";|
+  \item Da statische Methoden nicht an Objekten aufgerufen werden, können diese nicht auf Attribute (Instanzvariablen) zugreifen.
+  \item \lstinline|String _ = "nein";|
+  \item Eine Klasse kann den selben Methodennamen mehrere Male besitzen, die Parameter müssen, zum Unterschreiben, nur jeweils anders sein.
+\end{enumerate}
+
+\newpage
+
+\mysection{Rekursion}
+Gegeben sei die folgende rekursive Methode:
+
+\begin{lstlisting}
+static int f(int x, int y) {
+	if (x==0)
+		return 1;
+	else if (y<=2)
+		return 2;
+	else
+		return f(x-2,y-2)-2*f(x-2,y);
+}
+\end{lstlisting}
+Welchen Wert liefert der Aufruf \lstinline|f(8,4)|? In welcher Reihenfolge und mit welchen Parametern wird $f$ dabei aufgerufen? Geben Sie die Reihenfolge der Aufrufe explizit an. Wie groß ist die maximale Rekursionstiefe, d. h. die maximale Anzahl gleichzeitig aktiver Aufrufe?
+
+Terminiert für alle $x \geq 0, y \geq 0$ der Aufruf \lstinline|f(x,y)| mit der Rückgabe eines int-Wertes?
+Begründen Sie Ihre Antwort.
+
+\textbf{Lösung}:\\
+\begin{minipage}[hbt]{7cm}
+	\centering
+$\begin{array}{r|r|r|r}
+\text{Aufruf} & f(x, y)	& \text{Term} 				& \text{Wert}	\\ \hline
+1			  & f(8,4)  & f(6,2)-2*f(6,4)		& 14\\
+2			  & f(6,2)	& 2						& 2\\
+3			  & f(6,4)  & f(4,2)-2*f(4,4)		& -6\\
+4			  & f(4,2) 	& 2						& 2\\
+5			  & f(4,4)  & f(2,2)-2*f(2,4)		& 4\\
+6			  & f(2,2)  & 2						& 2\\
+7			  & f(2,4)  & f(0,2)-2*f(0,4)		& -1\\
+8			  & f(0,2) 	& 1						& 1\\
+9			  & f(0,4) 	& 1						& 1
+\end{array}$
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+\Tree [.f(8,4) [.f(6,2) 2 ] [.f(6,4) [.f(4,2) 2 ] [.f(4,4) [.f(2,2) 2 ] [.f(2,4) [.f(0,2) 1 ] [.f(0,4) 1 ] ] ] ] ]
+\end{minipage}
+
+Somit ist \lstinline|f(8,4)| = 14, die Anzahl der Aufrufe ist 9 (Tabelle) und die maximale Rekursionstiefe ist 5.
+
+Für $x$ ist ungerade, Terminiert die Funktion nicht, da wir auf Aufrufe kommen wie:
+\begin{displaymath}
+\Tree 
+[.f(1,4) 
+	[.f(-1,2) 2 ] 
+	[.f(-1,4) 
+		[.f(-3,2) 2 ] 
+		[.f(-3,4) 
+			{\vdots}
+		]
+	] 
+]
+\end{displaymath}
+ 
+
+\newpage
+
+\mysection{(Objektorientierung)} 
+Ein Intervall $[a, b]$ wird durch zwei Zahlen $a$ und $b$ definiert. Das Intervall enthält alle Zahlen von $a$ bis $b$:
+\begin{displaymath}
+[a,b] = \{x \in \mathbb{R}\;|\; a \leq x \leq b\}
+\end{displaymath}
+
+Gegeben sei die Klasse Iliz7r5etuw4rz3qhestjdfjntervall zur Darstellung von Intervallen. Die Methode \lstinline|laenge()| soll die Länge des aktuellen Intervalls liefern. Die Methode \lstinline|geschachtelt(Intervall i)| soll den Wert \lstinline|true| liefern, falls das Intervall $i$ Teilmenge des aktuellen Intervalls ist. Die Methode \lstinline|compareTo()| soll das aktuelle Intervall entsprechend seiner Länge mit dem Parameter vergleichen.
+
+\begin{lstlisting}
+public class Intervall extends Comparable {
+	public double a, b;
+	public Intervall(double a, double b) {
+		this.a = Math.min(a,b);
+		this.b = Math.max(a,b);
+	}
+	public boolean geschachtelt(Intervall i) {
+		if (a<=i.a || b>=i.b) return true;
+		return false;
+	}
+	public static double laenge() {
+		return b-a;
+	}
+	public int compareTo(Object o) {
+		Intervall i = o;
+		if (laenge() == i.laenge())
+			return 0;
+		if (laenge() < i.laenge())
+			return -1;
+		else
+			return 1;
+	}
+}
+\end{lstlisting}
+
+Außerdem sei das folgende Programmfragment gegeben:
+
+\begin{lstlisting}[firstnumber=last]
+Intervall i = new Intervall(6.0,2.0);
+Intervall j = new Intervall(3.0,5.0);
+System.out.println("Laenge: "+i.laenge());
+System.out.println(i.geschachtelt(j));
+\end{lstlisting}
+\newpage
+\subsection{}
+Die Programmzeilen 01 bis 27 enthalten Fehler. Markieren Sie die Fehler im Programmtext. Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Zeile 1: Für ein Interface nimmt man implements und nicht extends.
+  \\ \lstinline|public class Intervall implements Comparable {|
+  \item Zeile 8: Hier muss es \lstinline|(a<=i.a && b>=i.b)| heißen, da beide Intervallgrenzen von $i$ im Intervall liegen sollen.
+  \\ \lstinline|if (a<=i.a && b>=i.b) return true;|
+  \item Zeile 11: Die Methode darf nicht static sein, da sonst nicht auf die Attribute zugegriffen werden kann.
+  \\ \lstinline|public double laenge() {|
+  \item Zeile 15: \lstinline|o| muss erst auf Intervall gecastet werden, also \lstinline|Intervall i = (Intervall)o;|
+  \\ \lstinline|Intervall i = (Intervall)o;|
+\end{itemize}
+
+\subsection{}
+Geben Sie die korrigierten Zeilen an. Was gibt das korrigierte Programm aus?\\ 
+
+\textbf{Lösung}:
+\begin{itemize}
+  \item Laenge: 4.0
+  \item true
+\end{itemize}
+
+\newpage
+\mysection{Programmerstellung}
+Gegeben sei eine Folge $a$ von verschiedenen int-Werten
+$a_0 , \ldots , a_{n-1}, n \geq 1$ sowie ein int-Wert $x$, der in der Folge $a$ enthalten ist. Schreiben Sie eine Methode
+\begin{center}
+\lstinline|static int next(int[] a, int x)|,
+\end{center}
+die solch ein Feld $a$ und solch einen Wert $x$ als Parameter erhält. Die Methode soll den kleinsten Wert von $a$ liefern, der größer als $x$ ist. Falls der Parameter $a$ das Null-Objekt ist oder keine Werte enthält oder nicht alle Elemente verschieden sind oder x nicht enthält, soll beim Aufruf der Methode eine \lstinline|IllegalArgumentException| ausgelöst werden. Falls $x$ der größte Wert von $a$ ist, soll $x$ das Ergebnis sein. Sie dürfen weder Methoden noch Klassen importieren, aber Hilfsmethoden schreiben. Die Folge $a$ soll durch einen Aufruf von \lstinline|next| nicht geändert werden.\\
+
+Beispiel: Falls $a$ die Folge $(12, 7, 5, 9, 13, 24)$ und $x$ der Wert $5$ ist, soll der Aufruf \lstinline|next(a,x)| den Wert $7$ liefern, da $7$ die nächstgrößere Zahl von $5$ ist.
+
+\textbf{Lösung}:\\
+
+Idee:
+
+\begin{itemize}
+  \item Da der Nachfolger eines Elements bestimmt werden soll, ist das Arbeiten auf einem sortieren Array einfacher, deswegen erstellt man sich eine Hilfsmethode \lstinline|void bs(int[] b)|, die ein Array sortiert. In Aufgabe 1 wurde der Bubblesort Algorthmus benutzt, dieser kann einfach übernommen werden
+  \item Das gegebene Array \lstinline|int[] a| darf nicht verändert werden, deswegen müssen wir dies kopieren mit der Hilfsmethode \lstinline|int[] copy(int[] a)|
+  \item Laut Aufgabenstellung darf das Array \lstinline|int[] a| keine doppelten Elemente enthalten, dies untersucht man indem man das Array sortiert und prüft ob alle Elemente mit ihrem Vorgänger verschieden sind. \lstinline|boolean isSet(int[] b)|
+  \item Weiter muss getestet werden, ob das Array \lstinline|int[] a| auch den Wert \lstinline|int x| enthält, gleichzeitig kann auch der Indes ermittelt werden. \lstinline|int getIndex(int[] b, int x)|
+  \item Bei einem sortierten Array ist der Nachfolger von \lstinline|int x| an der Position \lstinline|int b[i + 1]|, deswegen wird getestet ob \lstinline|int i + 1| existiert sonst wird das Feld \lstinline|int b[i]| zurück gegeben.
+\end{itemize}
+\newpage
+Code:\\
+sieht durch die Kommentare mehr aus, als es ist !
+
+\lstinputlisting[language=Java, linerange={6-82}]{\srcDir Klausur260813.java}
+
+\newpage
+ohne Kommentare:
+
+\lstinputlisting[language=Java, linerange={10-20, 27-29, 31-36, 44-45, 47-50, 57-62, 71-71, 73-77, 79-82}]{\srcDir Klausur260813.java}
+
+\end{document}

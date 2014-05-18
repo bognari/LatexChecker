@@ -1,0 +1,154 @@
+{
+    "CORE": {
+        "LATEXWHITELIST": [
+            "lstinline"]
+    },
+    "MODULES": {
+        "#Words": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "WordList": ["aber", "also", "du", "ich", "man", "todo", "tun", "Bild"],
+            "CaseSensitive": false
+        },
+        "#WordsRepetition": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListStartWith": "(?<Word>\\b(?!",
+            "WordList": ["das", "die", "der", "the", "of", "dem", "des"],
+            "ListEndWith": ")[a-z]{3,}+\\b)((.*?)(\\b\\k<Word>\\b)){3,}",
+            "UseEscaping": false,
+            "CaseSensitive": false
+        },
+        "#Phrases": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "WordList": ["In diesem Kapitel", "In diesem Abschnitt"],
+            "CaseSensitive": false
+        },
+        "#SentenceStarts": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "WordList": ["Dass", "Aber", "Desto", "Da", "Weshalb", "Darum"],
+            "OnlyAtStart": true,
+            "Msg": "find: \"%1$s\""
+        },
+        "#Numbers": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListStartWith": "(?<!\\d)([\\d]{1,1}|10|11|12)(?!(\\d|\\.))",
+            "UseEscaping": false
+        },
+        "#Desto": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListStartWith": "((?!je).)*(desto).*",
+            "OnlyAtStart": true,
+            "UseEscaping": false,
+            "CaseSensitive": false
+        },
+        "#Dass": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListStartWith": "(?<!, )dass\\b",
+            "UseEscaping": false,
+            "CaseSensitive": false
+        },
+        "HeadlineCheck": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListEndWith": "(:\\s*)$",
+            "UseEscaping": false,
+            "Source": "headline"
+        },
+        "CaptionCheck": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListEndWith": "(:\\s*)$",
+            "UseEscaping": false,
+            "Source": "command",
+            "SourceList": [
+                "caption"
+            ]
+        },
+        "ParagraphCheck": {
+            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "ListEndWith": "([\\.: ]\\s*)$",
+            "UseEscaping": false,
+            "Source": "headline",
+            "HeadlineFrom": "60"
+        },
+        "#BadSentenceLength": {
+            "Class": "de.tubs.latexTool.modules.TextLength",
+            "MinChars": 3,
+            "MaxChars": 240,
+            "MinWords": 3,
+            "MaxWords": 80
+        },
+        "HeadlineLength": {
+            "Class": "de.tubs.latexTool.modules.TextLength",
+            "Source": "headline",
+            "MinWords": 1,
+            "MaxWords": 5
+        },
+        "CaptionLength": {
+            "Class": "de.tubs.latexTool.modules.TextLength",
+            "Source": "command",
+            "SourceList": [
+                "caption"
+            ],
+            "MinWords": 5
+        },
+        "SpellingText": {
+            "Class": "de.tubs.latexTool.modules.Spelling"
+        },
+        "SpellingCommand": {
+            "Class": "de.tubs.latexTool.modules.Spelling",
+            "Source": "command",
+            "SourceList": [
+                "caption"
+            ]
+        },
+        "SpellingEnvironment": {
+            "Class": "de.tubs.latexTool.modules.Spelling",
+            "Source": "environment",
+            "SourceList": [
+                "tabular"
+            ]
+        },
+        "SpellingBullet": {
+            "Class": "de.tubs.latexTool.modules.Spelling",
+            "Source": "bullet",
+            "SourceList": [
+                "itemize", "enumerate", "description"
+            ]
+        },
+        "#BadLatex": {
+            "Class": "de.tubs.latexTool.modules.BadLatex",
+            "Commands": ["textbf", "underline"  ],
+            "Environments": []
+        },
+        "#BadParagraphLength": {
+            "Class": "de.tubs.latexTool.modules.ParagraphLength",
+            "MinSentences": 4,
+            "MaxSentences": 80
+        },
+        "#Labelcheck": {
+            "Class": "de.tubs.latexTool.modules.LabelCheck",
+            "EnvironmentList": ["figure", "tabular"]
+        },
+        "#HeadlineRegEx": {
+            "Class": "de.tubs.latexTool.modules.HeadlineRegEx",
+            "EnvironmentList": ["figure", "tabular"],
+            "MaxWords": 5,
+            "MinWords": 1,
+            "MaxWordsCaption": 10,
+            "MinWordsCaption": 1
+        },
+        "ItemCheck": {
+            "Class": "de.tubs.latexTool.modules.ItemCheck",
+            "MaxSentences": 80,
+            "MinItems": 3,
+            "MaxItems": 20,
+            "SourceList": [
+                "itemize", "enumerate", "description"
+            ]
+        },
+        "ChapterCheck": {
+            "Class": "de.tubs.latexTool.modules.ChapterCheck",
+            "MinSubChapters": 2,
+            "MaxSubChapters": 8,
+            "MaxChapterDepth": 6
+        }
+    }
+}

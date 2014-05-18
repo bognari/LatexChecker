@@ -1,0 +1,5 @@
+Gson           | Apache License 2.0                    | http://code.google.com/p/google-gson
+LanguageTool   | GNU Lesser General Public License 2.1 | https://languagetool.org
+JCommander     | Apache License 2.0                    | http://jcommander.org
+JUnit          | Eclipse Public License 1.0            | http://junit.org
+JarClassLoader | GNU General Public License 3          | http://www.jdotsoft.com/JarClassLoader.php

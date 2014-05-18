@@ -1,0 +1,99 @@
+{
+    "ABB": {
+        "de": [
+            "u.v.a.(m.)", "U.A.w.g.", "z.w.V.", "z.d.A.", "v.g.u.", "v.R.w.", "v.A.w.", "u.ü.V.", "u.d.T.", "u.d.M.", "u.D.Ltg.", "m.b.H.", "m.a.W.", "i.w.S.", "i.e.S.", "i.d.R.", "i. d. R.", "a.a.O.", "Prof.Dr.med.", "Prof. Dr.med.", "Prof. Dr. med.", "ö.L.", "ö.A.", "z.Z(t).", "z.Wv.", "z.T.", "z.S.", "z.K.", "z.H(d).", "z.B.", "z.A.", "z. T.", "z. B.", "w.o.", "w.L.", "v.u.", "v.o.", "v.a.", "v.T.", "v.M.", "v.J.", "v.H.", "v.Chr.", "v. a.", "v. Chr.", "u.ä.", "u.zw.", "u.f.", "u.dgl.", "u.a.", "u.W.", "u.U.", "u.E.", "u. a.", "s.u.", "s.o.", "s.d.", "s.a.", "s.Z.", "s.Br.", "s. u.", "s. o.", "s. d.", "röm.-kath.", "ren.bed.", "p.p.", "p.A.", "o.ä.", "o.Ä.", "o.g.", "o.Prof.", "o.J.", "o.B.", "o. ä.", "o. Ä.", "o. g.", "n.V.", "n.M.", "n.J.", "n.Chr.", "n.Br.", "n. Chr.", "m.W.", "m.E.", "k.J.", "i.g.", "i.b.", "i.allg.", "i.W.", "i.V.", "i.S.", "i.L.", "i.J.", "i.G.", "i.D.", "i.B.", "i.A.", "i. allg.", "i. Allg.", "e.V.", "d.i.", "d.h.", "d.Verf.", "d.U.", "d.O.", "d.M.", "d.J.", "d.Gr.", "d.A.", "d. h.", "b.w.", "a.M.", "a.D.", "Zw.-Whgn.", "Zw.-Whg.", "Ztr.-Hzg.", "Wg.Whg.", "Verbr.Pr.", "Prof.Dr.", "Prof. Dr.", "Priv.-Doz.", "P.P.", "Nb.-Whgn.", "Nb.-Whg.", "N.T.", "Mehrw.St.", "Mais.-Whgn.", "Mais.-Whg.", "M.sc.", "M.A.", "M. A.", "Kl.-Whgn.", "Kl.-Whg.", "Gart.ant.", "Eigt.-Whgn.", "Eigt.-Whg.", "Eigent.-Whgn.", "Eigent.-Whg.", "Dr.med.", "Dr. med.", "Dipl.med.", "Dipl.-Kfm.", "Dipl.-Ing.", "Dipl. med.", "Best.-Nr.", "B.sc.", "A.D.", "übl.", "östl.", "öff.", "zzt.", "zzgl.", "zz.", "zw.", "zus.", "zuf.", "zgl.", "zfr.", "z.", "wg.", "westl.", "vorm.", "vorl.", "vollst.", "vgl.", "verst.", "versch.", "verl.", "verh.", "var.", "v.", "usw.", "usf.", "urspr.", "unverk.", "univ.", "ult.", "u.", "tägl.", "südnl.", "südl.", "stud.", "stellv.", "stdl.", "spätmnl.", "spez.", "soz.", "sog.", "sen.", "selbst.", "san.", "s.", "röm.", "rm.", "rest.", "resp.", "ren.", "rd.", "r.", "prom.", "pop.", "pol.", "pl.", "pat.", "orth.", "organ.", "offiz.", "od.", "obh.", "o.", "nördl.", "näml.", "nl.", "nhd.", "naturw.", "nat.", "nachm.", "möbl.", "mnl.", "mind.", "mhd.", "mfrz.", "mehrf.", "ma.", "luth.", "ltd.", "lt.", "lfd.", "led.", "lat.", "konv.", "konst.", "komb.", "kath.", "kart.", "jew.", "inzw.", "insg.", "insb.", "inkl.", "inh.", "inbegr.", "id.", "i.", "höfl.", "hrsg.", "hl.", "herg.", "hd.", "haupts.", "habil.", "gzj.", "griech.", "grds.", "gr.", "ggf.", "ggez.", "gez.", "gew.", "gestr.", "gest.", "geschl.", "gesch.", "ges.", "gem.", "gek.", "gegr.", "gefl.", "geb.", "gar.", "frühnhd.", "frz.", "frl.", "freist.", "frdl.", "fr.", "fortl.", "fig.", "ff.", "f.", "exkl.", "evtl.", "ev.", "erstkl.", "erg.", "entw.", "entspr.", "engl.", "einschl.", "eig.", "ehem.", "ebda.", "ebd.", "dz.", "dt.", "dt(sch).", "dgl.", "dergl.", "cent.", "cand.", "c.", "bzw.", "bzgl.", "bspw.", "bibl.", "bezugsf.", "bez.", "betr.", "bes.", "b.", "ausschl.", "amtl.", "allg.", "ahd.", "afrz.", "abzgl.", "Zub.", "Ztschr.", "Ztrhzg.", "Ztg.", "Ziff.", "Ziegelbauw.", "Zi.", "Z.", "Wz.", "Wwr.", "Wwe.", "Wkst.", "Whgn.", "Whg.", "Wdh.", "Vors.", "Vollm.", "Verm.", "Verl.", "Verf.", "Univ.", "U/min.", "Tsd.", "Teilz.", "Teilh.", "Südd.", "Str.", "StAng.", "St.", "Sout.", "Ser.", "Sept.", "Sek.", "S.", "Rel.", "Reg.", "Red.", "RHh.", "Prov.", "Prof.", "Postf.", "Pos.", "Pl.", "Pkt.", "Pf.", "Part.", "Pak.", "Orig.", "Okt.", "Nr.", "Nov.", "Nordd.", "Nfl.", "Nachtr.", "Nachf.", "Nachdr.", "NB-Whg.", "N cont.", "MwSt.", "Ms.", "Mrd.", "Mio.", "Meth.", "Md.", "Ltg.", "Ln.", "Lkw.", "Lfg.", "Lekt.", "Kto.", "Konf.", "Kl.", "Kfz.", "Kfm.", "Kat.", "Kap.", "Kal.", "Jh.", "Jg.", "Jb.", "Jan.", "Jahrh.", "Int.", "Ing.", "Hrsg.", "Hr.", "Hpst.", "Hln.", "Hl.", "Hj.", "Hdt.", "Hdb.", "Hbg.", "Hbf.", "H.", "Grdst.", "Grd.", "Geschw.", "Ges.", "Gepr.", "Gen.", "Gem.", "Gebr.", "Geb.", "Gal.", "Frhr.", "Fr.", "Forts.", "Fig.", "Febr.", "Fam.", "Fak.", "Fa.", "Expl.", "Einw.", "Dtzt.", "Dtschld.", "Dr.", "Dpf.", "Doz.", "Dipl.", "Dez.", "Bsp.", "Blk.", "Bj.", "Bio.", "Bez.", "Bde.", "Bd.", "Ausf.", "Aufl.", "Anm.", "Angest.", "Anf.", "Allg.", "Adr.", "Abs.", "Abl.", "Abk.", "Abb.", "AB-Whg.", "-theo.", "-phil.", "-med.", "-jur."
+        ],
+        "en": [
+            "U.S.S.R.", "U.S.A.F.", "E.E.T.S.", "S.T.S.", "R.A.F.", "O.E.D.", "N.S.W.", "N.E.D.", "E.D.D.", "vbl.n.", "s.w.", "s.v.", "s.e.", "q.v.", "n.w.", "n.e.", "U.S.", "U.K.", "S.W.", "S.E.", "R.N.", "R.C.", "O.T.", "N.Z.", "N.Y.", "N.W.", "N.T.", "N.S.", "N.E.", "D.C.", "B.C.", "A.V.", "A.D.", "wk.", "west.", "wd.", "w.", "vulg.", "viz.", "vbs.", "vbl.", "vb.", "vars.", "varr.", "var.", "v.", "usu.", "unstr.", "unkn.", "ult.", "transl.", "transf.", "trans.", "tr.", "techn.", "t.", "syll.", "superl.", "suff.", "subst.", "subseq.", "subord.", "subjunct.", "subj.", "str.", "spec.", "sp.", "south.", "sing.", "sc.", "s.", "rhet.", "repr.", "rel.", "reg.", "refl.", "refash.", "redupl.", "quots.", "quot.", "pseudo-dial.", "pseudo-arch.", "pseudo-Sc.", "prov.", "propr.", "prop.", "pronunc.", "pron.", "prob.", "priv.", "pres.", "prep.", "pref.", "predic.", "pred.", "prec.", "pr.", "pples.", "pple.", "ppl.", "poss.", "pop.", "poet.", "plur.", "pl.", "phr.", "phonet.", "pf.", "personif.", "pers.", "perh.", "perf.", "pass.", "pa.", "p.", "orig.", "opp.", "occas.", "obs.", "obl.", "obj.", "ns.", "north.", "nonce-wd.", "nom.", "n.", "mod.", "mispr.", "midl.", "metr.", "metaphor.", "med.", "masc.", "m.", "ll.", "lit.", "l.", "joc.", "irreg.", "iron.", "intrans.", "intr.", "interrog.", "interj.", "int.", "instr.", "infl.", "infin.", "indir.", "indic.", "indef.", "ind.", "improp.", "impf.", "impers.", "imperf.", "imp.", "imit.", "hist.", "gr.", "gerund.", "gen.", "fut.", "freq.", "fl.", "fig.", "fem.", "famil.", "fam.", "f.", "exc.", "euphem.", "etymol.", "etym.", "esp.", "erron.", "emph.", "ellipt.", "ed.", "east.", "e.", "dyslog.", "doc.", "dim.", "dial.", "derog.", "deriv.", "dem.", "def.", "dat.", "cpd.", "corresp.", "contr.", "contempt.", "const.", "cons.", "conj.", "concr.", "conc.", "compl.", "compar.", "comp.", "comm.", "comb.", "colloq.", "collect.", "cogn.", "cl.", "cf.", "cent.", "c.", "betw.", "bef.", "attrib.", "art.", "arch.", "appos.", "app.", "aphet.", "alt.", "agst.", "advs.", "advb.", "adv.", "adjs.", "adj.", "ad.", "accus.", "acc.", "abstr.", "absol.", "abl.", "abbrev.", "a.", "Zool.", "Zoogeogr.", "Zeph.", "Zeitschr.", "Zech.", "Yrs.", "Yr.", "Yorksh.", "Yorks.", "Yng.", "Yearbk.", "Writ.", "Worcs.", "Worcestersh.", "Worc.", "Wonderf.", "Wks.", "Wkly.", "Wk.", "Wisd.", "Wis.", "Wiltsh.", "Wilts.", "Will.", "Westmrld.", "Westmorld.", "Westmld.", "Westm.", "Wd.", "Warwicksh.", "W.", "Vulg.", "Voy.", "Vols.", "Vol.", "Vocab.", "Voc.", "Virol.", "Virg.", "Vindic.", "Vind.", "Vict.", "Vic.", "Vet.", "Vertebr.", "Venet.", "Veg.", "Valedict.", "Vac.", "Va.", "Utilit.", "Urin.", "Unoffic.", "Unnat.", "Univ.", "Typogr.", "Typog.", "Troubl.", "Troub.", "Trop.", "Trigonom.", "Trig.", "Trib.", "Treatm.", "Treat.", "Treas.", "Trav.", "Transubstant.", "Transl.", "Trans.", "Trag.", "Trad.", "Topogr.", "Tit.", "Tim.", "Thess.", "Thes.", "Thermonucl.", "Theoret.", "Theol.", "Theatr.", "Theat.", "Textbk.", "Test.", "Terrestr.", "Terminol.", "Teratol.", "Teleph.", "Telegr.", "Telecomm.", "Tel.", "Technol.", "Techn.", "Taxon.", "Syst.", "Symp.", "Symmetr.", "Sus.", "Surv.", "Surg.", "Suppress.", "Supplic.", "Suppl.", "Suff.", "Subscript.", "Subscr.", "Subj.", "Stud.", "Struct.", "Stratigr.", "Statist.", "Stat.", "Stand.", "Staffs.", "Staffordsh.", "Stafford.", "Staff.", "St.", "Spectrosc.", "Specim.", "Specif.", "Spec.", "Span.", "Sonn.", "Som.", "Sociol.", "Soc.", "Shropsh.", "Shetl.", "Sheph.", "Shaks.", "Shakes.", "Sev.", "Settlem.", "Sess.", "Serm.", "Ser.", "Sept.", "Select.", "Sel.", "Seismol.", "Sculpt.", "Script.", "Scotl.", "Scot.", "Sci.", "Sch.", "Scand.", "Sc.", "Sax.", "Sat.", "Sask.", "Sam.", "SS.", "S.", "Russ.", "Rudim.", "Roy.", "Roxb.", "Ross-sh.", "Rom.", "Rich.", "Rhet.", "Revol.", "Rev.", "Retrosp.", "Ret.", "Resid.", "Res.", "Repub.", "Rept.", "Reprod.", "Rep.", "Renfrewsh.", "Remonstr.", "Reminisc.", "Relig.", "Rel.", "Regr.", "Regist.", "Regic.", "Reg.", "Refut.", "Refus.", "Refl.", "Ref.", "Redempt.", "Recoll.", "Reclam.", "Rec.", "Rebell.", "Reb.", "Reas.", "Radiol.", "R.", "Qld.", "Q.", "Purg.", "Publ.", "Pt.", "Psychopathol.", "Psychol.", "Psychoanalyt.", "Psychoanal.", "Psych.", "Ps.", "Provis.", "Provinc.", "Provid.", "Prov.", "Pros.", "Prop.", "Pronunc.", "Prol.", "Prod.", "Proc.", "Probl.", "Probab.", "Print.", "Princ.", "Prim.", "Preserv.", "Presb.", "Pres.", "Prerog.", "Prehist.", "Preh.", "Pref.", "Predict.", "Pract.", "Pott.", "Postm.", "Posth.", "Port.", "Porc.", "Pop.", "Polytechn.", "Polit.", "Pol.", "Poet.", "Pict.", "Physiol.", "Physiogr.", "Phys.", "Phrenol.", "Photogr.", "Photog.", "Phonol.", "Phoen.", "Philos.", "Philol.", "Philipp.", "Philem.", "Philad.", "Phil.", "Pharmacol.", "Pharmaceut.", "Pharm.", "Petrol.", "Petrogr.", "Pet.", "Perthsh.", "Persec.", "Pers.", "Periodontol.", "Perf.", "Penins.", "Peculat.", "Pathol.", "Path.", "Parnass.", "Parl.", "Parasitol.", "Paraphr.", "Palaeontol.", "Palaeont.", "Palaeogr.", "Palaeobot.", "Pa.", "P.", "Oxon.", "Oxfordsh.", "Oxf.", "Outl.", "Orthogr.", "Ornithol.", "Ornith.", "Orkn.", "Orig.", "Organ.", "Org.", "Ord.", "Orac.", "Opt.", "Oppress.", "Ophthalmol.", "Ophthalm.", "Ont.", "Okla.", "Offic.", "Off.", "Oct.", "Oceanogr.", "Occurr.", "Occup.", "Occas.", "Obstetr.", "Obstet.", "Observ.", "Obs.", "Obj.", "Obed.", "Obad.", "Numism.", "Num.", "Nucl.", "Nov.", "Notts.", "Norweg.", "Norw.", "Northumbr.", "Northumbld.", "Northumb.", "Northants.", "Northamptonsh.", "Norf.", "Nonconf.", "Non-conf.", "No.", "Newspr.", "Newc.", "Neurosurg.", "Neurol.", "Nerv.", "Neighb.", "Neh.", "Navig.", "Nav.", "Naut.", "Nat.", "Narrat.", "Narr.", "Nah.", "N.", "Mythol.", "Myth.", "Myst.", "Mus.", "Munim.", "Munif.", "Munic.", "Mts.", "Mtg.", "Mt.", "Morphol.", "Monum.", "Mod.", "Miscell.", "Misc.", "Mineral.", "Min.", "Milit.", "Mil.", "Microsc.", "Microbiol.", "Mich.", "Mic.", "Mex.", "Metrop.", "Meth.", "Meteorol.", "Metaph.", "Metamorph.", "Metallogr.", "Metallif.", "Metall.", "Merch.", "Merc.", "Mem.", "Medit.", "Med.", "Mech.", "Measurem.", "Meas.", "Matt.", "Math.", "Mass.", "Mar.", "Manuf.", "Manip.", "Manch.", "Managem.", "Man.", "Mal.", "Magn.", "Mag.", "Mach.", "Macc.", "MSS.", "MS.", "Lond.", "Liturg.", "Lithol.", "Lithogr.", "Lit.", "Linn.", "Ling.", "Lincs.", "Lincolnsh.", "Limnol.", "Libr.", "Lex.", "Lev.", "Lett.", "Let.", "Leics.", "Leicestersh.", "Leicester.", "Leicest.", "Leg.", "Leechd.", "Lect.", "Lds.", "Ld.", "Lat.", "Langs.", "Lang.", "Lancs.", "Lancash.", "Lanc.", "Lament.", "Lam.", "Lab.", "Kpr.", "Knowl.", "Kingd.", "Kgs.", "Kent.", "K.", "Justific.", "Justif.", "Jurispr.", "Jurisdict.", "Jurisd.", "Jun.", "Jul.", "Judg.", "Jud.", "Jrnls.", "Jrnl.", "Josh.", "Jer.", "Jas.", "Jap.", "Jan.", "Jam.", "Jahrb.", "Ital.", "Isa.", "Irel.", "Ir.", "Invoc.", "Investm.", "Investig.", "Invertebr.", "Invert.", "Invent.", "Inv.", "Introd.", "Intro.", "Interpr.", "Internat.", "Interl.", "Interc.", "Intellect.", "Intell.", "Instr.", "Inst.", "Inq.", "Inorg.", "Innoc.", "Infl.", "Industr.", "Ind.", "Inclos.", "Inaug.", "Impr.", "Immunol.", "Imag.", "Illustr.", "Idol.", "Ideol.", "Icthyol.", "Ichth.", "Hydrol.", "Hydraul.", "Husb.", "Housek.", "Househ.", "Hosp.", "Hos.", "Hort.", "Horol.", "Hom.", "Histol.", "Hist.", "Hierogl.", "Hertfordsh.", "Herefordsh.", "Hereford.", "Heref.", "Herb.", "Her.", "Hen.", "Hebr.", "Heb.", "Hants.", "Handbk.", "Hampsh.", "Hag.", "Haematol.", "Hab.", "Gynaecol.", "Gt.", "Gramm.", "Gram.", "Gr.", "Govt.", "Gov.", "Gosp.", "Gloucestersh.", "Glouc.", "Gloss.", "Glos.", "Glasg.", "Glac.", "Ger.", "Geomorphol.", "Geom.", "Geol.", "Geogr.", "Geog.", "Geo.", "Gen.", "Gd.", "Gaz.", "Gastron.", "Gard.", "Gal.", "Furnit.", "Fund.", "Friendsh.", "Fratern.", "Fragm.", "Fr.", "Found.", "Fortn.", "Fortif.", "Forfarsh.", "Footpr.", "Fifesh.", "Ff.", "Feb.", "Farew.", "Fam.", "Fab.", "Ezek.", "Expos.", "Explor.", "Explic.", "Explan.", "Exper.", "Exped.", "Exod.", "Exhib.", "Exerc.", "Exec.", "Exch.", "Exam.", "Exalt.", "Ex.", "Evol.", "Evid.", "Even.", "Evang.", "Eval.", "Etymol.", "Ethnol.", "Esth.", "Establ.", "Essent.", "Ess.", "Esd.", "Equip.", "Epit.", "Epist.", "Episc.", "Epil.", "Ephes.", "Eph.", "Ep.", "Enzymol.", "Entomol.", "Entom.", "Enthus.", "Ent.", "Enq.", "Englishw.", "Engin.", "Eng.", "Encycl.", "Embryol.", "Emb.", "Elizab.", "Eliz.", "Elem.", "Electro-physiol.", "Electro-magn.", "Electr.", "Egyptol.", "Egypt.", "Edw.", "Educ.", "Edinb.", "Edin.", "Ed.", "Econ.", "Ecol.", "Ecclus.", "Eccles.", "Eccl.", "E.", "Durh.", "Domest.", "Doctr.", "Doc.", "Dk.", "Divers.", "Div.", "Distrib.", "Distill.", "Distemp.", "Dist.", "Diss.", "Discuss.", "Discrim.", "Discov.", "Discipl.", "Disc.", "Dis.", "Direct.", "Diffic.", "Dict.", "Dial.", "Devonsh.", "Devel.", "Deut.", "Descr.", "Derbysh.", "Dept.", "Depredat.", "Depred.", "Dep.", "Demonstr.", "Deliv.", "Def.", "Ded.", "Declar.", "Dec.", "Deb.", "Dau.", "Dan.", "Cytol.", "Cycl.", "Cumbld.", "Cumberld.", "Cumb.", "Ct.", "Crystallogr.", "Cryptogr.", "Crts.", "Crt.", "Crit.", "Crim.", "Craniom.", "Craniol.", "Courtsh.", "Counc.", "Corresp.", "Corr.", "Coron.", "Cornw.", "Cor.", "Convoc.", "Conversat.", "Convent.", "Conv.", "Controv.", "Contrib.", "Contradict.", "Contin.", "Content.", "Contend.", "Contempl.", "Contemp.", "Constr.", "Constit.", "Consol.", "Consid.", "Consecr.", "Consc.", "Conn.", "Congress.", "Congreg.", "Congr.", "Confut.", "Confl.", "Confid.", "Conf.", "Concl.", "Conch.", "Conc.", "Compos.", "Compl.", "Compend.", "Compar.", "Compan.", "Comp.", "Communic.", "Commonw.", "Commiss.", "Commerc.", "Commend.", "Commandm.", "Comm.", "Combs.", "Comb.", "Com.", "Coloss.", "Colloq.", "Collect.", "Coll.", "Col.", "Clin.", "Climatol.", "Classif.", "Class.", "Cl.", "Civ.", "Circ.", "Cinematogr.", "Chrons.", "Chronol.", "Chron.", "Chr.", "Chesh.", "Chem.", "Chas.", "Charac.", "Char.", "Chamb.", "Ch.", "Certif.", "Cert.", "Ceram.", "Cent.", "Cath.", "Catech.", "Catal.", "Cartogr.", "Capt.", "Canterb.", "Canad.", "Campanol.", "Cambr.", "Camb.", "Calligr.", "Calif.", "Calend.", "Calc.", "Cal.", "C.", "Bur.", "Bull.", "Build.", "Bucks.", "Brit.", "Braz.", "Bp.", "Bot.", "Bord.", "Bks.", "Bk.", "Biol.", "Biogr.", "Biog.", "Biochem.", "Bibliogr.", "Berwicksh.", "Berw.", "Berksh.", "Berks.", "Belg.", "Bedfordsh.", "Bedford.", "Bacteriol.", "Ayrsh.", "Autobiogr.", "Autobiog.", "Auth.", "Austral.", "Aug.", "Attrib.", "Att.", "Astronaut.", "Astron.", "Astrol.", "Astr.", "Assyriol.", "Assoc.", "Assemb.", "Ashm.", "Artill.", "Artific.", "Artic.", "Arrangem.", "Arithm.", "Arith.", "Argt.", "Archit.", "Archipel.", "Archaeol.", "Arch.", "Arb.", "Arab.", "Apr.", "Applic.", "Appl.", "App.", "Apol.", "Apoc.", "Antiq.", "Anthropol.", "Anthrop.", "Ant.", "Answ.", "Anon.", "Annot.", "Anniv.", "Ann.", "Anim.", "Anglo-Ind.", "Angl.", "Ang.", "Anecd.", "Anc.", "Anat.", "Analyt.", "Anal.", "Amer.", "Alph.", "Alm.", "Allit.", "Alleg.", "Alg.", "Alch.", "Agric.", "Afr.", "Affect.", "Aff.", "Aeronaut.", "Aerodynam.", "Advts.", "Advt.", "Advoc.", "Advert.", "Advancem.", "Adv.", "Admonit.", "Admon.", "Admir.", "Admin.", "Adm.", "Addr.", "Addit.", "Add.", "Achievem.", "Accts.", "Acct.", "Accs.", "Accompl.", "Accomm.", "Accept.", "Acc.", "Acad.", "Abstr.", "Abst.", "Absol.", "Abridgem.", "Abridg.", "Abr.", "Abp.", "Aborig.", "Abol.", "Aberdeensh.", "Aberd.", "Abd.", "Abbrev."
+        ]
+    },
+    "PARTS": {
+        "part": -10,
+        "chapter": 0,
+        "section": 10,
+        "subsection": 20,
+        "subsubsection": 30,
+        "paragraph": 40,
+        "subparagraph": 50
+    },
+    "ENVIRONMENTS": [
+        "minipage",
+        "quote",
+        "frame",
+        "center",
+        "block",
+        "exampleblock",
+        "columns",
+        "alertblock",
+        "proof",
+        "definition",
+        "lemma",
+        "theorem",
+        "bem"],
+    "MATH_ENVIRONMENTS": [
+        "displaymath"],
+    "ITEM_ENVIRONMENTS": [
+        "itemize", "description", "enumerate"],
+    "LATEXWHITELIST": {
+        "mbox": [],
+        "textbf": [],
+        "textrm": [],
+        "textit": [],
+        "textsc": [],
+        "textsf": [],
+        "texttt": [],
+        "underline": [],
+        "overline": [],
+        "cite": [-1],
+        "makebox": [-1],
+        "framebox": [-1]
+    },
+    "LATEX": {
+        "\\\\": "\n\n",
+        "&": " ",
+        "{``}": "   \"",
+        "{''}": "\"   ",
+        "\\ ": "  ",
+        "\\,": "  ",
+        "\\:": "  ",
+        "\\;": "  ",
+        "\\dots": "dots ",
+        "\\ldots": "ldots ",
+        "\\cdot": "*    ",
+        "\\cdots": "***   ",
+        "\\pm": "+- ",
+        "\\mp": "-+ ",
+        "\\times": "x     ",
+        "\\div": "/   ",
+        "\\ast": "*   ",
+        "\\star": "*    ",
+        "\\circ": "*    ",
+        "\\bulled": "*      ",
+        "\\setminus": "-        ",
+        "\\leq": "<=  ",
+        "\\geq": ">=  ",
+        "\\prec": "<    ",
+        "\\preceq": "<=     ",
+        "\\ll": "<< ",
+        "\\succ": ">    ",
+        "\\succeq": ">=     ",
+        "\\gg": ">> ",
+        "\\equiv": "=     ",
+        "\\sim": "~   ",
+        "\\approx": "~=     ",
+        "\\cong": "~=   ",
+        "\\neq": "/=  ",
+        "\\doteq": "*=    ",
+        "\\mid": "|   ",
+        "\\parallel": "||       ",
+        "\"`": " \"",
+        "\"'": "\" ",
+        "\\euro": "€    "
+    },
+    "ENVIRONMENT_BREAK_COMMENT": [
+        "verbatim", "verbatim*", "lstlisting"
+    ],
+    "COMMAND_BREAK_COMMENT": [
+        "lstinline"
+    ]
+}
