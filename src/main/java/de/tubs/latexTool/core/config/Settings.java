@@ -14,15 +14,17 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
 
 public class Settings {
   private static final Gson sGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
   private static final Logger sLog = Logger.getLogger(JsonSettings.class.getName());
-  private ArgsSettings mArgsSettings = new ArgsSettings();
-  private JCommander mJc = new JCommander(mArgsSettings);
+  private final ArgsSettings mArgsSettings = new ArgsSettings();
+  private final JCommander mJc = new JCommander(mArgsSettings);
   private JsonSettings mJsonSettings;
 
   public Settings() throws IOException {
@@ -54,8 +56,8 @@ public class Settings {
    *
    * @return
    */
-  public Map<String, List<String>> getAbbs() {
-    return mJsonSettings.getAbb();
+  public Map<String, List<String>> getAbb() {
+    return Collections.unmodifiableMap(mJsonSettings.mAbb);
   }
 
   /**
@@ -64,7 +66,7 @@ public class Settings {
    * @return
    */
   public List<String> getBadCom() {
-    return mJsonSettings.getBadCom();
+    return Collections.unmodifiableList(mJsonSettings.mBadCom);
   }
 
   /**
@@ -73,19 +75,19 @@ public class Settings {
    * @return
    */
   public List<String> getBadEnv() {
-    return mJsonSettings.getBadEnv();
+    return Collections.unmodifiableList(mJsonSettings.mBadEnv);
   }
 
   public String getCharset() {
-    return mArgsSettings.getCharset();
+    return mArgsSettings.mCharset;
   }
 
   public List<String> getConfigs() {
-    return mArgsSettings.getConfigs();
+    return mArgsSettings.mConfigs;
   }
 
   public String getDefaultConfig() {
-    return mArgsSettings.getDefaultConfig();
+    return mArgsSettings.mDefaultConfig;
   }
 
   /**
@@ -94,15 +96,15 @@ public class Settings {
    * @return
    */
   public List<String> getEnvironments() {
-    return mJsonSettings.getEnvironments();
+    return Collections.unmodifiableList(mJsonSettings.mEnvironments);
   }
 
   public List<String> getItemEnvironments() {
-    return mJsonSettings.getItemEnvironments();
+    return Collections.unmodifiableList(mJsonSettings.mItemEnvironments);
   }
 
   public String getLanguage() {
-    return mArgsSettings.getLanguage();
+    return mArgsSettings.mLanguage.toLowerCase(Locale.ENGLISH);
   }
 
   /**
@@ -110,12 +112,12 @@ public class Settings {
    *
    * @return
    */
-  public Map<String, String> getLatexTranslation() {
-    return mJsonSettings.getLatex();
+  public Map<String, String> getLatex() {
+    return Collections.unmodifiableMap(mJsonSettings.mLatex);
   }
 
   public String getLogLevel() {
-    return mArgsSettings.getLogLevel();
+    return mArgsSettings.mLogLevel;
   }
 
   /**
@@ -124,7 +126,7 @@ public class Settings {
    * @return
    */
   public List<String> getMathEnvironments() {
-    return mJsonSettings.getMathEnvironments();
+    return Collections.unmodifiableList(mJsonSettings.mMathEnvironments);
   }
 
   /**
@@ -134,7 +136,7 @@ public class Settings {
    * @return
    */
   public Map<String, JsonObject> getModules() {
-    return mJsonSettings.getModules();
+    return Collections.unmodifiableMap(mJsonSettings.mModules);
   }
 
   /**
@@ -143,16 +145,11 @@ public class Settings {
    * @return
    */
   public Map<String, Integer> getParts() {
-    return mJsonSettings.getParts();
+    return Collections.unmodifiableMap(mJsonSettings.mParts);
   }
 
-  /**
-   * Gibt den Pfad zur Latex Root Datei zurück
-   *
-   * @return
-   */
   public String getSource() {
-    return mArgsSettings.getSource();
+    return mArgsSettings.mSource;
   }
 
   /**
@@ -161,43 +158,43 @@ public class Settings {
    * @return
    */
   public Map<String, List<Integer>> getWhiteList() {
-    return mJsonSettings.getWhiteList();
+    return Collections.unmodifiableMap(mJsonSettings.mLatexWhitelist);
   }
 
   public boolean isHasNoDocumentEnv() {
-    return mArgsSettings.isHasNoDocumentEnv();
+    return mArgsSettings.mHasNoDocumentEnv;
   }
 
   public boolean isHelp() {
-    return mArgsSettings.isHelp();
+    return mArgsSettings.mHelp;
   }
 
   public boolean isLicense() {
-    return mArgsSettings.isLicense();
+    return mArgsSettings.mLicense;
   }
 
   public boolean isNewline() {
-    return mArgsSettings.isNewline();
+    return mArgsSettings.mNewline;
   }
 
   public boolean isThirdParty() {
-    return mArgsSettings.isThirdParty();
+    return mArgsSettings.mThirdParty;
   }
 
   public boolean isUseAbbreviationsEscaping() {
-    return mArgsSettings.isUseAbbreviationsEscaping();
+    return mArgsSettings.mUseAbbreviationsEscaping;
   }
 
   public boolean isVerbose() {
-    return mArgsSettings.isVerbose();
+    return mArgsSettings.mVerbose;
   }
 
   public boolean isVersion() {
-    return mArgsSettings.isVersion();
+    return mArgsSettings.mVersion;
   }
 
   /**
-   * Ändert die Settings und merget die neuen Settings in die alten.
+   * Ändert die Settings und vereint die neuen Settings in die alten.
    *
    * @param config Pfad zur Json Datei
    */

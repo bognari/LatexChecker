@@ -37,7 +37,7 @@ public class Environment implements ILatex, IPosition {
    */
   private final int mEndContent;
 
-  public Environment(Command command, String content, int end) {
+  private Environment(Command command, String content, int end) {
     mCommand = command;
     mEnd = end;
     mEndContent = command.getEnd() + content.length();
@@ -183,9 +183,7 @@ public class Environment implements ILatex, IPosition {
     if (mEnd != that.mEnd) return false;
     if (mEndContent != that.mEndContent) return false;
     if (!mContent.equals(that.mContent)) return false;
-    if (!mCommand.equals(that.mCommand)) return false;
-
-    return true;
+    return mCommand.equals(that.mCommand);
   }
 
   @Override

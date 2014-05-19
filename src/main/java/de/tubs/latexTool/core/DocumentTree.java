@@ -57,7 +57,7 @@ public class DocumentTree implements IPosition {
    * @param level    die Wertigkeit
    * @param start    Anfang des Knotens im Dokument (Start ->/section{mName})
    * @param offset   die Verschiebung (/section{mName}<- offset)
-   * @param list     Liste der noch zu zu bearbeitenen Knotenkandidaten
+   * @param list     Liste der noch zu bearbeiteten Knotenkandidaten
    * @param headline Name des Knotens
    * @param content  Inhalt des Dokuments
    */
@@ -80,19 +80,19 @@ public class DocumentTree implements IPosition {
       matchResult = list.getFirst();
       newLevel = Api.settings().getParts().get(matchResult.group(1));
 
-      // groesseres mLevel (also tochter)
+      // größeres mLevel (also tochter)
       if (level < newLevel) {
         list.pollFirst();
-        // richtige nummer einfuegen
-        String cheadline;
+        // richtige nummer einfügen
+        String cHeadline;
         if (matchResult.group(5) != null) {
-          cheadline = matchResult.group(5);
+          cHeadline = matchResult.group(5);
         } else {
-          cheadline = matchResult.group(6);
+          cHeadline = matchResult.group(6);
         }
-        mChildren.add(new DocumentTree(newLevel, matchResult.end(), offset, list, cheadline, content, threadPool));
+        mChildren.add(new DocumentTree(newLevel, matchResult.end(), offset, list, cHeadline, content, threadPool));
       } else {
-        // gleiches oder kleineres mLevel (also schwester oder tante)
+        // gleiches oder kleineres mLevel (also Schwester oder Tante)
         break;
       }
     }
@@ -151,7 +151,7 @@ public class DocumentTree implements IPosition {
         list.add(matcher.toMatchResult());
       }
 
-      // der Rootknoten hat die Wertigkeit -20, somit es darf keinen anderen Knoten geben mit einer Wertigkeit von weniger als -19 !
+      // der Root Knoten hat die Wertigkeit -20, somit es darf keinen anderen Knoten geben mit einer Wertigkeit von weniger als -19 !
       root = new DocumentTree(-20, 0, offset, list, "root", content, threadPool);
 
       threadPool.shutdown();
@@ -209,7 +209,7 @@ public class DocumentTree implements IPosition {
   }
 
   /**
-   * Gibt den Namen des Knotents zurück
+   * Gibt den Namen des Knotens zurück
    *
    * @return
    */
@@ -278,7 +278,7 @@ public class DocumentTree implements IPosition {
       assert length == content.length();
 
       if (Api.settings().isUseAbbreviationsEscaping()) {
-        content = Abbreviation.maskingAbb(content);
+        content = Abbreviation.masking(content);
         assert length == content.length();
       }
 
@@ -303,7 +303,7 @@ public class DocumentTree implements IPosition {
           sentence = sentence.trim();
           index = content.indexOf(sentence, start);
           if (Api.settings().isUseAbbreviationsEscaping()) {
-            textEntry = new Text(Abbreviation.unMaskingAbb(sentence), paragraph, index, mStart);
+            textEntry = new Text(Abbreviation.unmasking(sentence), paragraph, index, mStart);
           } else {
             textEntry = new Text(sentence, paragraph, index, mStart);
           }

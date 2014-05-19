@@ -6,7 +6,7 @@ import com.beust.jcommander.ParameterException;
 import java.util.logging.Level;
 
 /**
- * Created by stephan on 06.04.14.
+ * Validiert den Log Level für JCommander
  */
 public class LogLevelValidator implements IParameterValidator {
   /**

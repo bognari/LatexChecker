@@ -68,7 +68,7 @@ public class HeadlineRegEx extends Module {
         String Caption = matcher.group(1);
 
         if (Caption.matches("^.*?:\\s*$")) {
-          mLog.info(new Result(mName, env.getPosition(), String.format("Grafic/Table caption ends with colon")).toString());
+          mLog.info(new Result(mName, env.getPosition(), String.format("Graphic/Table caption ends with colon")).toString());
         }
         CaptionLength(Caption, env);
       }

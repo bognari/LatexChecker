@@ -4,13 +4,19 @@ import java.util.Comparator;
 import java.util.regex.Pattern;
 
 /**
- * Created by stephan on 27.04.14.
+ * Diese Klasse ist zum Vergleichen zweier Objekte bezüglich der Anzahl ihrer "Delimiter" in ihrer String
+ * Repräsentation.
  */
-public class DotsComparatorPattern implements Comparator<Pattern> {
+class DotsComparator<T> implements Comparator<T> {
 
   private final String mDelimiter;
 
-  public DotsComparatorPattern(char delimiter) {
+  /**
+   * Erstellt den Comparator
+   *
+   * @param delimiter das Trennzeichen
+   */
+  public DotsComparator(char delimiter) {
     mDelimiter = String.valueOf(delimiter);
   }
 
@@ -45,8 +51,8 @@ public class DotsComparatorPattern implements Comparator<Pattern> {
    * this fact.  The recommended language is "Note: this comparator
    * imposes orderings that are inconsistent with equals."
    *
-   * @param p1 the first object to be compared.
-   * @param p2 the second object to be compared.
+   * @param t1 the first object to be compared.
+   * @param t2 the second object to be compared.
    * @return a negative integer, zero, or a positive integer as the
    * first argument is less than, equal to, or greater than the
    * second.
@@ -56,14 +62,13 @@ public class DotsComparatorPattern implements Comparator<Pattern> {
    *                              being compared by this comparator.
    */
   @Override
-  public int compare(Pattern p1, Pattern p2) {
-    String o1 = p1.pattern();
-    String o2 = p2.pattern();
-
-    int dots1 = o1.length() - o1.replaceAll(Pattern.quote(mDelimiter), "").length();
-    int dots2 = o2.length() - o2.replaceAll(Pattern.quote(mDelimiter), "").length();
+  public int compare(T t1, T t2) {
+    String s1 = t1.toString();
+    String s2 = t2.toString();
+    int dots1 = s1.length() - s1.replaceAll(Pattern.quote(mDelimiter), "").length();
+    int dots2 = s2.length() - s2.replaceAll(Pattern.quote(mDelimiter), "").length();
     if (dots1 == dots2) {
-      return o1.compareTo(o2);
+      return s1.compareTo(s2);
     }
     return dots2 - dots1;
   }

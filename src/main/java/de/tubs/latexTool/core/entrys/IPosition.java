@@ -1,7 +1,7 @@
 package de.tubs.latexTool.core.entrys;
 
 /**
- * Created by stephan on 12.05.14.
+ * Ein Interface für die Start- und Endpositionen
  */
 public interface IPosition {
   public int getEnd();

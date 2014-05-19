@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Diese Klasse stellt einen Latexbefehl dar
+ * Diese Klasse stellt einen Latex Befehl dar
  */
 public class Command implements ILatex, IPosition {
   private static final Pattern sPOpen = Pattern.compile("^(\\s*(?<Args>(?<!\\\\)\\{)|(?<Opt>\\[)|(?<Plain>\\||!))");
@@ -37,7 +37,7 @@ public class Command implements ILatex, IPosition {
    * @param start die Position als Abstand in Zeichen vom Dokumenten Anfang
    * @param args  die Argumente / Optionen
    */
-  public Command(final String name, final int start, final int length, final List<String> args) {
+  private Command(final String name, final int start, final int length, final List<String> args) {
     mName = name.trim();
     mStart = start;
     mLength = length;
@@ -65,7 +65,7 @@ public class Command implements ILatex, IPosition {
 
 
   /**
-   * Ist eine Stackmaschine, um Latexbefehle richtig zu lesen (mit Argumente usw)
+   * Ist eine Stackmaschine, um Latex Befehle richtig zu lesen (mit Argumente usw)
    * <p/>
    * Achtung: Ausdrücke bei denen die Klammern um das Argument weggelassen werden kann, werden nicht erkannt!
    *
@@ -105,7 +105,7 @@ public class Command implements ILatex, IPosition {
             break;
           case "[":
             assert open.group().equals("[");
-            // ab hier brauchen wir eine stackmaschine
+            // ab hier brauchen wir eine Stackmaschine
             end += readStack(command, open.end(), "[", "]", content, args);
             break;
           default:  // kann nur der \\s*{ fall sein
@@ -122,10 +122,10 @@ public class Command implements ILatex, IPosition {
    *
    * @param command  der Name des Befehls
    * @param start    die Startposition der Anfangs Klammer
-   * @param oBracket öffnene Klammer
+   * @param oBracket öffnende Klammer
    * @param cBracket schließende Klammer
    * @param content  der ganze Inhalt
-   * @param args     die Liste der Argumente, hier wird das Agrument hinzugefügt
+   * @param args     die Liste der Argumente, hier wird das Argument hinzugefügt
    * @return gibt die neue Position an, ab der auf weitere Args getestet werden kann.
    * @throws LatexException falls eine Klammer fehlt
    */
@@ -162,10 +162,10 @@ public class Command implements ILatex, IPosition {
   /**
    * Gibt die Args als String Liste zurück
    *
-   * @param delimer
+   * @param delimiter
    * @return
    */
-  public String getArgsString(char delimer) {
+  public String getArgsString(char delimiter) {
     StringBuilder stringBuilder = new StringBuilder();
 
     Iterator<String> iterator = mArgs.iterator();
@@ -175,7 +175,7 @@ public class Command implements ILatex, IPosition {
     }
 
     while (iterator.hasNext()) {
-      stringBuilder.append(delimer);
+      stringBuilder.append(delimiter);
       stringBuilder.append(iterator.next());
     }
 

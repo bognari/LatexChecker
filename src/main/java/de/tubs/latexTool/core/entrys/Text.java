@@ -109,12 +109,12 @@ public class Text implements IPosition {
     return mText;
   }
 
-  public int getEnd() {
-    return mOffset + mStart + mText.length();
-  }
-
   public boolean isSentence() {
     return !mText.isEmpty() && mText.split(" ").length > 2;
+  }
+
+  public int getEnd() {
+    return mOffset + mStart + mText.length();
   }
 
 

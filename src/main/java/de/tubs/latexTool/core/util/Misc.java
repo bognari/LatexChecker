@@ -23,11 +23,11 @@ import java.util.regex.Pattern;
 public class Misc {
 
   /**
-   * Pattern zum Suchen von Mathmode
+   * Pattern zum Suchen von Math Mode
    */
   public static final Pattern sMathMode = Pattern.compile("(?<!\\\\)\\$(?<Content>.*?)(?<!\\\\)\\$", Pattern.DOTALL);
   /**
-   * Pattern für Befehle, die nur ein Argument besitzen, keine verschachtelung erlaubt
+   * Pattern für Befehle, die nur ein Argument besitzen, keine Verschachtelung erlaubt
    */
   //private static final String sCommand = "\\\\(?<Command>%s)(\\{(.*?)(?<!\\\\)\\}|\\|(.*?)\\||!(.*?)!)";
   private static final String sCommand = "(?<!\\\\)\\\\(?<Command>%s)";
@@ -36,7 +36,7 @@ public class Misc {
    */
   private static final Pattern sEnvironment = Pattern.compile("(?<!\\\\)\\\\(?<Begin>begin)\\s*\\{(?<Environment>.*?)\\}");
   /**
-   * Pattern zum Suchen von Latexbefehlen
+   * Pattern zum Suchen von Latex Befehlen
    */
   private static final Pattern sLatex = Pattern.compile("(?<!\\\\)\\\\(?<Command>(\\b([^\\s\\\\\\{\\[\\|!])+\\b)|(\\\\))", Pattern.DOTALL);
   private static final Logger sLog = Logger.getLogger(Misc.class.getName());
@@ -117,7 +117,7 @@ public class Misc {
     boolean changed = false;
 
     // dies funktioniert nur, da zuerst alle ergebnisse vor dem ändern geholt werden
-    // somit werden verschachtelungen (auchb wenn diese falsch erkannt werden) trotzdem richtig ausgewertet
+    // somit werden Verschachtelungen (auch wenn diese falsch erkannt werden) trotzdem richtig ausgewertet
     Matcher matcher = sEnvironment.matcher(input);
 
     Environment environment;
@@ -125,42 +125,42 @@ public class Misc {
     while (matcher.find()) {
       try {
         environment = Environment.getEnvironment(Command.getCommand(matcher.group(1), matcher.start(), input), input);
-        // ist eine math umgebung
+        // ist eine Math Umgebung
         if (mathWhiteList.contains(environment.getName())) {
-          // damit auch alle optionen von \begin{bla}[]{}{}{}{}{}{}{} mit genommen werden
-          // loesche den anfang und schreibe ein $
+          // damit auch alle Optionen von \begin{bla}[]{}{}{}{}{}{}{} mit genommen werden
+          // lösche den Anfang und schreibe ein $
           stringBuilder.setCharAt(environment.getStart(), '$');
           for (int i = environment.getStart() + 1; i < environment.getContentStart(); i++) {
             stringBuilder.setCharAt(i, ' ');
           }
-          // wenn ein satzende in der math umgebung steht, muss dies nach dem $ kommen
+          // wenn ein Satzende in der Math Umgebung steht, muss dies nach dem $ kommen
           Matcher m = sSentenceEnd.matcher(environment.getContent());
           if (m.find()) {
             stringBuilder.setCharAt(environment.getContentStart() + m.start(1), '$');
             stringBuilder.setCharAt(environment.getContentStart() + m.end(1), m.group(1).charAt(0));
-            // löscht das ende
+            // löscht das Ende
             for (int i = environment.getContentStart() + m.end(1) + 1; i <= environment.getEnd(); i++) {
               stringBuilder.setCharAt(i, ' ');
             }
           } else {
             stringBuilder.setCharAt(environment.getContentEnd() + 1, '$');
-            // löscht das ende
+            // löscht das Ende
             for (int i = environment.getContentEnd() + 2; i <= environment.getEnd(); i++) {
               stringBuilder.setCharAt(i, ' ');
             }
           }
           // ist eine normale umgebung
         } else if (whiteList.contains(environment.getName()) || envs.contains(environment.getName())) {
-          // damit auch alle optionen von \begin{bla}[]{}{}{}{}{}{}{} mit genommen werden
-          // loesche den anfang
+          // damit auch alle Optionen von \begin{bla}[]{}{}{}{}{}{}{} mit genommen werden
+          // lösche den anfang
           for (int i = environment.getStart(); i < environment.getContentStart(); i++) {
             stringBuilder.setCharAt(i, ' ');
           }
-          // loesche das ende
+          // lösche das Ende
           for (int i = environment.getContentEnd() + 1; i <= environment.getEnd(); i++) {
             stringBuilder.setCharAt(i, ' ');
           }
-          // ist keine gewollte umgebung also loesche anfang, ende und content
+          // ist keine gewollte Umgebung also lösche Anfang, Ende und Content
         } else {
           for (int i = environment.getStart(); i <= environment.getEnd(); i++) {
             stringBuilder.setCharAt(i, ' ');
@@ -190,8 +190,8 @@ public class Misc {
     boolean changed = false;
 
     if (trans) {
-      // umwandeln von latex in andere zeichen
-      Map<String, String> translate = Api.settings().getLatexTranslation();
+      // umwandeln von Latex in andere Zeichen
+      Map<String, String> translate = Api.settings().getLatex();
       for (String latex : translate.keySet()) {
         if (latex.length() == translate.get(latex).length()) {
           input = input.replaceAll(String.format("(?<!\\\\)%s", Pattern.quote(latex)), Matcher.quoteReplacement(translate.get(latex)));
@@ -209,7 +209,7 @@ public class Misc {
     Pattern pattern = Pattern.compile(String.format(sCommand, commands), Pattern.DOTALL);
     Matcher matcher = pattern.matcher(input);
 
-    // erstellen des ersatzstrings, der an die passende stelle mit leerzeichen davor eingesetzt wird
+    // erstellen des Ersatz Strings, der an die passende Stelle mit Leerzeichen davor eingesetzt wird
 
     while (matcher.find()) {
       try {
@@ -248,7 +248,7 @@ public class Misc {
             }
           }
         }
-        // da das letzte leerzeichen immer gammel ist einfach löschen
+        // da das letzte Leerzeichen immer Gammel ist einfach löschen
         insert = new StringBuilder(insert.toString().trim());
 
         insert = insert.reverse();
@@ -259,10 +259,10 @@ public class Misc {
 
         stringBuilder.replace(command.getStart(), command.getEnd() + 1, insert.toString());
         changed = true;
-        if (command.getLength() != insert.length()) {
-          // ?! warum auch immer es um eins groesser sein muss raff ich grad null
-          //  assert command.getLength() == insert.length();
-        }
+        //if (command.getLength() != insert.length()) {
+        // ?! warum auch immer es um eins größer sein muss raff ich grad null
+        //  assert command.getLength() == insert.length();
+        //}
         assert command.getEnd() == command.getStart() + command.getLength();
       } catch (LatexException e) {
         sLog.warning(e.getMessage());
@@ -342,7 +342,7 @@ public class Misc {
   }
 
   /**
-   * Sortiert die \n richtig um die Absätze erkennen zukönnen
+   * Sortiert die \n richtig um die Absätze erkennen zu können
    *
    * @param input
    * @return
@@ -385,14 +385,14 @@ public class Misc {
     int whitespaces = 0;
     int i = 0;
 
-    // gammel am anfang ist egal
+    // Gammel am Anfang ist egal
     while (i < maxIndex && (input.charAt(i) == ' ' || input.charAt(i) == '\n')) {
       stringBuilder.append(input.charAt(i));
       i++;
     }
 
     while (i <= maxIndex) {
-      // die zuvielen leerzeichen zaehlen und ueberspringen
+      // die zu vielen Leerzeichen zählen und überspringen
       if (input.charAt(i) == ' ' || input.charAt(i) == '\n') {
         stringBuilder.append(input.charAt(i));
         i++;
@@ -403,7 +403,7 @@ public class Misc {
         continue;
       }
 
-      // satzende gefunden
+      // Satzende gefunden
       if (endings.contains(String.valueOf(input.charAt(i))) && (i < maxIndex && !Character.isDigit(input.charAt(i + 1)))) {
         if (stringBuilder.length() > 0 && stringBuilder.charAt(stringBuilder.length() - 1) == ' ') {
           whitespaces++;

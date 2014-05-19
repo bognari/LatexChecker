@@ -3,7 +3,7 @@ package de.tubs.latexTool.core.entrys;
 import java.nio.file.Path;
 
 /**
- * Diese Klasse gilt als Positionsrefferenz
+ * Diese Klasse gilt als Positionsangabe
  */
 public class Position {
   /**

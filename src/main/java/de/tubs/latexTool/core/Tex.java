@@ -274,8 +274,11 @@ public class Tex {
     return mFile.toString();
   }
 
+  /**
+   * Filtert alles "böse" aus der Tex Datei, z.b. Kommentare, listings Umgebungen usw.
+   */
   class LatexFilter {
-    private Pattern mBadEnvEnd = null;
+    private Pattern mBadEnvEnd;
 
     String filter(String input) {
       StringBuilder stringBuilder = new StringBuilder();
@@ -297,13 +300,12 @@ public class Tex {
         } else {
           return removeComment(masking(input));
         }
-      }
-
-      // sind im normalen latex modus
-      if (mBadEnvEnd == null) {
+      } else {
+        // sind im normalen latex modus
+        //if (mBadEnvEnd == null) {
         Matcher bad = mPBad.matcher(input);
 
-        // testen ob es eine umgebung oder befehl gibt die den latex modus verläst
+        // testen ob es eine Umgebung oder Befehl gibt die den Latex Modus verlässt
         while (bad.find()) {
           // anfang einfügen
           stringBuilder.append(input.substring(i, bad.start()));

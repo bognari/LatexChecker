@@ -17,21 +17,21 @@ public class Abbreviation {
   private static final Object sLock = new Object();
   private static final Logger sLog = Logger.getLogger(Abbreviation.class.getName());
   /**
-   * Dies ist eine absteigend sortierte Menge der Abbs, nach Anzahl der Punkte
+   * Dies ist eine absteigend sortierte Menge der Abkürzungen, nach Anzahl der Punkte
    */
-  private static SortedSet<String> sAbbreviations = new TreeSet<>(new DotsComparatorString('.'));
+  private static SortedSet<String> sAbbreviations = new TreeSet<>(new DotsComparator<String>('.'));
   /**
    * Tabelle für das Demaskieren
    */
-  private static SortedMap<Pattern, String> sFrom = new TreeMap<>(new DotsComparatorPattern('#'));
+  private static SortedMap<Pattern, String> sFrom = new TreeMap<>(new DotsComparator<Pattern>('#'));
   private static boolean sIsNotReady = true;
   /**
    * Tabelle für das Maskieren
    */
-  private static SortedMap<Pattern, String> sTo = new TreeMap<>(new DotsComparatorPattern('.'));
+  private static SortedMap<Pattern, String> sTo = new TreeMap<>(new DotsComparator<Pattern>('.'));
 
   /**
-   * Gibt eine Sortierte Menge der Abbreviations zurück
+   * Gibt eine Sortierte Menge der Abkürzungen zurück
    *
    * @return sTo
    */
@@ -52,7 +52,7 @@ public class Abbreviation {
    */
   private static void build() {
     String language = Api.settings().getLanguage();
-    Map<String, List<String>> abbs = Api.settings().getAbbs();
+    Map<String, List<String>> abbs = Api.settings().getAbb();
 
     if (abbs.get(language) != null) {
       sLog.fine(String.format("buildDefault: start reading language = %s", language));
@@ -98,7 +98,7 @@ public class Abbreviation {
       if (matcher.group().equals(".") || matcher.group().equals("#")) {
         stringBuilder.append(matcher.group());
       } else {
-        stringBuilder.append("$" + i);
+        stringBuilder.append("$").append(i);
         i++;
       }
     }
@@ -124,7 +124,7 @@ public class Abbreviation {
   }
 
   /**
-   * Gibt eine geordnete Menge der Abbs zurück
+   * Gibt eine geordnete Menge der Abkürzungen zurück
    *
    * @return sFrom.keySet();
    */
@@ -158,7 +158,7 @@ public class Abbreviation {
   }
 
   /**
-   * Gibt eine geordnete Menge der Abbs zurück
+   * Gibt eine geordnete Menge der Abkürzungen zurück
    *
    * @return sTo.keySet();
    */
@@ -180,13 +180,13 @@ public class Abbreviation {
    * @param input
    * @return
    */
-  public static String maskingAbb(String input) {
+  public static String masking(String input) {
     int length = input.length();
     for (Pattern abb : Abbreviation.getToPatterns()) {
       input = abb.matcher(input).replaceAll(Abbreviation.getTo(abb));
     }
     if (length != input.length()) {
-      assert length == input.length() : "Laenge wurde veraendert! - maskingAbb";
+      assert length == input.length() : "Laenge wurde veraendert! - masking";
     }
     return input;
   }
@@ -197,14 +197,14 @@ public class Abbreviation {
    * @param input
    * @return
    */
-  public static String unMaskingAbb(String input) {
+  public static String unmasking(String input) {
     int length = input.length();
     if (!input.isEmpty()) {
       for (Pattern abb : Abbreviation.getFromPatterns()) {
         input = abb.matcher(input).replaceAll(Abbreviation.getFrom(abb));
       }
     }
-    assert length == input.length() : "Laenge wurde veraendert! - unMaskingAbb";
+    assert length == input.length() : "Laenge wurde veraendert! - unmasking";
     return input;
   }
 }

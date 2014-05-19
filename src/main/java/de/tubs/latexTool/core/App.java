@@ -74,7 +74,7 @@ public final class App {
   /**
    * verhält sich der Konfiguration nach
    */
-  public void run() {
+  private void run() {
     if (mSettings.isHelp()) {
       mSettings.usage();
     }
@@ -199,7 +199,7 @@ public final class App {
   }
 
   /**
-   * gibt das Settingsobjekt zurück
+   * gibt das Einstellungsobjekt zurück
    *
    * @return
    */

@@ -13,7 +13,7 @@ import de.tubs.latexTool.core.util.Misc;
 import java.util.*;
 
 /**
- * Created by stephan on 12.05.14.
+ * Dieses Modul prüft, ob vor, nach oder zwischen zwei angegebenen Umgebungen mindestens n Sätze existieren.
  */
 public class EnvTextCheck extends Module {
   @Expose

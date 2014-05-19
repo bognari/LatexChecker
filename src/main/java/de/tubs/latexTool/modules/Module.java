@@ -56,7 +56,7 @@ public abstract class Module implements Runnable {
   }
 
   /**
-   * In diese Methode können die Parameter, die das Mpdul übergeben bekommen hat auf Richtigkeit getestet werden usw.
+   * In diese Methode können die Parameter, die das Modul übergeben bekommen hat, auf Richtigkeit getestet werden usw.
    */
   protected void validation() {
   }

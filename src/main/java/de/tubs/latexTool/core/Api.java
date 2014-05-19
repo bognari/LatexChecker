@@ -58,7 +58,7 @@ public abstract class Api {
   }
 
   /**
-   * Gibt eine Liste aller Befehleseinträge zurück
+   * Gibt eine Liste aller Befehle zurück
    *
    * @param pattern
    * @return
@@ -68,7 +68,7 @@ public abstract class Api {
   }
 
   /**
-   * Gibt den Rootknoten zurück
+   * Gibt den Root-Knoten zurück
    *
    * @return
    */

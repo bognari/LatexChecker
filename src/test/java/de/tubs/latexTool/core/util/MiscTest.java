@@ -37,7 +37,7 @@ public class MiscTest {
   }
 
   /**
-   * Method: maskingAbb(String input)
+   * Method: masking(String input)
    */
   @Test
   public void testMaskingAbb() throws Exception {
@@ -528,7 +528,7 @@ public class MiscTest {
   /**
    * Method: sortWhitespaces(String input, String endings)
    */
-  //@Test
+  @Test
   public void testSortWhitespaces() throws Exception {
     String test = "Gegeben seien die Methode\n" +
             "\\begin{lstlisting}\n" +
@@ -669,7 +669,9 @@ public class MiscTest {
             "Welchen Wert berechnet die Methode             wasPassiert(int[][] a)? \n" +
             "Geben Sie den Wert in Abhängigkeit vom Parameter             a an. \n" +
             "Welche          Exceptions können ggf# ausgelöst werden? \n" +
-            "                   Lösung:\n" +
+            "        \n" +
+            "\n" +
+            "         Lösung:\n" +
             "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \n" +
             "\n" +
             "             \n" +
@@ -762,18 +764,18 @@ public class MiscTest {
     test = Misc.maskingLatex(test, true);
     test = Misc.maskingEnvironment(test);
     test = Misc.removeLatex(test);
-    test = Abbreviation.maskingAbb(test);
+    test = Abbreviation.masking(test);
     test = Misc.sortWhitespaces(test, ".!?");
 
     result = test;
 
     expected = "Gegeben sei die Klasse Rational zur Darstellung von positiven rationalen Zahlen, d# h# von Zahlen $q , q > 0$.                        Die Methode add soll den Parameter r zur aktuellen Zahl addieren.                         Die Methode compareTo soll rationale Zahlen ihrer Größe nach vergleichen.            \n" +
             "\n" +
-            "Außerdem sei das folgende Programmfragment gegeben: Die Programmzeilen 1 bis 32 enthalten Fehler.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Markieren Sie die Fehler im Programmtext. Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen.  \n" +
+            "Außerdem sei das folgende Programmfragment gegeben: Die Programmzeilen 1 bis 32 enthalten Fehler.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Markieren Sie die Fehler im Programmtext. Achtung: Für Programmstellen, die nicht zu einem Fehler führen, aber als fehlerhaft gekennzeichnet sind, werden Punkte abgezogen# \n" +
             "\n" +
             "Lösung: \n" +
             "\n" +
-            "Geben Sie die korrigierten Zeilen an.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Was gibt das korrigierte Programm aus?  \n" +
+            "Geben Sie die korrigierten Zeilen an.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Was gibt das korrigierte Programm aus?  \n" +
             "\n" +
             "Lösung: \n" +
             "\n" +
@@ -782,7 +784,7 @@ public class MiscTest {
   }
 
   /**
-   * Method: unMaskingAbb(String input)
+   * Method: unmasking(String input)
    */
   @Test
   public void testUnMaskingAbb() throws Exception {
