@@ -29,22 +29,6 @@ public class MiscTest {
   }
 
   /**
-   * Method: getSentences(String input)
-   */
-  @Test
-  public void testGetSentences() throws Exception {
-//TODO: Test goes here...
-  }
-
-  /**
-   * Method: masking(String input)
-   */
-  @Test
-  public void testMaskingAbb() throws Exception {
-//TODO: Test goes here...
-  }
-
-  /**
    * Method: maskingEnvironment(String input)
    */
   @Test
@@ -253,16 +237,9 @@ public class MiscTest {
    */
   @Test
   public void testNoSingleLF() throws Exception {
-    String test = "";
+    //TODO: Test goes here...
+    //String test = "";
 
-  }
-
-  /**
-   * Method: getCommand(MatchResult matchResult, String content)
-   */
-  @Test
-  public void testReadLatexCommand() throws Exception {
-//TODO: Test goes here...
   }
 
   /**
@@ -782,13 +759,4 @@ public class MiscTest {
             "                                                                                                                                                                                                                                                                                                                                     ";
     assertEquals(expected, result);
   }
-
-  /**
-   * Method: unmasking(String input)
-   */
-  @Test
-  public void testUnMaskingAbb() throws Exception {
-    //TODO: Test goes here...
-  }
-
 } 
