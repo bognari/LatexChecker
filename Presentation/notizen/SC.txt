@@ -1,0 +1,13 @@
+Maven
+==========
+- Einbindung über eine pom.xml
+	- Beschreibung der Metadaten
+	- Dort Information zum Build des Projekts wie Source-Verzeichnis, main-Klasse, Phasen
+	- Anpassung einer Standard-Version von Apache auf unser Projekt
+	
+
+Warum Wechsel zu Maven?
+=============================
+- Mit Ant Probleme auf unterschiedlichen OS
+- Ant hoher Konfigurationsaufwand
+- Stephan hatte in Maven bereits Erfahrung bei früheren Projekten gesammelt

@@ -1,0 +1,67 @@
+DocumentTree
+==============
+- Aufbau eines Dokuments in einer Baumstruktur
+	- Klasse DocumentTree
+	- Jeder Knotenlevel steht für einen Abschnitt des Dokumentes, der von seinen Kindern untergliedert wird
+	- Jeder Knoten wird wieder als Tree betrachtet, wobei die Kinder eines Knotens als LinkedList zurückgegeben werden
+	- Rootknoten steht für Begin des Dokumentes
+	- Über die einzelnen Knoten können Abschnitte eines Dokuments zum Anwenden von Regeln herausgefiltert werden
+	- Desweiteren können Level, Überschriften, der reine Text sowie Paragraphen der Knoten abgefragt werden
+
+LanguageTool
+==============
+- Freier, Java-basierter Grammatik-Checker
+- Arbeitet mit reinen Text-Dokumenten
+- www.languagetool.org
+- Unterstüzt mehr als 20 Sprachen
+- Eintragung in der pom.xml
+- Einbindung als externe Bibliothek und über eine eigens verfasste Wrapper-Klasse
+- Beispiel für Anwendung: Suchen von Math-Umgebungen im Dokument, Überprüfung der Grammatik im Dokuments
+
+
+
+Umsetzung der Regeln
+======================
+- Mit Hilfe des DocumentTrees
+- Mit Hilfe von regulären Ausdrücken
+	- die vor allem beim Erkennen von Sätzen und Abkürzungen eine wichtige Rolle spielen
+	- zu Sätzen und Abkürzungen später mehr
+	- Beispiel für Verwendung von regulären Ausdrücken:
+		- Alles was mit Überschriften zu tun hat:
+			- n Wörter in Überschriften und Unterschriften
+			- Keine Doppelpunkte mitten in Überschriften
+			- Doppelpunkte nur am Ende
+	- Zur Überprüfung erstellter regulärer Ausdrücke Einsatz von regexr.com
+- Zugriff auf die einzelnen Klassen über eine API-Klasse
+
+
+Was wurde umgesetzt
+====================
+- Finden "verbotener" Befehle
+- Überprüfung von Chaptern hinsichtlich 
+	- Verschachtelung
+	- Mindestanzahl von Unterkapiteln
+	- Anzahl der Sätze
+- Überprüfen von Überschriften (siehe oben)
+- Überprüfen von itemize-Umgebungen
+- Überprüfen von Referenzen auf Grafiken etc.
+- Paragraphenlänge
+- Satzlänge
+
+Was nicht geht
+==================
+- Mehrere Literaturangaben werden in einer Klammer zusammengefasst („[ABC13,DEF13]“ anstatt „[ABC13],[DEF13]“).
+- Referenzen auf Kapitel, Grafiken usw. sind nicht hard codiert.
+- Verzeichnisse (z.B. Tabellenverzeichnis) dürfen nicht leer sein. Wenn keine Einträge existieren sollten diese entfernt werden.
+- Abkürzungen
+- URLs im Format http://www.domain.tld und mit Abrufdaten versehen
+- Vor einem Verweis steht immer ein Schlüsselwort wie z.B. Kapitel, Abschnitt, Abbildung, Anhang oder Seite (oder eine gängige Abkürzung dafür).
+- Es werden mindestens n Quellen referenziert.
+- Eine einzelne Quelle wird nicht öfter als n mal referenziert.
+- Ein Absatz endet mit Komma, Punkt, Doppelpunkt, Ausrufezeichen oder Fragezeichen.
+- Quellen werden immer vor dem Satzende genannt, niemals z.B. nach dem Punkt.
+- Keine Verweise auf Abbildungen oder Tabellen in Klammern direkt vor dem Satzende.
+- Zwischen mehreren Aufzählungen sollten mindestens n Sätze (als normaler Text) stehen. 
+
+
+

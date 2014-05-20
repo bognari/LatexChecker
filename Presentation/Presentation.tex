@@ -1,0 +1,106 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[hyperref={bookmarksopen=false}]{beamer} 
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{pgf}
+\usepackage{stmaryrd}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{microtype}
+
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  shapes.misc,
+  shapes.arrows,
+  chains,
+  matrix,
+  positioning,
+  scopes,
+  decorations.pathmorphing,
+  shadows,
+  backgrounds
+}
+\usepackage{verbatim}
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{graphicx}
+
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}
+  {
+    \clearpage\beamer@notesactions
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\makeatother
+
+\defbeamertemplate*{section in toc}{my theme}
+{\leavevmode\leftskip=0.5em\large{\usebeamercolor[fg]{titlelike}} \inserttocsection\par}
+
+\defbeamertemplate*{subsection in toc}{my theme}
+{\leavevmode\leftskip=2em\normalsize{\usebeamercolor[fg]{titlelike}} \inserttocsubsection\par}
+
+\defbeamertemplate*{subsubsection in toc}{my theme}
+{\leavevmode\leftskip=3.5em\normalsize\usebeamerfont{subsection in toc}\usebeamerfont{subsubsection in toc}\inserttocsubsubsection\par}
+
+\AtBeginSection[]{
+  \frame{ 
+  		\scriptsize
+  		\frametitle{\insertsectionhead}  
+  		\tableofcontents[currentsection, hideallsubsections] 
+  	}
+}
+
+\AtBeginSubsection[]{
+  \frame{
+  		\scriptsize 
+  		\frametitle{\insertsectionhead\ - \insertsubsectionhead}  
+  		%\tableofcontents[ 
+  		  % currentsubsection, 
+  		   % sectionstyle=show/shaded, 
+  		    %subsectionstyle=show/shaded/hide
+  		    %] 
+  		\vspace{6cm}
+  	}
+}
+
+\usecolortheme{seagull}
+\useoutertheme[section]{tubs}
+
+\setbeamertemplate{itemize items}[tusquare]
+
+\title{\LaTeX~- StyleChecker}
+
+\author[Stephan Mielke, Jochen Steiner, Tessa Fabian]{Stephan Mielke, Jochen Steiner, Tessa Fabian}
+\institute[TU Braunschweig, IPS]{Technische Universität Braunschweig, IPS}
+
+\instlogo{ips}
+\titlegraphic{iz_corner}
+
+
+\begin{document}
+\miniframesoff
+%%-------------------------------------------Titelfolie
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+%%--------------------------------------------Aufgabenstellung
+\input{Aufgabenstellung}
+%%--------------------------------------------LaTeXChecker
+\input{LaTeXChecker}
+%%--------------------------------------------Demonstration
+\input{Demonstration}
+\end{document}   

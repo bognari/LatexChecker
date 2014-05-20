@@ -1,0 +1,50 @@
+\section{Funktionsweise}
+\begin{frame}
+\frametitle{\LaTeX~- StyleChecker -- DocumentTree}
+\begin{block}{\vspace*{-3ex}}
+	\begin{itemize}
+		\item Aufbau eines Dokuments in einer Baumstruktur
+		\item Jeder Knotenlevel ein Abschnitt des Dokumentes, der von seinen Kindern untergliedert wird
+		\item Jeder Knoten wieder ein Tree
+		\item Rootknoten als Beginn eines Dokuments
+	\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}
+\frametitle{\LaTeX~- StyleChecker -- DocumentTree}
+\begin{block}{\vspace*{-3ex}}
+	\begin{itemize}
+		\item Abschnitte eines Dokuments zum Anwenden von Regeln 
+		\item Level, Überschriften, der reine Text sowie Paragraphen der Knoten abfragbar
+	\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}
+\frametitle{\LaTeX~- StyleChecker -- LanguageTool}
+\begin{block}{\vspace*{-3ex}}
+	\begin{itemize}
+		\item Eintragung in der pom.xml 
+		\item Einbindung als externe Bibliothek und über eine eigens verfasste Wrapper-Klasse
+		\begin{itemize}
+			\item als externe Bibliothek und 
+			\item über Wrapper-Klasse
+		\end{itemize}
+		\item Suchen von Math-Umgebungen im Dokument, Überprüfung der Grammatik im Dokuments
+	\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}
+\frametitle{\LaTeX~- StyleChecker -- Umsetzung der Regeln}
+\begin{block}{\vspace*{-3ex}}
+	\begin{itemize}
+		\item Mit Hilfe des DocumentTrees
+		\item Mit Hilfe von regulären Ausdrücken
+		\begin{itemize}
+			\item Erkennen von Sätzen und Abkürzungen
+			\item Beispiel: Überschriften
+		\end{itemize}
+		\item Einsatz von regexr.com
+		\item Zugriff auf die einzelnen Klassen über eine API-Klasse
+	\end{itemize}
+\end{block}
+\end{frame}

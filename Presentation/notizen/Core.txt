@@ -1,0 +1,52 @@
+Core:
+- Enthät das Kernprogramm, welches später mit Modulen um Funktionen erweitert wird.
+- Zum Core gehören weiterhin der DocumentTree, Verwaltung der tex-Dateien, Exception-Klasse, Interface für das Framework und die App
+- Untergliedert sich in config, entrys und util. mainProg wird nicht mehr verwendet
+
+config:
+- config bzgl. Abkürzungen, einlesen aus JSON, Argumente, Loglevel und allg. Einstellungen
+
+entrys:
+- entrys setzt sich mit der LaTeX-Datei an sich auseinander: Befehle, Umgebungen, Ausgaben in den Logger, Paragraphen
+
+util:
+- util befasst sich mit der Verwaltung von Logs, das Checken von Referenzen (hier fehlerhaft eingeordnet), Sammlung von nichtzuordbaren Methoden
+
+
+- Core
+  - config
+  - entrys
+  - util
+
+- Modules
+
+- resources
+  - conf
+  - modul (Linzenz, thirdparty)
+  
+- Zu überprüfende Dateien in den Ordner LatexTool
+
+
+
+modules:
+- hier die einzelnen Funktionen als Klassen implementiert
+- Ähnliche Funktionen werden in einer gemeinsamen Klasse implementiert
+- Um eine Regel überhaupt benutzen zu können, müssen die entsprechenden Klassen in der config.json registriert werden --> Mehrere Regeln können
+  dadurch dem Programm übergeben werden. Ergebnisse werden mitgeloggt.
+
+Test
+Verfassen der Tests ansatzweise nach TDD
+Ansonsten Entwicklung der Testfälle nach Fehlern beim Programmieren
+Durchführung der Tests über Maven
+Tests mit JUnit
+4 unterschiedliche Tests: Test der Anwendung (AppTest), Test des Loggers (TexTest) und Test der Module
+Im jeden Test wird auf das Auftreten von Exceptions hin geprüft
+
+Reihenfolge
+1. Core
+2. resources
+3. Modules
+4. Test
+5. Installation, Ausführung
+
+

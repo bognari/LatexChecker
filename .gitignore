@@ -3,3 +3,6 @@
 .svn/
 target/
 test/
+**.aux
+**.tox
+**.log
