@@ -24,23 +24,58 @@ public class HeadlineRegEx extends Module {
   private static final Pattern sPatterCaption = Pattern.compile("(?<!\\\\)\\\\caption\\{(.*?)\\}");
   private static final Pattern sPatterHeadline = Pattern.compile("(:\\s*)$");
   private static final Pattern sPatterPara = Pattern.compile("((\\.|:)\\s*)$");
+
+  /**
+   * "Environments" = ["Umgebung"] <p></p>
+   * Liste zu prüfenden Umgebungen (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
+   */
   @Expose
-  @SerializedName("EnvList")
-  private List<String> mEnvList = new LinkedList<>();
+  @SerializedName("Environments")
+  private List<String> cEnvironments = new LinkedList<>();
+  /**
+   * "MaxWords" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl an Wörtern in einer Überschrift, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MaxWords")
-  private int mMaxWords = -1;
+  private int cMaxWords = -1;
+  /**
+   * "MaxWordsCaption" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl an Wörtern in einer Beschreibung, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MaxWordsCaption")
-  private int mMaxWordsCaption = -1;
+  private int cMaxWordsCaption = -1;
+  /**
+   * "MinWords" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an Wörtern in einer Überschrift, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MinWords")
-  private int mMinWords = -1;
+  private int cMinWords = -1;
+  /**
+   * "MinWordsCaption" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an Wörtern in einer Beschreibung, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MinWordsCaption")
-  private int mMinWordsCaption = -1;
+  private int cMinWordsCaption = -1;
+  /**
+   * "UseRegex" = true / false <p></p>
+   * Gibt an, ob Regex in Listen benutzt wird
+   * <p></p> default: false
+   */
+  @Expose
+  @SerializedName("UseRegex")
+  private boolean cUseRegex = false;
 
-  public void run() {
+
+  public void runModule() {
     testParaHeadlines();
     CaptionColon();
   }
@@ -60,7 +95,7 @@ public class HeadlineRegEx extends Module {
   }
 
   private void CaptionColon() {
-    for (Environment env : Api.getEnvironments(Misc.iterableToString(mEnvList, true))) {
+    for (Environment env : Api.getEnvironments(Misc.iterableToString(cEnvironments, !cUseRegex, !cUseRegex))) {
 
       Matcher matcher;
       matcher = sPatterCaption.matcher(env.getContent());
@@ -84,11 +119,11 @@ public class HeadlineRegEx extends Module {
   }
 
   private void headlineLength(Text headline) {
-    if (mMaxWords > -1 && headline.getText().split(" ").length > mMaxWords) {
-      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption is longer than %d words", mMaxWords)).toString());
+    if ((cMaxWords > -1) && (headline.getText().split(" ").length > cMaxWords)) {
+      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption is longer than %d words", cMaxWords)).toString());
     }
-    if (mMinWords > -1 && headline.getText().split(" ").length < mMinWords) {
-      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption is shorter than %d words", mMaxWords)).toString());
+    if ((cMinWords > -1) && (headline.getText().split(" ").length < cMinWords)) {
+      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption is shorter than %d words", cMaxWords)).toString());
     }
   }
 
@@ -101,11 +136,11 @@ public class HeadlineRegEx extends Module {
   }
 
   private void CaptionLength(String Caption, Environment env) {
-    if (mMaxWordsCaption > -1 && Caption.split(" ").length > mMaxWordsCaption) {
-      mLog.info(new Result(Caption, env.getPosition(), String.format("Caption is longer than %d words", mMaxWords)).toString());
+    if ((cMaxWordsCaption > -1) && (Caption.split(" ").length > cMaxWordsCaption)) {
+      mLog.info(new Result(Caption, env.getPosition(), String.format("Caption is longer than %d words", cMaxWords)).toString());
     }
-    if (mMinWordsCaption > -1 && Caption.split(" ").length < mMinWordsCaption) {
-      mLog.info(new Result(Caption, env.getPosition(), String.format("Caption is shorter than %d words", mMaxWords)).toString());
+    if ((cMinWordsCaption > -1) && (Caption.split(" ").length < cMinWordsCaption)) {
+      mLog.info(new Result(Caption, env.getPosition(), String.format("Caption is shorter than %d words", cMaxWords)).toString());
     }
   }
 }

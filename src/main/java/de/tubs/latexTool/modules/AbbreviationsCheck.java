@@ -14,30 +14,53 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Dieses Modul prüft auf Abkürzungen mit verbotenen "Zwischenraum"
+ * Die Abkürzungen werden aus dem globalem Abkürzungsverzeichnis geladen.
+ */
 public class AbbreviationsCheck extends Module {
 
-  @Expose
-  @SerializedName("BadSeparators")
-  private List<String> mBadSeparators = new LinkedList<>();
+  private static final String sMsg = "bad abbreviation \"%s\"";
+  /**
+   * "Msg" : "Text" <p></p>
+   * Der Nachrichten Prototyp
+   * <p></p> default: "bad abbreviation \"%s\""
+   */
   @Expose
   @SerializedName("Msg")
-  private String mMsg = "bad abbreviation \"%s\"";
-
+  private String cMsg = sMsg;
   /**
-   * When an object implementing interface <code>Runnable</code> is used
-   * to create a thread, starting the thread causes the object's
-   * <code>run</code> method to be called in that separately executing
-   * thread.
-   * <p/>
-   * The general contract of the method <code>run</code> is that it may
-   * take any action whatsoever.
-   *
-   * @see Thread#run()
+   * "BadSeparators" = ["Text"] <p></p>
+   * Eine Liste aller verbotenen Zwischenräume (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
    */
+  @Expose
+  @SerializedName("BadSeparators")
+  private List<String> cBadSeparators = new LinkedList<>();
+  /**
+   * "UseRegex" = true / false <p></p>
+   * Gibt an, ob Regex in Listen benutzt wird
+   * <p></p> default: false
+   */
+  @Expose
+  @SerializedName("UseRegex")
+  private boolean cUseRegex = false;
+
+
   @Override
-  public void run() {
+  protected void validation() {
+    try {
+      String.format(cMsg, "test");
+    } catch (IllegalFormatException e) {
+      mLog.throwing(ChapterCheck.class.getName(), mName, e);
+      cMsg = sMsg;
+    }
+  }
+
+  @Override
+  public void runModule() {
     Set<String> abbreviations = Abbreviation.geAbbreviations();
-    String badSeparators = Misc.iterableToString(mBadSeparators, true);
+    String badSeparators = Misc.iterableToString(cBadSeparators, !cUseRegex, !cUseRegex);
     String tex = Api.getRawContent();
     Pattern pattern;
     Matcher matcher;
@@ -48,19 +71,9 @@ public class AbbreviationsCheck extends Module {
         matcher = pattern.matcher(tex);
 
         while (matcher.find()) {
-          mLog.info(new Result(mName, Api.getPosition(matcher.start()), String.format(mMsg, matcher.group())).toString());
+          mLog.info(new Result(mName, Api.getPosition(matcher.start()), String.format(cMsg, matcher.group())).toString());
         }
       }
-    }
-  }
-
-  @Override
-  protected void validation() {
-    try {
-      String.format(mMsg, "test");
-    } catch (IllegalFormatException e) {
-      mLog.throwing(ChapterCheck.class.getName(), mName, e);
-      mMsg = "bad abbreviation \"%s\"";
     }
   }
 }

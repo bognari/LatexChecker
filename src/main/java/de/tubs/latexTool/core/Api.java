@@ -8,9 +8,12 @@ import java.util.List;
 /**
  * Die API ist das "Interface" für das Framework, alle Module sollen nur auf static Methoden aus der API zugreifen
  */
-public abstract class Api {
+public final class Api {
 
   private static App mApp;
+
+  private Api() {
+  }
 
   /**
    * Gibt alle Überschriften des Dokuments zurück
@@ -19,6 +22,15 @@ public abstract class Api {
    */
   public static List<Text> allHeadlines() {
     return mApp.getTex().allHeadlines();
+  }
+
+  /**
+   * Gibt alle Sätze (inklusive Latex) des Dokuments zurück
+   *
+   * @return alle Sätze
+   */
+  public static List<Text> allLatexTexts() {
+    return mApp.getTex().allLatexTexts();
   }
 
   /**
@@ -44,7 +56,7 @@ public abstract class Api {
    *
    * @return
    */
-  public static App getApp() {
+  static App getApp() {
     return mApp;
   }
 
@@ -54,7 +66,7 @@ public abstract class Api {
    * @param app
    */
   static void setApp(App app) {
-    Api.mApp = app;
+    mApp = app;
   }
 
   /**
@@ -64,7 +76,7 @@ public abstract class Api {
    * @return
    */
   public static List<Command> getCommands(String pattern) {
-    return mApp.getTex().getCommandList(pattern);
+    return mApp.getTex().getCommands(pattern);
   }
 
   /**

@@ -3,7 +3,10 @@ package de.tubs.latexTool.core;
 
 import com.jdotsoft.jarloader.JarClassLoader;
 
-public class MyAppLauncher {
+public final class MyAppLauncher {
+
+  private MyAppLauncher() {
+  }
 
   public static void main(String[] args) {
     JarClassLoader jcl = new JarClassLoader();

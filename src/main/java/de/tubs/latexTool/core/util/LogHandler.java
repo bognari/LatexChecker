@@ -52,6 +52,7 @@ public class LogHandler extends Handler {
         }
       }
     }
+    // wie in gottes namen kann es hier einen nullpointer geben oO
     synchronized (mLogContent.get(record.getLoggerName())) {
       mLogContent.get(record.getLoggerName()).add(record);
     }

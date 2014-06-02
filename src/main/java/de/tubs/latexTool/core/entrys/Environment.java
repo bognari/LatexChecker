@@ -8,18 +8,19 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Diese Klasse stellt einen Environment Eintrag dar, z.B. \begin{environment}content\end{environment}
  */
-public class Environment implements ILatex, IPosition {
+public class Environment implements ILatex {
   /**
    * Pattern für \item
    */
   private static final Pattern sItem = Pattern.compile("(?<!\\\\)\\\\(?<Item>item)(\\[.*?\\])?(<.*?>)?\\s*?(?<Content>.*?)\\s*?(?=\\\\item)?", Pattern.DOTALL);
-
+  private static final Logger sLog = Logger.getLogger(Environment.class.getName());
   /**
    * Der Befehl mit dem die Umgebung erstellt wurde
    */
@@ -51,6 +52,27 @@ public class Environment implements ILatex, IPosition {
   }
 
   /**
+   * Gibt eine Liste
+   *
+   * @param environment regex
+   * @return
+   */
+  public static List<Environment> getEnvironments(String environment, String content) {
+    List<Environment> list = new LinkedList<>();
+    Pattern pattern = Pattern.compile(String.format("(?<!\\\\)\\\\(begin)\\s*\\{(%s)\\}", environment));
+    Matcher matcher = pattern.matcher(content);
+    while (matcher.find()) {
+      try {
+        Command command = Command.getCommand(matcher.group(1), matcher.start(), content);
+        list.add(getEnvironment(command, content));
+      } catch (LatexException e) {
+        sLog.warning(e.getMessage());
+      }
+    }
+    return list;
+  }
+
+  /**
    * Liest ein Environment mittels stack maschine ein
    *
    * @param command
@@ -58,7 +80,7 @@ public class Environment implements ILatex, IPosition {
    * @return
    */
   public static Environment getEnvironment(Command command, String content) throws LatexException {
-    if (command.getArgs().isEmpty() || !command.getName().equalsIgnoreCase("begin")) {
+    if (command.getArgs().isEmpty() || !"begin".equals(command.getName())) {
       throw new IllegalArgumentException("command is not a environment begin");
     }
 
@@ -174,15 +196,25 @@ public class Environment implements ILatex, IPosition {
   }
 
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if ((o == null) || (getClass() != o.getClass())) {
+      return false;
+    }
 
-    final Environment that = (Environment) o;
+    Environment that = (Environment) o;
 
-    if (mEnd != that.mEnd) return false;
-    if (mEndContent != that.mEndContent) return false;
-    if (!mContent.equals(that.mContent)) return false;
+    if (mEnd != that.mEnd) {
+      return false;
+    }
+    if (mEndContent != that.mEndContent) {
+      return false;
+    }
+    if (!mContent.equals(that.mContent)) {
+      return false;
+    }
     return mCommand.equals(that.mCommand);
   }
 

@@ -11,49 +11,56 @@ import java.util.List;
 
 /**
  * Dies ist ein Modul, mit dem Paragraphen auf ihre Länge getestet werden
- * Mögliche Optionen sind:
- * <p></p>
- * ############## <br></br>
- * MinSentences<br></br>
- * MaxSentences<br></br>
- * Msg<br></br>
- * ##############<br></br>
  */
 public class ParagraphLength extends Module {
-  @Expose
-  @SerializedName("MaxSentences")
-  private int mMaxSentences = -1;
-  @Expose
-  @SerializedName("MinSentences")
-  private int mMinSentences = -1;
+
+  private static final String sMsg = "%1$s %2$d %3$s";
+  /**
+   * "Msg" = "Text" <p></p>
+   * Der Nachrichten Prototyp
+   * <p></p> default: "%1$s %2$d %3$s"
+   */
   @Expose
   @SerializedName("Msg")
-  private String mMsg = "%1$s %2$d %3$s";
-
-  @Override
-  public void run() {
-    mLog.fine(String.format("%s start", mName));
-
-    List<Paragraph> paragraphs = Api.allParagraphs();
-
-    for (Paragraph paragraph : paragraphs) {
-      if (mMinSentences > -1 && paragraph.getTexts().size() < mMinSentences) {
-        mLog.info(new Result(mName, paragraph.getPosition(), String.format(mMsg, "has less than", mMinSentences, "sentences")).toString());
-      }
-      if (mMaxSentences > -1 && paragraph.getTexts().size() > mMaxSentences) {
-        mLog.info(new Result(mName, paragraph.getPosition(), String.format(mMsg, "has more than", mMaxSentences, "sentences")).toString());
-      }
-    }
-    mLog.fine(String.format("%s finish", mName));
-  }
+  private String cMsg = sMsg;
+  /**
+   * "MaxSentences" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl Sätzen pro Paragraph, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MaxSentences")
+  private int cMaxSentences = -1;
+  /**
+   * "MinSentences" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl Sätzen pro Paragraph, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MinSentences")
+  private int cMinSentences = -1;
 
   @Override
   public void validation() {
     try {
-      String.format(mMsg, "test", 10, "test");
+      String.format(cMsg, "test", 10, "test");
     } catch (IllegalFormatException e) {
       mLog.throwing(ParagraphLength.class.getName(), mName, e);
-      mMsg = "%1$s %2$d %3$s";
+      cMsg = sMsg;
+    }
+  }
+
+  @Override
+  public void runModule() {
+    List<Paragraph> paragraphs = Api.allParagraphs();
+
+    for (Paragraph paragraph : paragraphs) {
+      if ((cMinSentences > -1) && (paragraph.getTexts().size() < cMinSentences)) {
+        mLog.info(new Result(mName, paragraph.getPosition(), String.format(cMsg, "has less than", cMinSentences, "sentences")).toString());
+      }
+      if ((cMaxSentences > -1) && (paragraph.getTexts().size() > cMaxSentences)) {
+        mLog.info(new Result(mName, paragraph.getPosition(), String.format(cMsg, "has more than", cMaxSentences, "sentences")).toString());
+      }
     }
   }
 }

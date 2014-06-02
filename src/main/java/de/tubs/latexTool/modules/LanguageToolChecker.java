@@ -12,6 +12,7 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.rules.Rule;
 import org.languagetool.rules.RuleMatch;
+import org.languagetool.rules.patterns.PatternRule;
 
 import java.io.IOException;
 import java.util.IllegalFormatException;
@@ -22,40 +23,83 @@ import java.util.regex.Pattern;
 
 /**
  * Dieses Modul ist ein Wrapper für das LanguageTool <p></p>
- * #############<br></br>
- * OnlySpelling<br></br>
- * Msg<br></br>
- * Source<br></br>
- * SourceList<br></br>
- * #############<br></br>
+ * Mögliche Belegungen für das "Source" Attribut sind: "text", "environment", "command", "headline" oder "bullet"
  */
-public class Spelling extends Module {
+public class LanguageToolChecker extends Module {
 
+  private static final String sMsg = "Potential typo: %1$s %nText: %2$s %nSuggested correction(s):%3$s";
+  /**
+   * "Msg" = "Text" <p></p>
+   * Der Nachrichten Prototyp
+   * <p></p> default: "Potential typo: %1$s %nText: %2$s %nSuggested correction(s):%3$s"
+   */
+  @Expose
+  @SerializedName("Msg")
+  private String cMsg = sMsg;
   /**
    * Pattern zum Suchen von Mathmode
    */
   private static final Pattern sPatternMathMode = Pattern.compile("(?<!\\\\)\\$(?<Content>.*?)(?<!\\\\)\\$", Pattern.DOTALL);
-  @Expose
-  @SerializedName("Msg")
-  private String mMsg = "Potential typo: %1$s %nText: %2$s %nSuggested correction(s):%3$s";
+  /**
+   * "OnlySpelling" = true / false <p></p>
+   * Gibt an, ob nur Rechtschreibung geprüft werden soll
+   * <p></p> default: false
+   */
   @Expose
   @SerializedName("OnlySpelling")
-  private boolean mOnlySpelling = false;
+  private boolean cOnlySpelling = false;
+  /**
+   * "RulesXML" = ["path"] <p></p>
+   * Liste von Pfaden zu XML Dateien mit Regeln für das Languagetool, (die Pfade sind momentan noch abhängig vom
+   * Aufrufpfad)
+   * Deswegen am besten feste Pfade nutzen!
+   * <p></p> default: empty
+   */
+  @Expose
+  @SerializedName("RulesXML")
+  private List<String> cRulesXML = new LinkedList<>();
+  /**
+   * "Source" = "Text" <p></p>
+   * Die Eingabemöglichkeiten für "Source" sind in der Modul Beschreibung enthalten
+   * <p></p> default: text
+   */
   @Expose
   @SerializedName("Source")
-  private String mSource = "text";
+  private String cSource = "text";
+  /**
+   * "SourceList" = ["Text"] <p></p>
+   * Die Eingabemöglichkeiten für "SourceList" sind von "Source" abhängig (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
+   */
   @Expose
   @SerializedName("SourceList")
-  private List<String> mSourceList = new LinkedList<>();
+  private List<String> cSourceList = new LinkedList<>();
+  /**
+   * "UseRegex" = true / false <p></p>
+   * Gibt an, ob Regex in Listen benutzt wird
+   * <p></p> default: false
+   */
+  @Expose
+  @SerializedName("UseRegex")
+  private boolean cUseRegex = false;
 
   @Override
-  public void run() {
-    mLog.fine(String.format("%s start", mName));
+  protected void validation() {
+    try {
+      String.format(cMsg, "test", "test", "test");
+    } catch (IllegalFormatException e) {
+      mLog.throwing(LanguageToolChecker.class.getName(), mName, e);
+      cMsg = sMsg;
+    }
+  }
+
+  @Override
+  public void runModule() {
     Language language;
     try {
       language = Language.getLanguageForShortName(Api.settings().getLanguage());
     } catch (IllegalArgumentException e) {
-      mLog.throwing(Spelling.class.getName(), "run", e);
+      mLog.throwing(LanguageToolChecker.class.getName(), "run", e);
       mLog.severe(String.format("Spelling, language %s is not supported", Api.settings().getLanguage()));
       return;
     }
@@ -64,12 +108,12 @@ public class Spelling extends Module {
     try {
       jLanguageTool = new JLanguageTool(language);
     } catch (IOException e) {
-      mLog.throwing(Spelling.class.getName(), "run", e);
+      mLog.throwing(LanguageToolChecker.class.getName(), "run", e);
       mLog.severe(String.format("Spelling, can not load resources for the language %s", Api.settings().getLanguage()));
       return;
     }
 
-    if (mOnlySpelling) {
+    if (cOnlySpelling) {
       for (Rule rule : jLanguageTool.getAllRules()) {
         if (!rule.isDictionaryBasedSpellingRule()) {
           jLanguageTool.disableRule(rule.getId());
@@ -77,8 +121,12 @@ public class Spelling extends Module {
       }
     }
 
+    if (!cRulesXML.isEmpty()) {
+      loadRules(jLanguageTool);
+    }
+
     try {
-      switch (mSource) {
+      switch (cSource) {
         case "text":
           text(jLanguageTool);
           break;
@@ -95,14 +143,26 @@ public class Spelling extends Module {
           bullets(jLanguageTool);
           break;
         default:
-          mLog.warning("only \"text\", \"command\", \"headline\", \"bullet\" or \"environment\" are allowed as an argument to Source.");
+          mLog.warning("only \"text\", \"environment\", \"command\", \"headline\" or \"bullet\" are allowed as an argument to Source.");
       }
     } catch (IOException e) {
-      mLog.throwing(Spelling.class.getName(), "run", e);
+      mLog.throwing(LanguageToolChecker.class.getName(), "run", e);
       mLog.severe(String.format("Spelling, can not connect to the native hunspell binaries"));
-      return;
     }
-    mLog.fine(String.format("%s finish", mName));
+  }
+
+  // ToDo path besser benutzen
+  private void loadRules(JLanguageTool jLanguageTool) {
+    for (String path : cRulesXML) {
+      try {
+        List<PatternRule> rules = jLanguageTool.loadPatternRules(path);
+        for (PatternRule rule : rules) {
+          jLanguageTool.addRule(rule);
+        }
+      } catch (IOException e) {
+        mLog.throwing(LanguageToolChecker.class.getName(), "loadRules", e);
+      }
+    }
   }
 
   private void text(JLanguageTool jLanguageTool) throws IOException {
@@ -114,7 +174,7 @@ public class Spelling extends Module {
       for (RuleMatch ruleMatch : matches) {
         if (isNotInMathMode(text.getText(), ruleMatch)) {
           mLog.info(new Result(mName, text.getPosition(),
-                  String.format(mMsg, ruleMatch.getMessage(), text.getText(),
+                  String.format(cMsg, ruleMatch.getMessage(), text.getText(),
                           ruleMatch.getSuggestedReplacements())
           ).toString());
         }
@@ -126,7 +186,7 @@ public class Spelling extends Module {
   private void environment(JLanguageTool jLanguageTool) throws IOException {
     mLog.fine("start environment spellchecking");
     List<RuleMatch> matches;
-    List<Environment> environments = Api.getEnvironments(Misc.iterableToString(mSourceList, true));
+    List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
     for (Environment environment : environments) {
       String content = environment.getContent();
       content = Misc.maskingLatex(content, true);
@@ -137,7 +197,7 @@ public class Spelling extends Module {
       for (RuleMatch ruleMatch : matches) {
         if (isNotInMathMode(environment.getContent(), ruleMatch)) {
           mLog.info(new Result(mName, environment.getPosition(),
-                  String.format(mMsg, ruleMatch.getMessage(), content,
+                  String.format(cMsg, ruleMatch.getMessage(), content,
                           ruleMatch.getSuggestedReplacements())
           ).toString());
         }
@@ -149,14 +209,14 @@ public class Spelling extends Module {
   private void command(JLanguageTool jLanguageTool) throws IOException {
     mLog.fine("start command spellchecking");
     List<RuleMatch> matches;
-    List<Command> commands = Api.getCommands(Misc.iterableToString(mSourceList, true));
+    List<Command> commands = Api.getCommands(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
     for (Command command : commands) {
       for (String arg : command.getArgs()) {
         matches = jLanguageTool.check(arg);
         for (RuleMatch ruleMatch : matches) {
           if (isNotInMathMode(arg, ruleMatch)) {
             mLog.info(new Result(mName, command.getPosition(),
-                    String.format(mMsg, ruleMatch.getMessage(), arg,
+                    String.format(cMsg, ruleMatch.getMessage(), arg,
                             ruleMatch.getSuggestedReplacements())
             ).toString());
           }
@@ -175,7 +235,7 @@ public class Spelling extends Module {
       for (RuleMatch ruleMatch : matches) {
         if (isNotInMathMode(headline.getText(), ruleMatch)) {
           mLog.info(new Result(mName, headline.getPosition(),
-                  String.format(mMsg, ruleMatch.getMessage(), headline.getText(),
+                  String.format(cMsg, ruleMatch.getMessage(), headline.getText(),
                           ruleMatch.getSuggestedReplacements())
           ).toString());
         }
@@ -187,7 +247,7 @@ public class Spelling extends Module {
   private void bullets(JLanguageTool jLanguageTool) throws IOException {
     mLog.fine("start bullets spellchecking");
     List<RuleMatch> matches;
-    List<Environment> environments = Api.getEnvironments(Misc.iterableToString(mSourceList, true));
+    List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
     for (Environment environment : environments) {
       List<Text> texts = environment.getItems();
       for (Text text : texts) {
@@ -196,7 +256,7 @@ public class Spelling extends Module {
         for (RuleMatch ruleMatch : matches) {
           if (isNotInMathMode(cText, ruleMatch)) {
             mLog.info(new Result(mName, text.getPosition(),
-                    String.format(mMsg, ruleMatch.getMessage(), cText,
+                    String.format(cMsg, ruleMatch.getMessage(), cText,
                             ruleMatch.getSuggestedReplacements())
             ).toString());
           }
@@ -217,20 +277,10 @@ public class Spelling extends Module {
   private boolean isNotInMathMode(String text, RuleMatch match) {
     Matcher m = sPatternMathMode.matcher(text);
     while (m.find()) {
-      if (m.start() <= match.getFromPos() && m.end() >= match.getToPos()) {
+      if ((m.start() <= match.getFromPos()) && (m.end() >= match.getToPos())) {
         return false;
       }
     }
     return true;
-  }
-
-  @Override
-  protected void validation() {
-    try {
-      String.format(mMsg, "test", "test", "test");
-    } catch (IllegalFormatException e) {
-      mLog.throwing(Spelling.class.getName(), mName, e);
-      mMsg = "Potential typo: %1$s %nText: %2$s %nSuggested correction(s):%3$s";
-    }
   }
 }

@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,19 +23,24 @@ import java.util.regex.Pattern;
 public class Tex {
 
   // für den Filter
-  private final static Pattern sComment = Pattern.compile("(?<!\\\\)%.*$");
-  private final static Pattern sInclude = Pattern.compile("(?<!\\\\)\\\\include\\s*\\{(?<Path>.*?)\\}");
-  private final static Pattern sInput = Pattern.compile("(?<!\\\\)\\\\input\\s*\\{(?<Path>.*?)\\}");
-  private final static String sSBadCommand = "(?<!\\\\)(?<BeginCom>\\\\%s\\s*(?<Klammer>!|\\|))(?<ContentCom>.*?)(?<EndCom>\\k<Klammer>)";
-  private final static String sSBadEnvEnd = "^(?<Content>.*)(?<!\\\\)(?<End>\\\\end\\s*\\{(?<Environment>%s)\\})";
-  private final static String sSBadEnvStart = "(?<!\\\\)(?<Begin>\\\\begin\\s*\\{(?<Environment>%s)\\})(?<Content>.*)$";
-  private final static String sSBadEnvironment = "(?<!\\\\)(?<BeginEnv>\\\\begin\\s*\\{(?<Environment>%s)\\})(?<ContentEnv>.*?)(?<EndEnv>\\\\end\\s*\\{\\k<Environment>\\})";
-  private final static String sSBad = String.format("(?<Env>%s)|(?<Com>%s)", sSBadEnvironment, sSBadCommand);
+  private static final Pattern sComment = Pattern.compile("(?<!\\\\)%.*$");
+  private static final Pattern sInclude = Pattern.compile("(?<!\\\\)\\\\include\\s*\\{(?<Path>.*?)\\}");
+  private static final Pattern sInput = Pattern.compile("(?<!\\\\)\\\\input\\s*\\{(?<Path>.*?)\\}");
+  private static final String sSBadCommand = "(?<!\\\\)(?<BeginCom>\\\\%s\\s*(?<Klammer>!|\\|))(?<ContentCom>.*?)(?<EndCom>\\k<Klammer>)";
+  private static final String sSBadEnvEnd = "^(?<Content>.*)(?<!\\\\)(?<End>\\\\end\\s*\\{(?<Environment>%s)\\})";
+  private static final String sSBadEnvStart = "(?<!\\\\)(?<Begin>\\\\begin\\s*\\{(?<Environment>%s)\\})(?<Content>.*)$";
+  private static final String sSBadEnvironment = "(?<!\\\\)(?<BeginEnv>\\\\begin\\s*\\{(?<Environment>%s)\\})(?<ContentEnv>.*?)(?<EndEnv>\\\\end\\s*\\{\\k<Environment>\\})";
+  private static final String sSBad = String.format("(?<Env>%s)|(?<Com>%s)", sSBadEnvironment, sSBadCommand);
   // für den Filter
+  private final Object lock = new Object();
   /**
    * Liste aller Überschriften im Dokument
    */
   private final List<Text> mAllHeadlines = new LinkedList<>();
+  /**
+   * Liste aller Sätze (inklusive Latex) des Dokuments
+   */
+  private final List<Text> mAllLatexTexts = new LinkedList<>();
   /**
    * Liste aller Paragrafen des Dokuments
    */
@@ -63,14 +70,14 @@ public class Tex {
    * somit darf eine Tex Datei max Integer.Max Chars beinhalten oO
    */
   private final TreeMap<Integer, Position> mPositions;
-  private DocumentTree mDocumentTreeRoot;
+  private volatile DocumentTree mDocumentTreeRoot;
 
   /**
    * Erstellt das Tex Objekt
    */
   public Tex() {
-    mPBad = Pattern.compile(String.format(sSBad, Misc.iterableToString(Api.settings().getBadEnv(), true), Misc.iterableToString(Api.settings().getBadCom(), true)));
-    mPBadEnvStart = Pattern.compile(String.format(sSBadEnvStart, Misc.iterableToString(Api.settings().getBadEnv(), true)));
+    mPBad = Pattern.compile(String.format(sSBad, Misc.iterableToString(Api.settings().getBadEnv(), true, false), Misc.iterableToString(Api.settings().getBadCom(), true, false)));
+    mPBadEnvStart = Pattern.compile(String.format(sSBadEnvStart, Misc.iterableToString(Api.settings().getBadEnv(), true, false)));
 
     mFile = Paths.get(Api.settings().getSource());
     mCharset = Charset.forName(Api.settings().getCharset());
@@ -110,9 +117,9 @@ public class Tex {
    *
    * @return DocumentTree
    */
-  synchronized DocumentTree getDocumentTree() {
+  DocumentTree getDocumentTree() {
     if (mDocumentTreeRoot == null) {
-      synchronized (this) {
+      synchronized (lock) {
         if (mDocumentTreeRoot == null) {
           mLog.fine("getDocumentTree -> build");
           mDocumentTreeRoot = DocumentTree.build();
@@ -121,11 +128,23 @@ public class Tex {
             mAllParagraphs.clear();
             mAllTexts.clear();
             mDocumentTreeRoot.buildLists(this);
+          } else {
+            mLog.warning("error while creating the document tree");
           }
         }
       }
     }
     return mDocumentTreeRoot;
+  }
+
+  /**
+   * Gibt alle Sätze (inklusive Latex) des Dokuments zurück
+   *
+   * @return alle Sätze
+   */
+  List<Text> allLatexTexts() {
+    getDocumentTree();
+    return mAllLatexTexts;
   }
 
   /**
@@ -154,18 +173,8 @@ public class Tex {
    * @param command regex
    * @return
    */
-  public List<Command> getCommandList(String command) {
-    List<Command> list = new LinkedList<>();
-    Pattern pattern = Pattern.compile(String.format("(?<!\\\\)\\\\(%s)", command), Pattern.CASE_INSENSITIVE);
-    Matcher matcher = pattern.matcher(mContent);
-    while (matcher.find()) {
-      try {
-        list.add(Command.getCommand(matcher.group(1), matcher.start(), mContent));
-      } catch (LatexException e) {
-        mLog.warning(e.getMessage());
-      }
-    }
-    return list;
+  public List<Command> getCommands(String command) {
+    return Command.getCommands(command, mContent);
   }
 
   /**
@@ -184,18 +193,7 @@ public class Tex {
    * @return
    */
   public List<Environment> getEnvironments(String environment) {
-    List<Environment> list = new LinkedList<>();
-    Pattern pattern = Pattern.compile(String.format("(?<!\\\\)\\\\(begin)\\s*\\{(%s)\\}", environment), Pattern.CASE_INSENSITIVE);
-    Matcher matcher = pattern.matcher(mContent);
-    while (matcher.find()) {
-      try {
-        Command command = Command.getCommand(matcher.group(1), matcher.start(), mContent);
-        list.add(Environment.getEnvironment(command, mContent));
-      } catch (LatexException e) {
-        mLog.warning(e.getMessage());
-      }
-    }
-    return list;
+    return Environment.getEnvironments(environment, mContent);
   }
 
   /**
@@ -216,10 +214,13 @@ public class Tex {
    * @param level
    */
   private void loadFile(Path file, StringBuilder stringBuilder, int level) {
-    if (level < 1)
+    if (level < 1) {
       return;
+    }
 
-    mLog.fine(String.format("loadFile start reading file = %s", file));
+    if (mLog.isLoggable(Level.FINE)) {
+      mLog.fine(String.format("loadFile start reading file = %s", file));
+    }
 
     try {
       List<String> textLines = Files.readAllLines(file, mCharset);
@@ -263,7 +264,9 @@ public class Tex {
         stringBuilder.append(textLine);
         stringBuilder.append(System.lineSeparator());
       }
-      mLog.fine(String.format("loadFile finish reading file = %s", file));
+      if (mLog.isLoggable(Level.FINE)) {
+        mLog.fine(String.format("loadFile finish reading file = %s", file));
+      }
     } catch (IOException e) {
       mLog.throwing(Tex.class.getName(), "loadFile", e);
     }
@@ -348,7 +351,14 @@ public class Tex {
         }
       }
       stringBuilder.append(input.substring(i));
-      return removeComment(stringBuilder.toString());
+
+      String ret = removeComment(stringBuilder.toString());
+
+      if (Api.settings().isConverting()) {
+        ret = convert(ret);
+      }
+
+      return ret;
     }
 
     String masking(String string) {
@@ -359,6 +369,14 @@ public class Tex {
 
     String removeComment(String string) {
       return sComment.matcher(string).replaceFirst("");
+    }
+
+    String convert(String string) {
+      Map<String, String> convertTable = Api.settings().getConvertingTable();
+      for (String from : convertTable.keySet()) {
+        string = string.replaceAll(Pattern.quote(from), Matcher.quoteReplacement(convertTable.get(from)));
+      }
+      return string;
     }
   }
 }

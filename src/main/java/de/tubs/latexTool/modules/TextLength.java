@@ -11,55 +11,105 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Dies ist ein Modul, mit dem Sätze auf ihre Länge getestet werden
- * Mögliche Optionen sind:
- * <p></p>
- * ############## <br></br>
- * MinChars<br></br>
- * MaxChars<br></br>
- * MinWords<br></br>
- * MaxWords<br></br>
- * Msg<br></br>
- * Source<br></br>
- * SourceList<br></br>
- * HeadlineFrom<br></br>
- * HeadlineTo<br></br>
- * ##############<br></br>
+ * Dies ist ein Modul, mit dem Sätze auf ihre Länge getestet werden <p></p>
+ * Mögliche Belegungen für das "Source" Attribut sind: "text", "environment", "command", "headline" oder "bullet"
  */
 public class TextLength extends Module {
-  @Expose
-  @SerializedName("HeadlineFrom")
-  private int mHeadlineFrom = -19;
-  @Expose
-  @SerializedName("HeadlineTo")
-  private int mHeadlineTo = Integer.MAX_VALUE;
-  @Expose
-  @SerializedName("MaxChars")
-  private int mMaxChars = -1;
-  @Expose
-  @SerializedName("MaxWords")
-  private int mMaxWords = -1;
-  @Expose
-  @SerializedName("MinChars")
-  private int mMinChars = -1;
-  @Expose
-  @SerializedName("MinWords")
-  private int mMinWords = -1;
+  private static final String sMsg = "\"%1$s\" %n %2$s %3$d %4$s";
+  /**
+   * "Msg" = "Text" <p></p>
+   * Der Nachrichten Prototyp
+   * <p></p> default: "\"%1$s\" %n %2$s %3$d %4$s"
+   */
   @Expose
   @SerializedName("Msg")
-  private String mMsg = "\"%1$s\" %n %2$s %3$d %4$s";
+  private String cMsg = sMsg;
+  /**
+   * "HeadlineFrom" = int Zahl >= -19 <p></p>
+   * Startlevel für die Suche in der Dokumenten Hierarchie
+   * <p></p> default: -19
+   */
+  @Expose
+  @SerializedName("HeadlineFrom")
+  private int cHeadlineFrom = -19;
+  /**
+   * "HeadlineTo" = int Zahl >= -19 <p></p>
+   * Endlevel für die Suche in der Dokumenten Hierarchie
+   * <p></p> default: Integer.MAX_VALUE
+   */
+  @Expose
+  @SerializedName("HeadlineTo")
+  private int cHeadlineTo = Integer.MAX_VALUE;
+  /**
+   * "MaxChars" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl Zeichen pro Satz, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MaxChars")
+  private int cMaxChars = -1;
+  /**
+   * "MaxWords" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl Wörtern pro Satz, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MaxWords")
+  private int cMaxWords = -1;
+  /**
+   * "MinChars" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl Zeichen pro Satz, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MinChars")
+  private int cMinChars = -1;
+  /**
+   * "MinWords" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl Wörtern pro Satz, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MinWords")
+  private int cMinWords = -1;
+  /**
+   * "Source" = "Text" <p></p>
+   * Die Eingabemöglichkeiten für "Source" sind in der Modul Beschreibung enthalten
+   * <p></p> default: text
+   */
   @Expose
   @SerializedName("Source")
-  private String mSource = "text";
+  private String cSource = "text";
+  /**
+   * "SourceList" = ["Text"] <p></p>
+   * Die Eingabemöglichkeiten für "SourceList" sind von "Source" abhängig (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
+   */
   @Expose
   @SerializedName("SourceList")
-  private List<String> mSourceList = new LinkedList<>();
+  private List<String> cSourceList = new LinkedList<>();
+  /**
+   * "UseRegex" = true / false <p></p>
+   * Gibt an, ob Regex in Listen benutzt wird
+   * <p></p> default: false
+   */
+  @Expose
+  @SerializedName("UseRegex")
+  private boolean cUseRegex = false;
 
   @Override
-  public void run() {
-    mLog.fine(String.format("%s start", mName));
+  public void validation() {
+    try {
+      String.format(cMsg, "test", "test", 10, "test");
+    } catch (IllegalFormatException e) {
+      mLog.throwing(TextLength.class.getName(), mName, e);
+      cMsg = sMsg;
+    }
+  }
 
-    switch (mSource) {
+  @Override
+  public void runModule() {
+    switch (cSource) {
       case "text":
         text();
         break;
@@ -76,9 +126,8 @@ public class TextLength extends Module {
         bullet();
         break;
       default:
-        mLog.warning("only \"text\", \"command\", \"headline\", \"bullet\"  or \"environment\" are allowed as an argument to Source.");
+        mLog.warning("only \"text\", \"environment\", \"command\", \"headline\" or \"bullet\" are allowed as an argument to Source.");
     }
-    mLog.fine(String.format("%s finish", mName));
   }
 
   private void text() {
@@ -89,8 +138,8 @@ public class TextLength extends Module {
   }
 
   private void environment() {
-    if (!mSourceList.isEmpty()) {
-      List<Environment> environments = Api.getEnvironments(Misc.iterableToString(mSourceList, true));
+    if (!cSourceList.isEmpty()) {
+      List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
       for (Environment environment : environments) {
         check(environment.getContent(), environment.getPosition());
       }
@@ -98,8 +147,8 @@ public class TextLength extends Module {
   }
 
   private void command() {
-    if (!mSourceList.isEmpty()) {
-      List<Command> commands = Api.getCommands(Misc.iterableToString(mSourceList, true));
+    if (!cSourceList.isEmpty()) {
+      List<Command> commands = Api.getCommands(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
       for (Command command : commands) {
         for (String arg : command.getArgs()) {
           check(arg, command.getPosition());
@@ -111,15 +160,15 @@ public class TextLength extends Module {
   private void headline() {
     List<Text> texts = Api.allHeadlines();
     for (Text text : texts) {
-      if (text.getDocumentTree().getLevel() >= mHeadlineFrom && text.getDocumentTree().getLevel() <= mHeadlineTo) {
+      if ((text.getDocumentTree().getLevel() >= cHeadlineFrom) && (text.getDocumentTree().getLevel() <= cHeadlineTo)) {
         check(text.getText(), text.getPosition());
       }
     }
   }
 
   private void bullet() {
-    if (!mSourceList.isEmpty()) {
-      List<Environment> environments = Api.getEnvironments(Misc.iterableToString(mSourceList, true));
+    if (!cSourceList.isEmpty()) {
+      List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
       for (Environment environment : environments) {
         for (Text text : environment.getItems()) {
           check(text.getMasked(), text.getPosition());
@@ -129,32 +178,22 @@ public class TextLength extends Module {
   }
 
   private void check(String text, Position position) {
-    if (mMinChars > -1 && text.length() < mMinChars) {
-      mLog.info(new Result(mName, position, String.format(mMsg, text, "has less than", mMinChars, "Chars")).toString());
+    if ((cMinChars > -1) && (text.length() < cMinChars)) {
+      mLog.info(new Result(mName, position, String.format(cMsg, text, "has less than", cMinChars, "Chars")).toString());
     }
-    if (mMaxChars > -1 && text.length() > mMaxChars) {
-      mLog.info(new Result(mName, position, String.format(mMsg, text, "has more than", mMaxChars, "Chars")).toString());
+    if ((cMaxChars > -1) && (text.length() > cMaxChars)) {
+      mLog.info(new Result(mName, position, String.format(cMsg, text, "has more than", cMaxChars, "Chars")).toString());
     }
 
-    if (mMinWords > -1 || mMaxWords > -1) {
+    if ((cMinWords > -1) || (cMaxWords > -1)) {
       String[] words = text.split("\\s+");
 
-      if (mMinWords > -1 && words.length < mMinWords) {
-        mLog.info(new Result(mName, position, String.format(mMsg, text, "has less than", mMinWords, "Words")).toString());
+      if ((cMinWords > -1) && (words.length < cMinWords)) {
+        mLog.info(new Result(mName, position, String.format(cMsg, text, "has less than", cMinWords, "Words")).toString());
       }
-      if (mMaxWords > -1 && words.length > mMaxWords) {
-        mLog.info(new Result(mName, position, String.format(mMsg, text, "has more than", mMaxWords, "Words")).toString());
+      if ((cMaxWords > -1) && (words.length > cMaxWords)) {
+        mLog.info(new Result(mName, position, String.format(cMsg, text, "has more than", cMaxWords, "Words")).toString());
       }
-    }
-  }
-
-  @Override
-  public void validation() {
-    try {
-      String.format(mMsg, "test", "test", 10, "test");
-    } catch (IllegalFormatException e) {
-      mLog.throwing(TextLength.class.getName(), mName, e);
-      mMsg = "\"%1$s\" %n %2$s %3$d %4$s";
     }
   }
 }

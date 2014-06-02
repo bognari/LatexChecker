@@ -18,11 +18,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Settings {
   private static final Gson sGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-  private static final Logger sLog = Logger.getLogger(JsonSettings.class.getName());
+  private static final Logger sLog = Logger.getLogger(Settings.class.getName());
   private final ArgsSettings mArgsSettings = new ArgsSettings();
   private final JCommander mJc = new JCommander(mArgsSettings);
   private JsonSettings mJsonSettings;
@@ -36,11 +37,11 @@ public class Settings {
    */
   private void defaultSetting() throws IOException {
     sLog.fine("defaultSetting reading defaults");
-    final InputStream is = JsonSettings.class.getResourceAsStream("/conf/config.json");
-    final InputStreamReader isr = new InputStreamReader(is, Charset.forName("UTF-8"));
+    InputStream is = JsonSettings.class.getResourceAsStream("/conf/config.json");
+    InputStreamReader isr = new InputStreamReader(is, Charset.forName("UTF-8"));
     try (BufferedReader bufferedReader = new BufferedReader(isr)) {
-      final JsonParser jsonParser = new JsonParser();
-      final JsonObject jSettings = (JsonObject) jsonParser.parse(bufferedReader);
+      JsonParser jsonParser = new JsonParser();
+      JsonObject jSettings = (JsonObject) jsonParser.parse(bufferedReader);
       mJsonSettings = sGson.fromJson(jSettings, JsonSettings.class);
       mJsonSettings.setJSettings(jSettings);
       sLog.config(String.format("loadJson new config is = %s", jSettings.toString()));
@@ -84,6 +85,10 @@ public class Settings {
 
   public List<String> getConfigs() {
     return mArgsSettings.mConfigs;
+  }
+
+  public Map<String, String> getConvertingTable() {
+    return Collections.unmodifiableMap(mJsonSettings.mConverting);
   }
 
   public String getDefaultConfig() {
@@ -161,6 +166,10 @@ public class Settings {
     return Collections.unmodifiableMap(mJsonSettings.mLatexWhitelist);
   }
 
+  public boolean isConverting() {
+    return mArgsSettings.mUseConverting;
+  }
+
   public boolean isHasNoDocumentEnv() {
     return mArgsSettings.mHasNoDocumentEnv;
   }
@@ -199,10 +208,12 @@ public class Settings {
    * @param config Pfad zur Json Datei
    */
   public void loadJson(String config) throws IOException {
-    sLog.fine(String.format("loadJson start reading file = %s", config));
+    if (sLog.isLoggable(Level.FINE)) {
+      sLog.fine(String.format("loadJson start reading file = %s", config));
+    }
     try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(config), Charset.forName("UTF-8"))) {
-      final JsonParser jsonParser = new JsonParser();
-      final JsonObject jSettings = JsonSettings.merge((JsonObject) jsonParser.parse(bufferedReader), mJsonSettings.getJSettings());
+      JsonParser jsonParser = new JsonParser();
+      JsonObject jSettings = JsonSettings.merge((JsonObject) jsonParser.parse(bufferedReader), mJsonSettings.getJSettings());
       mJsonSettings = sGson.fromJson(jSettings, JsonSettings.class);
       mJsonSettings.setJSettings(jSettings);
       sLog.config(String.format("loadJson new config is = %s", jSettings.toString()));

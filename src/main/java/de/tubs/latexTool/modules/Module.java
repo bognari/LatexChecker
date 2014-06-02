@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -11,9 +12,21 @@ import java.util.logging.Logger;
  */
 public abstract class Module implements Runnable {
 
+  /**
+   * Die Gson Instanz für alle Module, diese injiziert die Konfiguration in die Module
+   */
   private static final Gson sGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-  private final static Logger sLog = Logger.getLogger(Module.class.getName());
+  /**
+   * Der globale Module Logger, hier werden alle Events bei der Erstellung der Module geloggt
+   */
+  private static final Logger sLog = Logger.getLogger(Module.class.getName());
+  /**
+   * Dies Log ist das private Modul Log, alle Aktivitäten und Events werden hier geloggt
+   */
   protected Logger mLog;
+  /**
+   * Der eineindeutige Name des Moduls
+   */
   protected String mName;
 
   /**
@@ -26,7 +39,10 @@ public abstract class Module implements Runnable {
    * @throws java.lang.IllegalArgumentException wenn die Class Option fehlt, die Klasse nicht geladen werden kann
    *                                            oder wenn die Klasse nicht vom Typ Modul ist
    */
-  public final static Module getModul(String name, JsonObject config) {
+  public static Module getModul(String name, JsonObject config) {
+    if (sLog.isLoggable(Level.FINE)) {
+      sLog.fine(String.format("try to load %s", name));
+    }
     if (!config.has("Class")) {
       sLog.severe(String.format("Modul = %s has no Class definition", name));
       throw new IllegalArgumentException();
@@ -60,6 +76,21 @@ public abstract class Module implements Runnable {
    */
   protected void validation() {
   }
+
+  public final void run() {
+    if (mLog.isLoggable(Level.FINE)) {
+      mLog.fine(String.format("%s start", mName));
+    }
+    runModule();
+    if (mLog.isLoggable(Level.FINE)) {
+      mLog.fine(String.format("%s finish", mName));
+    }
+  }
+
+  /**
+   * Diese Methode startet das Modul
+   */
+  protected abstract void runModule();
 
   @Override
   public String toString() {

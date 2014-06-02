@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
@@ -30,6 +31,7 @@ public class DocumentTree implements IPosition {
    * Der Bezeichner des Knotens
    */
   private final String mHeadline;
+  private final List<Text> mLatexTexts;
   /**
    * Gibt die Wertigkeit des Knotens im Dokument an, z.B. Part, Chapter, Section ...
    */
@@ -67,9 +69,10 @@ public class DocumentTree implements IPosition {
     mHeadline = headline;
     mChildren = new LinkedList<>();
     mParagraphs = new LinkedList<>();
+    mLatexTexts = new LinkedList<>();
 
     if (!list.isEmpty()) {
-      mRaw = content.substring(start, list.getFirst().start() - 1 < 0 ? 0 : list.getFirst().start() - 1);
+      mRaw = content.substring(start, ((list.getFirst().start() - 1) < 0) ? 0 : (list.getFirst().start() - 1));
     } else {
       mRaw = content.substring(start);
     }
@@ -98,6 +101,7 @@ public class DocumentTree implements IPosition {
     }
 
     threadPool.execute(new DocumentTreeWorker());
+    threadPool.execute(new DocumentTreeWorkerLatex());
   }
 
   /**
@@ -113,9 +117,13 @@ public class DocumentTree implements IPosition {
         @Override
         public void run() {
           String s = String.format("DocumentTree %d threads are running, (%d / %4$d) are completed and (%d  / %4$d) are queued", threadPool.getActiveCount(), threadPool.getCompletedTaskCount(), threadPool.getQueue().size(), threadPool.getTaskCount());
-          sLog.finest(s);
-          String t = String.format("DocumentTree: %3d%%", threadPool.getTaskCount() <= 0 ? 0 : (threadPool.getCompletedTaskCount() * 100) / threadPool.getTaskCount());
-          sLog.finer(t);
+          if (sLog.isLoggable(Level.FINEST)) {
+            sLog.finest(s);
+          }
+          String t = String.format("DocumentTree: %3d%%", (threadPool.getTaskCount() <= 0) ? 0 : ((threadPool.getCompletedTaskCount() * 100) / threadPool.getTaskCount()));
+          if (sLog.isLoggable(Level.FINER)) {
+            sLog.finer(t);
+          }
           System.out.println(t);
         }
       }, 100, 500);
@@ -140,7 +148,7 @@ public class DocumentTree implements IPosition {
       Map<String, Integer> parts = new TreeMap<>(valueComparator);
       parts.putAll(partsTmp);
 
-      String partsString = Misc.iterableToString(new LinkedList<>(parts.keySet()), true);
+      String partsString = Misc.iterableToString(new LinkedList<>(parts.keySet()), true, false);
 
       Pattern partsPattern = Pattern.compile(String.format("\\\\(?<Part>%s)(?<Hidden>\\*)?\\s*(?<Titles>(?<ShortTitleAll>\\[(?<ShortTitle>.*?)\\])?\\{(?<LongTitle>.*?)\\})", partsString), Pattern.DOTALL);
 
@@ -180,12 +188,13 @@ public class DocumentTree implements IPosition {
   void buildLists(Tex tex) {
 
     tex.allParagraphs().addAll(mParagraphs);
+    tex.allLatexTexts().addAll(mLatexTexts);
 
     for (Paragraph paragraph : mParagraphs) {
       tex.allTexts().addAll(paragraph.getTexts());
     }
 
-    if (mHeadline != null && !mHeadline.equals("root")) {
+    if ((mHeadline != null) && !"root".equals(mHeadline)) {
       tex.allHeadlines().add(new Text(mHeadline, new Paragraph(this), 0, mStart));
     }
 
@@ -293,7 +302,7 @@ public class DocumentTree implements IPosition {
 
       for (String cParagraph : cParagraphs) {
         Paragraph paragraph = new Paragraph(DocumentTree.this);
-        List<String> sentencesString = Misc.getSentences(cParagraph, false);
+        List<String> sentencesString = Misc.getSentences(cParagraph);
 
         int start = 0;
         int index;
@@ -315,6 +324,48 @@ public class DocumentTree implements IPosition {
         if (!paragraph.getTexts().isEmpty()) {
           mParagraphs.add(paragraph);
         }
+      }
+    }
+  }
+
+  /**
+   * Analysiert den Rohtext des Knotens um die Sätze (inclusive Latex Befehlen) zu finden
+   */
+  private class DocumentTreeWorkerLatex implements Runnable {
+    @Override
+    public void run() {
+
+      String content = mRaw;
+
+      int length = content.length();
+      content = content.replaceAll("\\t", " ");
+      assert length == content.length();
+      content = Misc.noSingleLF(content);
+      assert length == content.length();
+      content = Misc.sortNewline(content);
+      assert length == content.length();
+
+      if (Api.settings().isUseAbbreviationsEscaping()) {
+        content = Abbreviation.masking(content);
+        assert length == content.length();
+      }
+
+      List<String> sentencesString = Misc.getSentences(content);
+
+      int start = 0;
+      int index;
+      Text textEntry;
+
+      for (String sentence : sentencesString) {
+        sentence = sentence.trim();
+        index = content.indexOf(sentence, start);
+        if (Api.settings().isUseAbbreviationsEscaping()) {
+          textEntry = new Text(Abbreviation.unmasking(sentence), index, mStart);
+        } else {
+          textEntry = new Text(sentence, index, mStart);
+        }
+        mLatexTexts.add(textEntry);
+        start = index + sentence.length() - 1;
       }
     }
   }

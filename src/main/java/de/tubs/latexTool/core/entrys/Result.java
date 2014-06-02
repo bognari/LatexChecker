@@ -3,7 +3,6 @@ package de.tubs.latexTool.core.entrys;
 /**
  * Diese Klasse ist für den Logger gedacht und stellt eine Mitteilung an die "Außenwelt" dar
  */
-
 public class Result {
   /**
    * Das erzeugende Modul
@@ -41,13 +40,21 @@ public class Result {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if ((o == null) || (getClass() != o.getClass())) {
+      return false;
+    }
 
     Result result = (Result) o;
 
-    if (!mModul.equals(result.mModul)) return false;
-    if (!mMsg.equals(result.mMsg)) return false;
+    if (!mModul.equals(result.mModul)) {
+      return false;
+    }
+    if (!mMsg.equals(result.mMsg)) {
+      return false;
+    }
     return mPosition.equals(result.mPosition);
 
   }

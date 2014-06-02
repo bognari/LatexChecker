@@ -14,12 +14,12 @@
     },
     "MODULES": {
         "Words": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "WordList": ["aber", "also", "du", "ich", "man", "todo", "tun", "Bild"],
             "CaseSensitive": false
         },
         "WordsRepetition": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "ListStartWith": "(?<Word>\\b(?!",
             "WordList": ["das", "die", "der", "the", "of", "dem", "des"],
             "ListEndWith": ")[a-z]{3,}+\\b)((.*?)(\\b\\k<Word>\\b)){3,}",
@@ -27,42 +27,42 @@
             "CaseSensitive": false
         },
         "Phrases": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "WordList": ["In diesem Kapitel", "In diesem Abschnitt"],
             "CaseSensitive": false
         },
         "SentenceStarts": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "WordList": ["Dass", "Aber", "Desto", "Da", "Weshalb", "Darum"],
             "OnlyAtStart": true,
             "Msg": "find: \"%1$s\""
         },
         "Numbers": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
-            "ListStartWith": "(?<!\\d)([\\d]{1,1}|10|11|12)(?!(\\d|\\.))",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
+            "ListStartWith": "(?<!\\d|,)([\\d]{1,1}|10|11|12)(?!(\\d|\\.|,))",
             "UseEscaping": false
         },
         "Desto": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "ListStartWith": "((?!je).)*(desto).*",
             "OnlyAtStart": true,
             "UseEscaping": false,
             "CaseSensitive": false
         },
         "Dass": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
-            "ListStartWith": "(?<!, )dass\\b",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
+            "ListStartWith": "(?<!,\\s{1,100})dass\\b",
             "UseEscaping": false,
             "CaseSensitive": false
         },
         "HeadlineCheck": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "ListEndWith": "(:\\s*)$",
             "UseEscaping": false,
             "Source": "headline"
         },
         "CaptionCheck": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "ListEndWith": "(:\\s*)$",
             "UseEscaping": false,
             "Source": "command",
@@ -71,7 +71,7 @@
             ]
         },
         "ParagraphCheck": {
-            "Class": "de.tubs.latexTool.modules.TextRegEx",
+            "Class": "de.tubs.latexTool.modules.TextRegex",
             "ListEndWith": "([\\.: ]\\s*)$",
             "UseEscaping": false,
             "Source": "headline",
@@ -99,24 +99,25 @@
             "MinWords": 5
         },
         "SpellingText": {
-            "Class": "de.tubs.latexTool.modules.Spelling"
+            "Class": "de.tubs.latexTool.modules.LanguageToolChecker",
+            "RulesXML": ["rules_de.xml", "rules_en.xml"]
         },
         "SpellingCommand": {
-            "Class": "de.tubs.latexTool.modules.Spelling",
+            "Class": "de.tubs.latexTool.modules.LanguageToolChecker",
             "Source": "command",
             "SourceList": [
                 "caption"
             ]
         },
         "SpellingEnvironment": {
-            "Class": "de.tubs.latexTool.modules.Spelling",
+            "Class": "de.tubs.latexTool.modules.LanguageToolChecker",
             "Source": "environment",
             "SourceList": [
                 "tabular"
             ]
         },
         "SpellingBullet": {
-            "Class": "de.tubs.latexTool.modules.Spelling",
+            "Class": "de.tubs.latexTool.modules.LanguageToolChecker",
             "Source": "bullet",
             "SourceList": [
                 "itemize", "enumerate", "description"
@@ -136,13 +137,13 @@
             "MinSentences": 4,
             "MaxSentences": 80
         },
-        "Labelcheck": {
+        "LabelCheck": {
             "Class": "de.tubs.latexTool.modules.LabelCheck",
-            "EnvironmentList": ["figure", "tabular"]
+            "Environments": ["figure", "tabular"]
         },
         "HeadlineRegEx": {
             "Class": "de.tubs.latexTool.modules.HeadlineRegEx",
-            "EnvironmentList": ["figure", "tabular"],
+            "Environments": ["figure", "tabular"],
             "MaxWords": 5,
             "MinWords": 1,
             "MaxWordsCaption": 10,
@@ -153,7 +154,7 @@
             "MaxSentences": 80,
             "MinItems": 3,
             "MaxItems": 20,
-            "SourceList": [
+            "Environments": [
                 "itemize", "enumerate", "description"
             ]
         },
@@ -169,13 +170,33 @@
             "Class": "de.tubs.latexTool.modules.EnvTextCheck",
             "MinBetweenSentences": 2,
             "MinBeforeSentences": 2,
-            "EnvList": [
+            "Environments": [
                 "itemize", "enumerate", "description", "function", "data", "ui", "class", "entity", "component", "interface", "testcase"
             ]
         },
         "AbbreviationsCheck": {
             "Class": "de.tubs.latexTool.modules.AbbreviationsCheck",
             "BadSeparators": ["", " ", "\\ ", "~", "\\.", "\\qquad", "\\quad"]
+        },
+        "NoSpaceBeforeCite": {
+            "Class": "de.tubs.latexTool.modules.TextRegex",
+            "ListStartWith": "(?<!~)",
+            "WordList": ["\\\\cite"],
+            "UseEscaping": false,
+            "Source": "tex",
+            "Msg": "find: \"%1$s\""
+        },
+        "NoCiteAtBegin": {
+            "Class": "de.tubs.latexTool.modules.TextRegex",
+            "ListStartWith": "^\\s*",
+            "WordList": ["~?\\\\cite"],
+            "UseEscaping": false,
+            "Source": "latexText",
+            "Msg": "find: \"%1$s\""
+        },
+        "NoAbbreviations": {
+            "Class": "de.tubs.latexTool.modules.NoAbbreviations",
+            "Separators": ["", " "]
         }
     }
 }

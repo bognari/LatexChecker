@@ -114,6 +114,7 @@ public class CommandTest {
   /**
    * Method: getCommand(final String command, final int start, final String input)
    */
+  @SuppressWarnings("LocalCanBeFinal")
   @Test
   public void testReadCommandSM() throws Exception {
 //TODO: Test goes here...
@@ -141,20 +142,20 @@ public class CommandTest {
             "    \t \\textbf[dfsgt]  {\"`Was\"'}[dgsft] ist die Lösung \\\\\n";
     Tex tex = new Tex(content);
 
-    List<Command> commandList = tex.getCommandList("newcommand\\*|large");
+    List<Command> commandList = tex.getCommands("newcommand\\*|large");
 
     //char a = content.charAt(commandList.get(0).getStart());
     //char b = content.charAt(commandList.get(0).getEnd());
 
     assert !commandList.isEmpty();
-    assertTrue(content.charAt(commandList.get(0).getStart()) == '\\');
-    assertTrue(content.charAt(commandList.get(0).getEnd()) == '}');
-    assertTrue(content.charAt(commandList.get(1).getStart()) == '\\');
-    assertTrue(content.charAt(commandList.get(1).getEnd()) == '}');
-    assertTrue(content.charAt(commandList.get(2).getStart()) == '\\');
-    assertTrue(content.charAt(commandList.get(2).getEnd()) == '}');
+    assertTrue('\\' == content.charAt(commandList.get(0).getStart()));
+    assertTrue('}' == content.charAt(commandList.get(0).getEnd()));
+    assertTrue('\\' == content.charAt(commandList.get(1).getStart()));
+    assertTrue('}' == content.charAt(commandList.get(1).getEnd()));
+    assertTrue('\\' == content.charAt(commandList.get(2).getStart()));
+    assertTrue('}' == content.charAt(commandList.get(2).getEnd()));
 
-    commandList = tex.getCommandList("lstinline|textbf");
+    commandList = tex.getCommands("lstinline|textbf");
     assert !commandList.isEmpty();
 
     content = "\\begin{itemize}\n" +
@@ -172,7 +173,7 @@ public class CommandTest {
             "\n" +
             "\\end{itemize}";
 
-    commandList = tex.getCommandList("");
+    commandList = tex.getCommands("");
     assert !commandList.isEmpty();
 
 

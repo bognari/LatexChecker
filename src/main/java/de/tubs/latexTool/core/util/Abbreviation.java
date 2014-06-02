@@ -3,6 +3,7 @@ package de.tubs.latexTool.core.util;
 import de.tubs.latexTool.core.Api;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
  * <p/>
  * grep -o -E '^(([^ ])+\.( ([^ ])+\.)*)' abb | xargs printf "\"%s\", " > nabb
  */
-public class Abbreviation {
+public final class Abbreviation {
 
   private static final Object sLock = new Object();
   private static final Logger sLog = Logger.getLogger(Abbreviation.class.getName());
@@ -24,11 +25,14 @@ public class Abbreviation {
    * Tabelle für das Demaskieren
    */
   private static SortedMap<Pattern, String> sFrom = new TreeMap<>(new DotsComparator<Pattern>('#'));
-  private static boolean sIsNotReady = true;
+  private static volatile boolean sIsNotReady = true;
   /**
    * Tabelle für das Maskieren
    */
   private static SortedMap<Pattern, String> sTo = new TreeMap<>(new DotsComparator<Pattern>('.'));
+
+  private Abbreviation() {
+  }
 
   /**
    * Gibt eine Sortierte Menge der Abkürzungen zurück
@@ -55,7 +59,9 @@ public class Abbreviation {
     Map<String, List<String>> abbs = Api.settings().getAbb();
 
     if (abbs.get(language) != null) {
-      sLog.fine(String.format("buildDefault: start reading language = %s", language));
+      if (sLog.isLoggable(Level.FINE)) {
+        sLog.fine(String.format("buildDefault: start reading language = %s", language));
+      }
       String masked;
       for (String abb : abbs.get(language)) {
         abb = abb.replaceAll("(\\(|\\))", "\\\\$1");
@@ -75,7 +81,9 @@ public class Abbreviation {
           sFrom.put(from, pattern2groups(abb));
         }
       }
-      sLog.fine(String.format("buildDefault: finish reading language = %s", language));
+      if (sLog.isLoggable(Level.FINE)) {
+        sLog.fine(String.format("buildDefault: finish reading language = %s", language));
+      }
     } else {
       sLog.warning(String.format("buildDefault: language = %s in config is not supported", language));
     }
@@ -95,7 +103,7 @@ public class Abbreviation {
 
     int i = 1;
     while (matcher.find()) {
-      if (matcher.group().equals(".") || matcher.group().equals("#")) {
+      if (".".equals(matcher.group()) || "#".equals(matcher.group())) {
         stringBuilder.append(matcher.group());
       } else {
         stringBuilder.append("$").append(i);
@@ -182,8 +190,8 @@ public class Abbreviation {
    */
   public static String masking(String input) {
     int length = input.length();
-    for (Pattern abb : Abbreviation.getToPatterns()) {
-      input = abb.matcher(input).replaceAll(Abbreviation.getTo(abb));
+    for (Pattern abb : getToPatterns()) {
+      input = abb.matcher(input).replaceAll(getTo(abb));
     }
     if (length != input.length()) {
       assert length == input.length() : "Laenge wurde veraendert! - masking";
@@ -200,8 +208,8 @@ public class Abbreviation {
   public static String unmasking(String input) {
     int length = input.length();
     if (!input.isEmpty()) {
-      for (Pattern abb : Abbreviation.getFromPatterns()) {
-        input = abb.matcher(input).replaceAll(Abbreviation.getFrom(abb));
+      for (Pattern abb : getFromPatterns()) {
+        input = abb.matcher(input).replaceAll(getFrom(abb));
       }
     }
     assert length == input.length() : "Laenge wurde veraendert! - unmasking";

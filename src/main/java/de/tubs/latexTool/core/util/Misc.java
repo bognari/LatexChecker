@@ -4,10 +4,10 @@ import de.tubs.latexTool.core.Api;
 import de.tubs.latexTool.core.LatexException;
 import de.tubs.latexTool.core.entrys.Command;
 import de.tubs.latexTool.core.entrys.Environment;
-import opennlp.tools.sentdetect.SentenceDetector;
+import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
-import org.languagetool.tokenizers.SRXSentenceTokenizer;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * Eine Sammlung von ganz tollen spaßigen Methoden,
  * eigentlich müssen alle 42 als "Antwort" liefern
  */
-public class Misc {
+public final class Misc {
 
   /**
    * Pattern zum Suchen von Math Mode
@@ -49,38 +49,54 @@ public class Misc {
    */
   private static final Pattern sSentenceEnd = Pattern.compile("(\\.|!|\\?|:)\\s*$");
 
+  private Misc() {
+  }
+
   /**
    * Wenn die Eingestellte Sprache "TEX_LANGUAGE" vom Languagetool unterstützt wird, wird eine Liste an Sätzen im
    * übergebenen "text" zurück gegeben
    *
-   * @param text                der Text
-   * @param lineBreakParagraphs if true, single lines breaks are assumed to end a paragraph, with false, only two ore
-   *                            more consecutive line breaks end a paragraph
+   * @param text der Text
    * @return
    */
-  public static List<String> getSentences(String text, boolean lineBreakParagraphs) {
-    SRXSentenceTokenizer srxSentenceTokenizer;
+  public static List<String> getSentences(String text) {
+    Language language;
     try {
-      Language language = Language.getLanguageForShortName(Api.settings().getLanguage());
-      srxSentenceTokenizer = new SRXSentenceTokenizer(language);
-      srxSentenceTokenizer.setSingleLineBreaksMarksParagraph(lineBreakParagraphs);
-      return srxSentenceTokenizer.tokenize(text);
+      language = Language.getLanguageForShortName(Api.settings().getLanguage());
     } catch (IllegalArgumentException e) {
-      sLog.throwing(SentenceDetector.class.getName(), "getSentenceTokenizer", e);
+      sLog.throwing(Misc.class.getName(), "getSentences", e);
+      sLog.severe(String.format("language %s is not supported", Api.settings().getLanguage()));
+      return new LinkedList<>();
     }
-    return new LinkedList<>();
+
+    JLanguageTool jLanguageTool;
+    try {
+      jLanguageTool = new JLanguageTool(language);
+    } catch (IOException e) {
+      sLog.throwing(Misc.class.getName(), "getSentences", e);
+      sLog.severe(String.format("can not load resources for the language %s", Api.settings().getLanguage()));
+      return new LinkedList<>();
+    }
+
+    return jLanguageTool.sentenceTokenize(text);
   }
 
   /**
    * Erzeugt aus einer iterierbaren Collection von Strings einen String, der für ein OR Pattern geeignet ist
    *
-   * @param list
+   * @param list   die "Liste" an Wörtern
+   * @param escape gibt an ob escapet werden soll
+   * @param word   gibt an ob die wörter zwischen \b (Wörter) \b stehen soll
    * @return
    */
-  public static String iterableToString(Iterable<String> list, boolean escape) {
+  public static String iterableToString(Iterable<String> list, boolean escape, boolean word) {
     StringBuilder stringBuilder = new StringBuilder();
     Iterator<String> iterator = list.iterator();
 
+    if (word) {
+      stringBuilder.append("\\b");
+    }
+    stringBuilder.append("(");
     if (iterator.hasNext()) {
       stringBuilder.append(escape ? Pattern.quote(iterator.next()) : iterator.next());
     }
@@ -88,6 +104,10 @@ public class Misc {
     while (iterator.hasNext()) {
       stringBuilder.append("|");
       stringBuilder.append(escape ? Pattern.quote(iterator.next()) : iterator.next());
+    }
+    stringBuilder.append(")");
+    if (word) {
+      stringBuilder.append("\\b");
     }
 
     return stringBuilder.toString();
@@ -205,7 +225,7 @@ public class Misc {
 
     StringBuilder stringBuilder = new StringBuilder(input);
     Map<String, List<Integer>> whitelist = Api.settings().getWhiteList();
-    String commands = iterableToString(whitelist.keySet(), true);
+    String commands = iterableToString(whitelist.keySet(), true, false);
     Pattern pattern = Pattern.compile(String.format(sCommand, commands), Pattern.DOTALL);
     Matcher matcher = pattern.matcher(input);
 
@@ -222,14 +242,14 @@ public class Misc {
 
         StringBuilder insert = new StringBuilder();
         // wenn keine angabe dann nehme alle args
-        if (whitelist.get(command.getName()) == null || whitelist.get(command.getName()).isEmpty()) {
+        if ((whitelist.get(command.getName()) == null) || whitelist.get(command.getName()).isEmpty()) {
           insert.append(command.getArgsString(' ')).append(' ');
           // nehme nur bestimmte args
         } else {
           for (int n : whitelist.get(command.getName())) {
             // von hinten zählen
             if (n <= 0) {
-              if (command.getArgs().size() + n >= 0) {
+              if ((command.getArgs().size() + n) >= 0) {
                 String arg = command.getArgs().get(command.getArgs().size() + n);
                 insert.append(arg);
                 insert.append(' ');
@@ -263,7 +283,7 @@ public class Misc {
         // ?! warum auch immer es um eins größer sein muss raff ich grad null
         //  assert command.getLength() == insert.length();
         //}
-        assert command.getEnd() == command.getStart() + command.getLength();
+        assert command.getEnd() == (command.getStart() + command.getLength());
       } catch (LatexException e) {
         sLog.warning(e.getMessage());
       }
@@ -359,7 +379,7 @@ public class Misc {
     while (matcher.find()) {
       int i = matcher.start();
 
-      for (; i < matcher.end() - 2; i++) {
+      for (; i < (matcher.end() - 2); i++) {
         array[i] = ' ';
       }
 
@@ -386,17 +406,17 @@ public class Misc {
     int i = 0;
 
     // Gammel am Anfang ist egal
-    while (i < maxIndex && (input.charAt(i) == ' ' || input.charAt(i) == '\n')) {
+    while ((i < maxIndex) && ((input.charAt(i) == ' ') || (input.charAt(i) == '\n'))) {
       stringBuilder.append(input.charAt(i));
       i++;
     }
 
     while (i <= maxIndex) {
       // die zu vielen Leerzeichen zählen und überspringen
-      if (input.charAt(i) == ' ' || input.charAt(i) == '\n') {
+      if ((input.charAt(i) == ' ') || (input.charAt(i) == '\n')) {
         stringBuilder.append(input.charAt(i));
         i++;
-        while (i < maxIndex && input.charAt(i) == ' ') {
+        while ((i < maxIndex) && (input.charAt(i) == ' ')) {
           whitespaces++;
           i++;
         }
@@ -404,8 +424,8 @@ public class Misc {
       }
 
       // Satzende gefunden
-      if (endings.contains(String.valueOf(input.charAt(i))) && (i < maxIndex && !Character.isDigit(input.charAt(i + 1)))) {
-        if (stringBuilder.length() > 0 && stringBuilder.charAt(stringBuilder.length() - 1) == ' ') {
+      if (endings.contains(String.valueOf(input.charAt(i))) && ((i < maxIndex) && !Character.isDigit(input.charAt(i + 1)))) {
+        if ((stringBuilder.length() > 0) && (stringBuilder.charAt(stringBuilder.length() - 1) == ' ')) {
           whitespaces++;
           stringBuilder.deleteCharAt(stringBuilder.length() - 1);
           stringBuilder.append(input.charAt(i));
@@ -417,7 +437,7 @@ public class Misc {
           stringBuilder.append(' ');
           whitespaces--;
         }
-        while (i < maxIndex && input.charAt(i) == ' ') {
+        while ((i < maxIndex) && (input.charAt(i) == ' ')) {
           stringBuilder.append(input.charAt(i));
           i++;
         }

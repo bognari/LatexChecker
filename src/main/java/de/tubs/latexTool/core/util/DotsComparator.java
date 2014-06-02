@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Diese Klasse ist zum Vergleichen zweier Objekte bezüglich der Anzahl ihrer "Delimiter" in ihrer String
  * Repräsentation.
  */
-class DotsComparator<T> implements Comparator<T> {
+public class DotsComparator<T> implements Comparator<T> {
 
   private final String mDelimiter;
 
@@ -19,7 +19,6 @@ class DotsComparator<T> implements Comparator<T> {
   public DotsComparator(char delimiter) {
     mDelimiter = String.valueOf(delimiter);
   }
-
 
   /**
    * Compares its two arguments for order.  Returns a negative integer,

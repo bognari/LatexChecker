@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @since <pre>Nov 10, 2013</pre>
  */
 public class TexTest {
-  private final static Logger sLog = Logger.getLogger("de.tubs.latexTool");
+  private static final Logger sLog = Logger.getLogger("de.tubs.latexTool");
 
   private static StringBuilder write(DocumentTree dt, StringBuilder stringBuilder) {
     stringBuilder.append(String.format("Name:  %s%nLevel: %d%nDatei: %s   %d%n%n", dt.getHeadline(), dt.getLevel(), dt.getPosition().getFile(), dt.getPosition().getLine()));

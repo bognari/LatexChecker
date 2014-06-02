@@ -5,13 +5,15 @@ import de.tubs.latexTool.core.LatexException;
 import de.tubs.latexTool.core.util.Misc;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Diese Klasse stellt einen Latex Befehl dar
  */
-public class Command implements ILatex, IPosition {
+public class Command implements ILatex {
+  private static final Logger sLog = Logger.getLogger(Command.class.getName());
   private static final Pattern sPOpen = Pattern.compile("^(\\s*(?<Args>(?<!\\\\)\\{)|(?<Opt>\\[)|(?<Plain>\\||!))");
   /**
    * Liste der Argumente / Optionen
@@ -37,7 +39,7 @@ public class Command implements ILatex, IPosition {
    * @param start die Position als Abstand in Zeichen vom Dokumenten Anfang
    * @param args  die Argumente / Optionen
    */
-  private Command(final String name, final int start, final int length, final List<String> args) {
+  private Command(String name, int start, int length, List<String> args) {
     mName = name.trim();
     mStart = start;
     mLength = length;
@@ -56,13 +58,32 @@ public class Command implements ILatex, IPosition {
     }
   }
 
-  private Command(final String command, final int start) {
+  private Command(String command, int start) {
     mName = command;
     mStart = start;
     mLength = command.length() + 1;
     mArgs = Collections.unmodifiableList(new LinkedList<String>());
   }
 
+  /**
+   * Gibt eine Liste aller Gefunden Commands zurück
+   *
+   * @param command regex
+   * @return
+   */
+  public static List<Command> getCommands(String command, String content) {
+    List<Command> list = new LinkedList<>();
+    Pattern pattern = Pattern.compile(String.format("(?<!\\\\)\\\\(%s)", command));
+    Matcher matcher = pattern.matcher(content);
+    while (matcher.find()) {
+      try {
+        list.add(getCommand(matcher.group(1), matcher.start(), content));
+      } catch (LatexException e) {
+        sLog.warning(e.getMessage());
+      }
+    }
+    return list;
+  }
 
   /**
    * Ist eine Stackmaschine, um Latex Befehle richtig zu lesen (mit Argumente usw)
@@ -74,7 +95,7 @@ public class Command implements ILatex, IPosition {
    * @param input   der Text
    * @return
    */
-  public static Command getCommand(final String command, final int start, final String input) throws LatexException {
+  public static Command getCommand(String command, int start, String input) throws LatexException {
     int end = start + command.length() + 1;
     List<String> args = new LinkedList<>();
     String content;
@@ -93,7 +114,7 @@ public class Command implements ILatex, IPosition {
         switch (open.group()) {
           case "|":  // im folgenden behandeln
           case "!":
-            assert open.group().equals("|") || open.group().equals("!");
+            assert "|".equals(open.group()) || "!".equals(open.group());
             pClose = Pattern.compile(String.format("\\Q%1$s\\E(?<Content>.*?)\\Q%1$s\\E", open.group()));
             close = pClose.matcher(content);
             if (close.find()) {
@@ -104,7 +125,7 @@ public class Command implements ILatex, IPosition {
             }
             break;
           case "[":
-            assert open.group().equals("[");
+            assert "[".equals(open.group());
             // ab hier brauchen wir eine Stackmaschine
             end += readStack(command, open.end(), "[", "]", content, args);
             break;
@@ -129,7 +150,7 @@ public class Command implements ILatex, IPosition {
    * @return gibt die neue Position an, ab der auf weitere Args getestet werden kann.
    * @throws LatexException falls eine Klammer fehlt
    */
-  private static int readStack(String command, int start, String oBracket, String cBracket, String content, final List<String> args) throws LatexException {
+  private static int readStack(String command, int start, String oBracket, String cBracket, String content, List<String> args) throws LatexException {
     Deque<String> stack = new LinkedList<>();
     Pattern pClose = Pattern.compile(String.format("(?<!\\\\)(?<Open>\\%s)|(?<Close>\\%s)", oBracket, cBracket));
     Matcher close = pClose.matcher(content);
@@ -211,21 +232,31 @@ public class Command implements ILatex, IPosition {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if ((o == null) || (getClass() != o.getClass())) {
+      return false;
+    }
 
     Command command = (Command) o;
 
-    if (mLength != command.mLength) return false;
-    if (mStart != command.mStart) return false;
-    if (!mArgs.equals(command.mArgs)) return false;
+    if (mLength != command.mLength) {
+      return false;
+    }
+    if (mStart != command.mStart) {
+      return false;
+    }
+    if (!mArgs.equals(command.mArgs)) {
+      return false;
+    }
     return mName.equals(command.mName);
 
   }
 
   @Override
   public String toString() {
-    return mName + " " + Misc.iterableToString(mArgs, false) + (getPosition() == null ? "" : " " + getPosition());
+    return mName + " " + Misc.iterableToString(mArgs, false, false) + ((getPosition() == null) ? "" : (" " + getPosition()));
   }
 
   @Override

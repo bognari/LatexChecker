@@ -10,138 +10,179 @@ import java.util.IllegalFormatException;
 
 /**
  * Testet ob eine Dokument zu viele verschachtelte Kapitel hat und ob jedes Kapitel zwischen min und max Unterkapitel
- * Besitzt
- * Wenn ein Kapitel keine Unterkapitel hat, dann ist er vom min ausgeschlossen
- * Testet ob jedes Kapitel zwischen min und max "Sätze" besitzt
- * Eingrenzungen mittels FromLevel und ToLevel möglich
- * <p></p>
- * MinSubChapters<br></br>
- * MaxSubChapters<br></br>
- * MaxChapterDepth<br></br>
- * MinSentences<br></br>
- * MaxSentences<br></br>
- * MsgSubChapters<br></br>
- * MsgChapters<br></br>
- * MsgSentences<br></br>
- * FromLevel<br></br>
- * ToLevel<br></br>
+ * Besitzt.
+ * Wenn ein Kapitel keine Unterkapitel hat, dann ist er vom min ausgeschlossen.
+ * Testet ob jedes Kapitel zwischen min und max "Sätze" besitzt.
+ * Eingrenzungen mittels FromLevel und ToLevel möglich.
  */
 public class ChapterCheck extends Module {
 
-  @Expose
-  @SerializedName("FromLevel")
-  private int mFromLevel = -19;
-  @Expose
-  @SerializedName("MaxChapterDepth")
-  private int mMaxChapterDepth = -1;
-  @Expose
-  @SerializedName("MaxSentences")
-  private int mMaxSentences = -1;
-  @Expose
-  @SerializedName("MaxSubChapters")
-  private int mMaxSubChapters = -1;
-  @Expose
-  @SerializedName("MinSentences")
-  private int mMinSentences = -1;
-  @Expose
-  @SerializedName("MinSubChapters")
-  private int mMinSubChapters = -1;
+  private static final String sMsg = "%1$s %2$s %3$d %4$s (%5$d)";
+  /**
+   * "MsgChapters" = "Text" <p></p>
+   * Der Nachrichten Prototyp im Falle zu großer Kapiteltiefe
+   * <p></p> default: "%1$s %2$s %3$d %4$s (%5$d)"
+   */
   @Expose
   @SerializedName("MsgChapters")
-  private String mMsgChapters = "%1$s %2$s %3$d %4$s (%5$d)";
+  private String cMsgChapters = sMsg;
+  /**
+   * "MsgSentences" = "Text" <p></p>
+   * Der Nachrichten Prototyp im Falle von zu vielen oder zu wenigen Sätzen pro Abschnitt
+   * <p></p> default: "%1$s %2$s %3$d %4$s (%5$d)"
+   */
   @Expose
   @SerializedName("MsgSentences")
-  private String mMsgSentences = "%1$s %2$s %3$d %4$s (%5$d)";
+  private String cMsgSentences = sMsg;
+  /**
+   * "MsgSubChapters" = "Text" <p></p>
+   * Der Nachrichten Prototyp im Falle von zu vielen oder zu wenigen direkten Unterkapiteln
+   * <p></p> default: "%1$s %2$s %3$d %4$s (%5$d)"
+   */
   @Expose
   @SerializedName("MsgSubChapters")
-  private String mMsgSubChapters = "%1$s %2$s %3$d %4$s (%5$d)";
+  private String cMsgSubChapters = sMsg;
+  /**
+   * "FromLevel" = int Zahl >= -19 <p></p>
+   * Startlevel für die Suche in der Dokumenten Hierarchie
+   * <p></p> default: -19
+   */
+  @Expose
+  @SerializedName("FromLevel")
+  private int cFromLevel = -19;
+  /**
+   * "MaxChapterDepth" = int Zahl >= -1 <p></p>
+   * Maximale Kapiteltiefe, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MaxChapterDepth")
+  private int cMaxChapterDepth = -1;
+  /**
+   * "MaxSentences" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl an Sätzen pro Abschnitt (chapter, section, usw), -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MaxSentences")
+  private int cMaxSentences = -1;
+  /**
+   * "MaxSubChapters" = int Zahl >= -1 <p></p>
+   * Maximale Anzahl an direkten Unterkapiteln , -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MaxSubChapters")
+  private int cMaxSubChapters = -1;
+  /**
+   * "MinSentences" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an Sätzen pro Abschnitt (chapter, section, usw), -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MinSentences")
+  private int cMinSentences = -1;
+  /**
+   * "MinSubChapters" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an direkten Unterkapiteln , -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
+  @Expose
+  @SerializedName("MinSubChapters")
+  private int cMinSubChapters = -1;
+  /**
+   * "ToLevel" = int Zahl >= -19 <p></p>
+   * Endlevel für die Suche in der Dokumenten Hierarchie
+   * <p></p> default: Integer.MAX_VALUE
+   */
   @Expose
   @SerializedName("ToLevel")
-  private int mToLevel = Integer.MAX_VALUE;
+  private int cToLevel = Integer.MAX_VALUE;
 
   private void checkChapterDepth(DocumentTree tree, int length) {
-    if (tree.getLevel() > -20) {
-      if (length < 1) {
-        mLog.info(new Result(mName, tree.getPosition(), String.format(mMsgChapters, tree.getHeadline(), "is deeper as", mMaxChapterDepth, "chapters", (mMaxChapterDepth + Math.abs(length) + 1))).toString());
+    if (tree == null) {
+      mLog.fine("tree is null in checkSubChapters");
+    } else {
+      if (tree.getLevel() > -20) {
+        if (length < 1) {
+          mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgChapters, tree.getHeadline(), "is deeper as", cMaxChapterDepth, "chapters", (cMaxChapterDepth + Math.abs(length) + 1))).toString());
+        }
       }
-    }
-    for (DocumentTree child : tree.child()) {
-      checkChapterDepth(child, length - 1);
+      for (DocumentTree child : tree.child()) {
+        checkChapterDepth(child, length - 1);
+      }
     }
   }
 
   private void checkSentences(DocumentTree tree) {
-    if (tree.getLevel() > -20 && tree.getLevel() >= mFromLevel && tree.getLevel() <= mToLevel) {
-      if (mMinSentences > 0 && tree.getTexts().size() < mMinSentences) {
-        mLog.info(new Result(mName, tree.getPosition(), String.format(mMsgSentences, tree.getHeadline(), "has less than", mMinSentences, "sentences", tree.getTexts().size())).toString());
+    if (tree == null) {
+      mLog.fine("tree is null in checkSubChapters");
+    } else {
+      if ((tree.getLevel() > -20) && (tree.getLevel() >= cFromLevel) && (tree.getLevel() <= cToLevel)) {
+        if ((cMinSentences > 0) && (tree.getTexts().size() < cMinSentences)) {
+          mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgSentences, tree.getHeadline(), "has less than", cMinSentences, "sentences", tree.getTexts().size())).toString());
+        }
+        if ((cMaxSentences > -1) && (tree.getTexts().size() > cMaxSentences)) {
+          mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgSentences, tree.getHeadline(), "has more than", cMaxSentences, "sentences", tree.getTexts().size())).toString());
+        }
       }
-      if (mMaxSentences > -1 && tree.getTexts().size() > mMaxSentences) {
-        mLog.info(new Result(mName, tree.getPosition(), String.format(mMsgSentences, tree.getHeadline(), "has more than", mMaxSentences, "sentences", tree.getTexts().size())).toString());
+      for (DocumentTree child : tree.child()) {
+        checkSubChapters(child);
       }
-    }
-    for (DocumentTree child : tree.child()) {
-      checkSubChapters(child);
     }
   }
 
   private void checkSubChapters(DocumentTree tree) {
-    if (tree.getLevel() > -20 && tree.getLevel() >= mFromLevel && tree.getLevel() <= mToLevel) {
-      if (mMinSubChapters > 0 && !tree.child().isEmpty() && tree.child().size() < mMinSubChapters) {
-        mLog.info(new Result(mName, tree.getPosition(), String.format(mMsgSubChapters, tree.getHeadline(), "has less than", mMinSubChapters, "subchapters", tree.child().size())).toString());
+    if (tree == null) {
+      mLog.fine("tree is null in checkSubChapters");
+    } else {
+      if ((tree.getLevel() > -20) && (tree.getLevel() >= cFromLevel) && (tree.getLevel() <= cToLevel)) {
+        if ((cMinSubChapters > 0) && !tree.child().isEmpty() && (tree.child().size() < cMinSubChapters)) {
+          mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgSubChapters, tree.getHeadline(), "has less than", cMinSubChapters, "subchapters", tree.child().size())).toString());
+        }
+        if ((cMaxSubChapters > -1) && (tree.child().size() > cMaxSubChapters)) {
+          mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgSubChapters, tree.getHeadline(), "has more than", cMaxSubChapters, "subchapters", tree.child().size())).toString());
+        }
       }
-      if (mMaxSubChapters > -1 && tree.child().size() > mMaxSubChapters) {
-        mLog.info(new Result(mName, tree.getPosition(), String.format(mMsgSubChapters, tree.getHeadline(), "has more than", mMaxSubChapters, "subchapters", tree.child().size())).toString());
+      for (DocumentTree child : tree.child()) {
+        checkSubChapters(child);
       }
     }
-    for (DocumentTree child : tree.child()) {
-      checkSubChapters(child);
-    }
-  }
-
-  /**
-   * When an object implementing interface <code>Runnable</code> is used
-   * to create a thread, starting the thread causes the object's
-   * <code>run</code> method to be called in that separately executing
-   * thread.
-   * <p/>
-   * The general contract of the method <code>run</code> is that it may
-   * take any action whatsoever.
-   *
-   * @see Thread#run()
-   */
-  @Override
-  public void run() {
-    if (!(mMinSubChapters <= -1 && mMaxSubChapters <= -1)) {
-      checkSubChapters(Api.getDocumentTreeRoot());
-    }
-    if (mMaxChapterDepth > -1) {
-      checkChapterDepth(Api.getDocumentTreeRoot(), mMaxChapterDepth);
-    }
-    if (!(mMinSentences <= -1 && mMaxSentences <= -1)) {
-      checkSentences(Api.getDocumentTreeRoot());
-    }
-
   }
 
   @Override
   protected void validation() {
     try {
-      String.format(mMsgSubChapters, "test", "test", 10, "test", 10);
+      String.format(cMsgSubChapters, "test", "test", 10, "test", 10);
     } catch (IllegalFormatException e) {
       mLog.throwing(ChapterCheck.class.getName(), mName, e);
-      mMsgSubChapters = "%1$s %2$s %3$d %4$s (%5$d)";
+      cMsgSubChapters = sMsg;
     }
     try {
-      String.format(mMsgChapters, "test", "test", 10, "test", 10);
+      String.format(cMsgChapters, "test", "test", 10, "test", 10);
     } catch (IllegalFormatException e) {
       mLog.throwing(ChapterCheck.class.getName(), mName, e);
-      mMsgChapters = "%1$s %2$s %3$d %4$s (%5$d)";
+      cMsgChapters = sMsg;
     }
     try {
-      String.format(mMsgSentences, "test", "test", 10, "test", 10);
+      String.format(cMsgSentences, "test", "test", 10, "test", 10);
     } catch (IllegalFormatException e) {
       mLog.throwing(ChapterCheck.class.getName(), mName, e);
-      mMsgSentences = "%1$s %2$s %3$d %4$s (%5$d)";
+      cMsgSentences = sMsg;
     }
+  }
+
+  @Override
+  public void runModule() {
+    if (!((cMinSubChapters <= -1) && (cMaxSubChapters <= -1))) {
+      checkSubChapters(Api.getDocumentTreeRoot());
+    }
+    if (cMaxChapterDepth > -1) {
+      checkChapterDepth(Api.getDocumentTreeRoot(), cMaxChapterDepth);
+    }
+    if (!((cMinSentences <= -1) && (cMaxSentences <= -1))) {
+      checkSentences(Api.getDocumentTreeRoot());
+    }
+
   }
 }

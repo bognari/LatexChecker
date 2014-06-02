@@ -7,11 +7,11 @@ import de.tubs.latexTool.core.entrys.ILatex;
  */
 public class LatexException extends Exception {
 
-  public LatexException(final ILatex latex) {
+  public LatexException(ILatex latex) {
     this(latex, "");
   }
 
-  public LatexException(final ILatex latex, final String string) {
+  public LatexException(ILatex latex, String string) {
     super(String.format("%s %s", msg(latex), string).trim());
     System.out.println(getMessage());
   }

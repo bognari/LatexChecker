@@ -201,14 +201,14 @@ public class MiscTest {
             "    \\item Imperative Sprachen\n" +
             "\n" +
             "\n" +
-            "    \t            \"Wie\" findet die Lösung statt\n" +
+            "    \t          \"`Wie\"' findet die Lösung statt\n" +
             "\n" +
             "\n" +
             "    \t Folge von Anweisungen zur Problemlösung  \n" +
             "    \\item Deklarative Sprachen \n" +
             "\n" +
             "\n" +
-            "    \t            \"Was\" ist die Lösung \n" +
+            "    \t          \"`Was\"' ist die Lösung \n" +
             "\n" +
             "\n" +
             "    \t deklarative Beschreibung der Lösung bzw. des Problems\n" +
@@ -217,6 +217,7 @@ public class MiscTest {
             "\\end{block}\n" +
             "\\end{frame}";
     String result = Misc.maskingLatex(test, true);
+    //System.out.printf("####%n%s%n####", result);
     assertEquals(expected, result);
 
     test = "Beschreiben Sie das Rückgabeobjekt der Methode \\lstinline|wasPassiert(int[] a, int[] b)| in Abhängigkeit von\n" +

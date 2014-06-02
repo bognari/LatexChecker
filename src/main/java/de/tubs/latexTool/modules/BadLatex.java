@@ -13,69 +13,90 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Dieses Modul findet "verbotene" Befehle <p></p>
- * #############<br></br>>
- * MsgCommand<br></br>
- * MsgEnvironments<br></br>
- * Commands<br></br>
- * Environments<br></br>
- * #############<br></br>
+ * Dieses Modul findet "verbotene" Befehle und Umgebungen
  */
 public class BadLatex extends Module {
 
-  @Expose
-  @SerializedName("Commands")
-  private List<String> mCommands = new LinkedList<>();
-  @Expose
-  @SerializedName("Environments")
-  private List<String> mEnvironments = new LinkedList<>();
+  private static final String sMsgCommand = "Bad command: %s";
+  /**
+   * "MsgCommand" = "Text" <p></p>
+   * Der Nachrichten Prototyp im Falle verbotener Befehle
+   * <p></p> default: "Bad command: %s"
+   */
   @Expose
   @SerializedName("MsgCommand")
-  private String mMsgCommand = "Bad command: %s";
+  private String cMsgCommand = sMsgCommand;
+  private static final String sMsgEnvironments = "Bad environment: %s";
+  /**
+   * "MsgEnvironments" = "Text" <p></p>
+   * Der Nachrichten Prototyp im Falle verbotener Umgebungen
+   * <p></p> default: "Bad environment: %s"
+   */
   @Expose
-  @SerializedName("MsgEnvironments")
-  private String mMsgEnvironments = "Bad environment: %s";
+  @SerializedName("MsgEnvironment")
+  private String cMsgEnvironment = sMsgEnvironments;
+  /**
+   * "Commands" = ["Befehl"] <p></p>
+   * Liste der verbotenen Befehle (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
+   */
+  @Expose
+  @SerializedName("Commands")
+  private List<String> cCommands = new LinkedList<>();
+  /**
+   * "Environments" = ["Umgebung"] <p></p>
+   * Liste der verbotenen Umgebungen (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
+   */
+  @Expose
+  @SerializedName("Environments")
+  private List<String> cEnvironments = new LinkedList<>();
+  /**
+   * "UseRegex" = true / false <p></p>
+   * Gibt an, ob Regex in Listen benutzt wird
+   * <p></p> default: false
+   */
+  @Expose
+  @SerializedName("UseRegex")
+  private boolean cUseRegex = false;
 
-  @Override
-  public void run() {
-    mLog.fine(String.format("%s start", mName));
-
-    if (!mCommands.isEmpty()) {
-      mLog.fine("start bad command checking");
-      List<Command> commands = Api.getCommands(Misc.iterableToString(mCommands, true));
-
-      for (Command command : commands) {
-        mLog.info(new Result(mName, command.getPosition(), String.format(mMsgCommand, command.getName())).toString());
-      }
-      mLog.fine("finish bad command checking");
-    }
-
-    if (!mEnvironments.isEmpty()) {
-      mLog.fine("start bad environment checking");
-      List<Environment> environments = Api.getEnvironments(Misc.iterableToString(mEnvironments, true));
-
-      for (Environment environment : environments) {
-        mLog.info(new Result(mName, environment.getPosition(), String.format(mMsgEnvironments, environment.getName())).toString());
-      }
-      mLog.fine("finish bad environment checking");
-    }
-
-    mLog.fine(String.format("%s finish", mName));
-  }
 
   @Override
   protected void validation() {
     try {
-      String.format(mMsgCommand, "test");
+      String.format(cMsgCommand, "test");
     } catch (IllegalFormatException e) {
       mLog.throwing(BadLatex.class.getName(), mName, e);
-      mMsgCommand = "Bad command: %s";
+      cMsgCommand = sMsgCommand;
     }
     try {
-      String.format(mMsgEnvironments, "test");
+      String.format(cMsgEnvironment, "test");
     } catch (IllegalFormatException e) {
       mLog.throwing(BadLatex.class.getName(), mName, e);
-      mMsgEnvironments = "Bad environment: %s";
+      cMsgEnvironment = sMsgEnvironments;
+    }
+  }
+
+  @Override
+  public void runModule() {
+    if (!cCommands.isEmpty()) {
+      mLog.fine("start bad command checking");
+      List<Command> commands = Api.getCommands(Misc.iterableToString(cCommands, !cUseRegex, !cUseRegex));
+
+      for (Command command : commands) {
+        mLog.info(new Result(mName, command.getPosition(), String.format(cMsgCommand, command.getName())).toString());
+      }
+      mLog.fine("finish bad command checking");
+    }
+
+    if (!cEnvironments.isEmpty()) {
+      mLog.fine("start bad environment checking");
+      List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cEnvironments, !cUseRegex, !cUseRegex));
+
+      for (Environment environment : environments) {
+        mLog.info(new Result(mName, environment.getPosition(), String.format(cMsgEnvironment, environment.getName())).toString());
+      }
+      mLog.fine("finish bad environment checking");
     }
   }
 }

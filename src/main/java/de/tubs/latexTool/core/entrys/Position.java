@@ -53,12 +53,18 @@ public class Position {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if ((o == null) || (getClass() != o.getClass())) {
+      return false;
+    }
 
     Position position = (Position) o;
 
-    if (mLine != position.mLine) return false;
+    if (mLine != position.mLine) {
+      return false;
+    }
     return mFile.equals(position.mFile);
 
   }

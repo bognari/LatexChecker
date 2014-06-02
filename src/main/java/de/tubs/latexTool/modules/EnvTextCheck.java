@@ -16,36 +16,70 @@ import java.util.*;
  * Dieses Modul prüft, ob vor, nach oder zwischen zwei angegebenen Umgebungen mindestens n Sätze existieren.
  */
 public class EnvTextCheck extends Module {
+  private static final String sMsg = "%1$s %2$d %3$s";
+  /**
+   * "Msg" = "Text" <p></p>
+   * Der Nachrichten Prototyp
+   * <p></p> default: "%1$s %2$d %3$s"
+   */
   @Expose
-  @SerializedName("EnvList")
-  private List<String> mEnvList = new LinkedList<>();
-  private Map<Integer, IPosition> mMap = new TreeMap<>();
+  @SerializedName("Msg")
+  private String cMsg = sMsg;
+  /**
+   * "Environments" = ["Umgebung"] <p></p>
+   * Liste zu prüfenden Umgebungen (für Regex setzte UseRegex auf true)
+   * <p></p> default: empty
+   */
+  @Expose
+  @SerializedName("Environments")
+  private List<String> cEnvironments = new LinkedList<>();
   /*@Expose
   @SerializedName("MaxAfterSentences")
   private int mMaxAfterSentences = -1;*/
+  /**
+   * "MinAfterSentences" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an Sätzen nach einer Umgebung bis zum Ende des Abschnitts, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MinAfterSentences")
-  private int mMinAfterSentences = -1;
+  private int cMinAfterSentences = -1;
   /*@Expose
   @SerializedName("MaxBeforeSentences")
   private int mMaxBeforeSentences = -1;*/
+  /**
+   * "MinBeforeSentences" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an Sätzen vor einer Umgebung seit Anfang des Abschnitts, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MinBeforeSentences")
-  private int mMinBeforeSentences = -1;
+  private int cMinBeforeSentences = -1;
   /*@Expose
   @SerializedName("MaxBetweenSentences")
   private int mMaxBetweenSentences = -1;*/
+  /**
+   * "MinBetweenSentences" = int Zahl >= -1 <p></p>
+   * Minimale Anzahl an Sätzen zwischen zwei Umgebungen, -1 deaktiviert die Prüfung
+   * <p></p> default: -1
+   */
   @Expose
   @SerializedName("MinBetweenSentences")
-  private int mMinBetweenSentences = -1;
+  private int cMinBetweenSentences = -1;
+  /**
+   * "UseRegex" = true / false <p></p>
+   * Gibt an, ob Regex in Listen benutzt wird
+   * <p></p> default: false
+   */
   @Expose
-  @SerializedName("Msg")
-  private String mMsg = "%1$s %2$d %3$s";
+  @SerializedName("UseRegex")
+  private boolean cUseRegex = false;
+  private Map<Integer, IPosition> mMap = new TreeMap<>();
 
   private boolean isIn(IPosition env) {
     for (int key : mMap.keySet()) {
       IPosition position = mMap.get(key);
-      if (position.getStart() <= env.getStart() && env.getEnd() <= position.getEnd()) {
+      if ((position.getStart() <= env.getStart()) && (env.getEnd() <= position.getEnd())) {
         return true;
       }
     }
@@ -53,7 +87,7 @@ public class EnvTextCheck extends Module {
   }
 
   private void readEnvs() {
-    List<Environment> environmentList = Api.getEnvironments(Misc.iterableToString(mEnvList, true));
+    List<Environment> environmentList = Api.getEnvironments(Misc.iterableToString(cEnvironments, !cUseRegex, !cUseRegex));
 
     for (Environment environment : environmentList) {
       if (!isIn(environment)) {
@@ -74,25 +108,6 @@ public class EnvTextCheck extends Module {
     }
   }
 
-  /**
-   * When an object implementing interface <code>Runnable</code> is used
-   * to create a thread, starting the thread causes the object's
-   * <code>run</code> method to be called in that separately executing
-   * thread.
-   * <p/>
-   * The general contract of the method <code>run</code> is that it may
-   * take any action whatsoever.
-   *
-   * @see Thread#run()
-   */
-  @Override
-  public void run() {
-    readEnvs();
-    readSections();
-    readText();
-    runTest();
-  }
-
   private void runTest() {
     int sinceSection = -1;
     int sinceEnv = -1;
@@ -100,32 +115,32 @@ public class EnvTextCheck extends Module {
       IPosition position = mMap.get(key);
       if (position instanceof DocumentTree) {
         if (sinceEnv > -1) {
-          if (mMinAfterSentences > -1 && sinceEnv < mMinAfterSentences) {
-            mLog.info(new Result(mName, position.getPosition(), String.format(mMsg, "has less than", mMinAfterSentences, "sentences after the last environment")).toString());
+          if ((cMinAfterSentences > -1) && (sinceEnv < cMinAfterSentences)) {
+            mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has less than", cMinAfterSentences, "sentences after the last environment")).toString());
           }
           /*if (mMaxAfterSentences > -1 && sinceEnv > mMaxAfterSentences) {
-            mLog.info(new Result(mName, position.getPosition(), String.format(mMsg, "has more than", mMaxAfterSentences, "sentences after the last environment")).toString());
+            mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has more than", mMaxAfterSentences, "sentences after the last environment")).toString());
           }*/
         }
         sinceSection = 0;
       }
       if (position instanceof Environment) {
         if (sinceSection > -1) {
-          if (mMinBeforeSentences > -1 && sinceSection < mMinBeforeSentences) {
-            mLog.info(new Result(mName, position.getPosition(), String.format(mMsg, "has less than", mMinBeforeSentences, "sentences before the next environment")).toString());
+          if ((cMinBeforeSentences > -1) && (sinceSection < cMinBeforeSentences)) {
+            mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has less than", cMinBeforeSentences, "sentences before the next environment")).toString());
           }
 
           /*if (mMaxBeforeSentences > -1 && sinceSection > mMaxBeforeSentences) {
-            mLog.info(new Result(mName, position.getPosition(), String.format(mMsg, "has more than", mMaxBeforeSentences, "sentences before the next environment")).toString());
+            mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has more than", mMaxBeforeSentences, "sentences before the next environment")).toString());
           }*/
         }
-        sinceSection += mMinBeforeSentences;
+        sinceSection += cMinBeforeSentences;
         if (sinceEnv > -1) {
-          if (mMinBetweenSentences > -1 && sinceEnv < mMinBetweenSentences) {
-            mLog.info(new Result(mName, position.getPosition(), String.format(mMsg, "has less than", mMinBetweenSentences, "sentences between the last environment")).toString());
+          if ((cMinBetweenSentences > -1) && (sinceEnv < cMinBetweenSentences)) {
+            mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has less than", cMinBetweenSentences, "sentences between the last environment")).toString());
           }
           /*if (mMaxBetweenSentences > -1 && sinceEnv > mMaxBetweenSentences) {
-            mLog.info(new Result(mName, position.getPosition(), String.format(mMsg, "has more than", mMaxBetweenSentences, "sentences between the last environment")).toString());
+            mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has more than", mMaxBetweenSentences, "sentences between the last environment")).toString());
           }*/
         }
         sinceEnv = 0;
@@ -138,19 +153,31 @@ public class EnvTextCheck extends Module {
   }
 
   private void sectionRunner(DocumentTree node) {
-    mMap.put(node.getStart(), node);
-    for (DocumentTree child : node.child()) {
-      sectionRunner(child);
+    if (node == null) {
+      mLog.fine("Node is null in sectionRunner");
+    } else {
+      mMap.put(node.getStart(), node);
+      for (DocumentTree child : node.child()) {
+        sectionRunner(child);
+      }
     }
   }
 
   @Override
   protected void validation() {
     try {
-      String.format(mMsg, "test", 10, "test");
+      String.format(cMsg, "test", 10, "test");
     } catch (IllegalFormatException e) {
       mLog.throwing(ChapterCheck.class.getName(), mName, e);
-      mMsg = "%1$s %2$d %3$s";
+      cMsg = sMsg;
     }
+  }
+
+  @Override
+  public void runModule() {
+    readEnvs();
+    readSections();
+    readText();
+    runTest();
   }
 }

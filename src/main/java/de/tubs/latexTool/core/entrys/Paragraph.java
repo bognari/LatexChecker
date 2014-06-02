@@ -27,19 +27,25 @@ public class Paragraph {
 
   @Override
   public int hashCode() {
-    int result = mNode != null ? mNode.hashCode() : 0;
+    int result = (mNode != null) ? mNode.hashCode() : 0;
     result = 31 * result + mTextList.hashCode();
     return result;
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if ((o == null) || (getClass() != o.getClass())) {
+      return false;
+    }
 
     Paragraph paragraph = (Paragraph) o;
 
-    if (mNode != null ? !mNode.equals(paragraph.mNode) : paragraph.mNode != null) return false;
+    if ((mNode != null) ? !mNode.equals(paragraph.mNode) : (paragraph.mNode != null)) {
+      return false;
+    }
     return mTextList.equals(paragraph.mTextList);
 
   }

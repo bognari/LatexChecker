@@ -24,10 +24,11 @@ import java.util.logging.Logger;
 
 public final class App {
 
+  private final Object lock = new Object();
   private final Logger mLog = Logger.getLogger("de.tubs.latexTool");
   private final LogHandler mLogHandler = new LogHandler();
   private Settings mSettings;
-  private Tex mTex;
+  private volatile Tex mTex;
 
   /**
    * Erstellt die App und bereitet diese für den Einsatz vor
@@ -160,9 +161,13 @@ public final class App {
         @Override
         public void run() {
           String s = String.format("Module %d threads are running, (%d / %4$d) are completed and (%d  / %4$d) are queued", threadPool.getActiveCount(), threadPool.getCompletedTaskCount(), threadPool.getQueue().size(), threadPool.getTaskCount());
-          mLog.finest(s);
-          String t = String.format("Module: %3d%%", threadPool.getTaskCount() <= 0 ? 0 : (threadPool.getCompletedTaskCount() * 100) / threadPool.getTaskCount());
-          mLog.finer(t);
+          if (mLog.isLoggable(Level.FINEST)) {
+            mLog.finest(s);
+          }
+          String t = String.format("Module: %3d%%", (threadPool.getTaskCount() <= 0) ? 0 : ((threadPool.getCompletedTaskCount() * 100) / threadPool.getTaskCount()));
+          if (mLog.isLoggable(Level.FINER)) {
+            mLog.finer(t);
+          }
           System.out.println(t);
         }
       }, 100, 500);
@@ -177,7 +182,9 @@ public final class App {
           mLog.severe(String.format("Can not load Modul %s", name));
         }
       } else {
-        mLog.fine(String.format("skip module: %s", name));
+        if (mLog.isLoggable(Level.FINE)) {
+          mLog.fine(String.format("skip module: %s", name));
+        }
       }
     }
 
@@ -214,7 +221,7 @@ public final class App {
    */
   public Tex getTex() {
     if (mTex == null) {
-      synchronized (this) {
+      synchronized (lock) {
         if (mTex == null) {
           loadTex();
         }

@@ -23,6 +23,9 @@ class JsonSettings {
   @SerializedName("ENVIRONMENT_BREAK_COMMENT")
   List<String> mBadEnv;
   @Expose
+  @SerializedName("Converting")
+  Map<String, String> mConverting;
+  @Expose
   @SerializedName("ENVIRONMENTS")
   List<String> mEnvironments;
   @Expose
@@ -81,7 +84,7 @@ class JsonSettings {
   }
 
   public void setJSettings(JsonObject JSettings) {
-    this.mJSettings = JSettings;
+    mJSettings = JSettings;
   }
 }
 
