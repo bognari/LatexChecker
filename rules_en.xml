@@ -1,0 +1,26 @@
+<rules lang="en">
+    <category name="misc">
+        <rule id="Passive_Checker_EN" name="Passive Checker EN">
+            <pattern><!-- future perfect tense -->
+                <token regexp="yes" skip="1">will|shall</token>
+                <!-- skip to allow for "not", "also", etc. -->
+                <token>have</token>
+                <token>been</token>
+                <token postag="VBN"/>
+            </pattern>
+            <message>Change from passive to active voice? Example: "Her work will have been finished by tonight." can be
+                changed to "She will have her work finished by tonight."
+            </message>
+            <short>Passive voice</short>
+            <example type="incorrect">Her work
+                <marker>will have been finished</marker>
+                by tonight.
+            </example>
+            <example type="incorrect">Her work
+                <marker>will not have been finished</marker>
+                by tonight.
+            </example>
+            <example type="correct">She will have her work finished by tonight.</example>
+        </rule>
+    </category>
+</rules>

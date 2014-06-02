@@ -1,0 +1,21 @@
+<rules lang="de">
+    <category name="misc">
+        <rule id="ID" name="Passive Checker DE">
+            <pattern>
+                <marker>
+                    <token postag='(SUB:NOM|PRO:PER:NOM).*' postag_regexp='yes'></token>
+                    <token regexp='yes'>wird|werden|wurde|wurden</token>
+                    <token postag='PA2:PRD:GRU:VER'></token>
+                </marker>
+            </pattern>
+            <message>erkennt passiv im Deutschen</message>
+            <example type='incorrect'>Der Ball wird geworfen.</example>
+            <example type='correct'>Ich backe das Brot.</example>
+            <example type='correct'>Ich werfe den Ball.</example>
+            <example type='incorrect'>Er wird gefahren.</example>
+            <example type='correct'>Er fährt.</example>
+            <example type='incorrect'>Der Affe, der wird gefahren.</example>
+            <example type='correct'>Der Affe, der fährt.</example>
+        </rule>
+    </category>
+</rules>
