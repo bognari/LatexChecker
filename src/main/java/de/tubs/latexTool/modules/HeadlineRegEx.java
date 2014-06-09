@@ -4,8 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import de.tubs.latexTool.core.Api;
 import de.tubs.latexTool.core.entrys.Environment;
+import de.tubs.latexTool.core.entrys.Headline;
 import de.tubs.latexTool.core.entrys.Result;
-import de.tubs.latexTool.core.entrys.Text;
 import de.tubs.latexTool.core.util.Misc;
 
 import java.util.LinkedList;
@@ -81,13 +81,13 @@ public class HeadlineRegEx extends Module {
   }
 
   private void testParaHeadlines() {
-    List<Text> headlines = Api.allHeadlines();
+    List<Headline> headlines = Api.allHeadlines();
 
-    for (Text headline : headlines) {
-      if (headline.getDocumentTree().getLevel() >= 40) {
+    for (Headline headline : headlines) {
+      if (headline.getChapterTree().getLevel() >= 40) {
         endsPoint(headline);
         headlineLength(headline);
-      } else if (headline.getDocumentTree().getLevel() >= 0) {
+      } else if (headline.getChapterTree().getLevel() >= 0) {
         endsNoColon(headline);
         headlineLength(headline);
       }
@@ -110,28 +110,30 @@ public class HeadlineRegEx extends Module {
     }
   }
 
-  private void endsPoint(Text headline) {
+  private void endsPoint(Headline headline) {
     Matcher matcher;
-    matcher = sPatterPara.matcher(headline.getText());
+    matcher = sPatterPara.matcher(headline.getHeadline());
     if (matcher.find()) {
-      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Paragraph title does not end with full stop or colon")).toString());
+      mLog.info(new Result(headline.getHeadline(), headline.getPosition(), String.format("Paragraph title does not end with full stop or colon")).toString());
     }
   }
 
-  private void headlineLength(Text headline) {
-    if ((cMaxWords > -1) && (headline.getText().split(" ").length > cMaxWords)) {
-      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption is longer than %d words", cMaxWords)).toString());
+  private void headlineLength(Headline headline) {
+    String text = headline.getShortHeadline() != null ? headline.getShortHeadline() : headline.getHeadline();
+
+    if ((cMaxWords > -1) && (text.split(" ").length > cMaxWords)) {
+      mLog.info(new Result(text, headline.getPosition(), String.format("Caption is longer than %d words", cMaxWords)).toString());
     }
-    if ((cMinWords > -1) && (headline.getText().split(" ").length < cMinWords)) {
-      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption is shorter than %d words", cMaxWords)).toString());
+    if ((cMinWords > -1) && (text.split(" ").length < cMinWords)) {
+      mLog.info(new Result(text, headline.getPosition(), String.format("Caption is shorter than %d words", cMaxWords)).toString());
     }
   }
 
-  private void endsNoColon(Text headline) {
+  private void endsNoColon(Headline headline) {
     Matcher matcher;
-    matcher = sPatterHeadline.matcher(headline.getText());
+    matcher = sPatterHeadline.matcher(headline.getHeadline());
     if (matcher.find()) {
-      mLog.info(new Result(headline.getText(), headline.getPosition(), String.format("Caption ends with colon")).toString());
+      mLog.info(new Result(headline.getHeadline(), headline.getPosition(), String.format("Caption ends with colon")).toString());
     }
   }
 

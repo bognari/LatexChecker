@@ -7,17 +7,24 @@ import de.tubs.latexTool.core.entrys.ILatex;
  */
 public class LatexException extends Exception {
 
+  private final ILatex mILatex;
+
   public LatexException(ILatex latex) {
     this(latex, "");
   }
 
   public LatexException(ILatex latex, String string) {
     super(String.format("%s %s", msg(latex), string).trim());
-    System.out.println(getMessage());
+    mILatex = latex;
+    //System.err.println(getMessage());
   }
 
   private static String msg(ILatex latex) {
     return String.format("can not parse %s (%s) at %s", latex.getName(), latex.getClass().getSimpleName(), latex.getPosition());
+  }
+
+  public ILatex getILatex() {
+    return mILatex;
   }
 
 

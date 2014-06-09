@@ -3,10 +3,7 @@ package de.tubs.latexTool.modules;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import de.tubs.latexTool.core.Api;
-import de.tubs.latexTool.core.entrys.Command;
-import de.tubs.latexTool.core.entrys.Environment;
-import de.tubs.latexTool.core.entrys.Result;
-import de.tubs.latexTool.core.entrys.Text;
+import de.tubs.latexTool.core.entrys.*;
 import de.tubs.latexTool.core.util.Abbreviation;
 import de.tubs.latexTool.core.util.Misc;
 
@@ -148,23 +145,15 @@ public class NoAbbreviations extends Module {
     List<Text> texts = Api.allTexts();
     Matcher matcher;
     for (Text text : texts) {
-      matcher = pattern.matcher(text.getText());
-      while (matcher.find()) {
-        mLog.info(new Result(mName, text.getPosition(), String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
-      }
+      check(text.getText(), text.getPosition());
     }
   }
 
   private void environment() {
     if (!cSourceList.isEmpty()) {
       List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
-      Matcher matcher;
-
       for (Environment environment : environments) {
-        matcher = pattern.matcher(environment.getContent());
-        while (matcher.find()) {
-          mLog.info(new Result(mName, environment.getPosition(), String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
-        }
+        check(environment.getContent(), environment.getPosition());
       }
     }
   }
@@ -172,26 +161,21 @@ public class NoAbbreviations extends Module {
   private void command() {
     if (!cSourceList.isEmpty()) {
       List<Command> commands = Api.getCommands(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
-      Matcher matcher;
       for (Command command : commands) {
         for (String arg : command.getArgs()) {
-          matcher = pattern.matcher(arg);
-          while (matcher.find()) {
-            mLog.info(new Result(mName, command.getPosition(), String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
-          }
+          check(arg, command.getPosition());
         }
       }
     }
   }
 
   private void headline() {
-    List<Text> texts = Api.allHeadlines();
-    Matcher matcher;
-    for (Text text : texts) {
-      if ((text.getDocumentTree().getLevel() >= cHeadlineFrom) && (text.getDocumentTree().getLevel() <= cHeadlineTo)) {
-        matcher = pattern.matcher(text.getText());
-        while (matcher.find()) {
-          mLog.info(new Result(mName, text.getPosition(), String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
+    List<Headline> headlines = Api.allHeadlines();
+    for (Headline headline : headlines) {
+      if ((headline.getChapterTree().getLevel() >= cHeadlineFrom) && (headline.getChapterTree().getLevel() <= cHeadlineTo)) {
+        check(headline.getHeadline(), headline.getPosition());
+        if (headline.getShortHeadline() != null) {
+          check(headline.getShortHeadline(), headline.getPosition());
         }
       }
     }
@@ -200,15 +184,9 @@ public class NoAbbreviations extends Module {
   private void bullet() {
     if (!cSourceList.isEmpty()) {
       List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
-      Matcher matcher;
-
       for (Environment environment : environments) {
         for (Text text : environment.getItems()) {
-          String cText = text.getMasked();
-          matcher = pattern.matcher(cText);
-          while (matcher.find()) {
-            mLog.info(new Result(mName, text.getPosition(), String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
-          }
+          check(text.getMasked(), text.getPosition());
         }
       }
     }
@@ -225,12 +203,15 @@ public class NoAbbreviations extends Module {
 
   private void latexText() {
     List<Text> texts = Api.allLatexTexts();
-    Matcher matcher;
     for (Text text : texts) {
-      matcher = pattern.matcher(text.getText());
-      while (matcher.find()) {
-        mLog.info(new Result(mName, text.getPosition(), String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
-      }
+      check(text.getText(), text.getPosition());
+    }
+  }
+
+  private void check(String text, Position position) {
+    Matcher matcher = pattern.matcher(text);
+    while (matcher.find()) {
+      mLog.info(new Result(mName, position, String.format(cMsg, matcher.group(), matcher.start(), matcher.end())).toString());
     }
   }
 }

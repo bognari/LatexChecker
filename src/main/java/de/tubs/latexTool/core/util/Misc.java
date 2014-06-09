@@ -43,7 +43,7 @@ public final class Misc {
   /**
    * Pattern für die new und renew Befehle
    */
-  private static final Pattern sReNew = Pattern.compile("(?<!\\\\)\\\\(?<Commands>((re)?new\\w*)(\\*)?)");
+  private static final Pattern sReNew = Pattern.compile("(?<!\\\\)\\\\(?<Commands>((re)?new\\w+)(\\*)?)");
   /**
    * Pattern für Satzenden
    */
@@ -132,7 +132,7 @@ public final class Misc {
    */
   public static String maskingEnvironment(String input, List<String> envs) {
     StringBuilder stringBuilder = new StringBuilder(input);
-    List<String> whiteList = Api.settings().getEnvironments();
+    List<String> whiteList = Api.settings().getEnvironmentWhitelist();
     List<String> mathWhiteList = Api.settings().getMathEnvironments();
     boolean changed = false;
 
@@ -188,7 +188,10 @@ public final class Misc {
         }
         changed = true;
       } catch (LatexException e) {
-        sLog.warning(e.getMessage());
+        // dirty fix füer falsche Fehler :p
+        if (!"document".equals(e.getILatex().getName())) {
+          sLog.warning(e.getMessage());
+        }
       }
     }
     assert input.length() == stringBuilder.length();
@@ -224,7 +227,7 @@ public final class Misc {
 
 
     StringBuilder stringBuilder = new StringBuilder(input);
-    Map<String, List<Integer>> whitelist = Api.settings().getWhiteList();
+    Map<String, List<Integer>> whitelist = Api.settings().getCommandWhitelist();
     String commands = iterableToString(whitelist.keySet(), true, false);
     Pattern pattern = Pattern.compile(String.format(sCommand, commands), Pattern.DOTALL);
     Matcher matcher = pattern.matcher(input);
@@ -242,14 +245,14 @@ public final class Misc {
 
         StringBuilder insert = new StringBuilder();
         // wenn keine angabe dann nehme alle args
-        if ((whitelist.get(command.getName()) == null) || whitelist.get(command.getName()).isEmpty()) {
+        if (whitelist.get(command.getName()) == null || whitelist.get(command.getName()).isEmpty()) {
           insert.append(command.getArgsString(' ')).append(' ');
           // nehme nur bestimmte args
         } else {
           for (int n : whitelist.get(command.getName())) {
             // von hinten zählen
             if (n <= 0) {
-              if ((command.getArgs().size() + n) >= 0) {
+              if (command.getArgs().size() + n >= 0) {
                 String arg = command.getArgs().get(command.getArgs().size() + n);
                 insert.append(arg);
                 insert.append(' ');
@@ -283,7 +286,7 @@ public final class Misc {
         // ?! warum auch immer es um eins größer sein muss raff ich grad null
         //  assert command.getLength() == insert.length();
         //}
-        assert command.getEnd() == (command.getStart() + command.getLength());
+        assert command.getEnd() == command.getStart() + command.getLength();
       } catch (LatexException e) {
         sLog.warning(e.getMessage());
       }
@@ -348,13 +351,16 @@ public final class Misc {
     Matcher matcher = sReNew.matcher(input);
     Command command;
     while (matcher.find()) {
-      try {
-        command = Command.getCommand(matcher.group(1), matcher.start(), input);
-        for (int i = command.getStart(); i <= command.getEnd(); i++) {
-          array[i] = ' ';
+      if (!("newpage".equals(matcher.group(1)) || "newline".equals(matcher.group(1)))) {
+
+        try {
+          command = Command.getCommand(matcher.group(1), matcher.start(), input);
+          for (int i = command.getStart(); i <= command.getEnd(); i++) {
+            array[i] = ' ';
+          }
+        } catch (LatexException e) {
+          sLog.warning(e.getMessage());
         }
-      } catch (LatexException e) {
-        sLog.warning(e.getMessage());
       }
     }
 
@@ -379,7 +385,7 @@ public final class Misc {
     while (matcher.find()) {
       int i = matcher.start();
 
-      for (; i < (matcher.end() - 2); i++) {
+      for (; i < matcher.end() - 2; i++) {
         array[i] = ' ';
       }
 
@@ -406,17 +412,17 @@ public final class Misc {
     int i = 0;
 
     // Gammel am Anfang ist egal
-    while ((i < maxIndex) && ((input.charAt(i) == ' ') || (input.charAt(i) == '\n'))) {
+    while (i < maxIndex && (input.charAt(i) == ' ' || input.charAt(i) == '\n')) {
       stringBuilder.append(input.charAt(i));
       i++;
     }
 
     while (i <= maxIndex) {
       // die zu vielen Leerzeichen zählen und überspringen
-      if ((input.charAt(i) == ' ') || (input.charAt(i) == '\n')) {
+      if (input.charAt(i) == ' ' || input.charAt(i) == '\n') {
         stringBuilder.append(input.charAt(i));
         i++;
-        while ((i < maxIndex) && (input.charAt(i) == ' ')) {
+        while (i < maxIndex && input.charAt(i) == ' ') {
           whitespaces++;
           i++;
         }
@@ -424,8 +430,8 @@ public final class Misc {
       }
 
       // Satzende gefunden
-      if (endings.contains(String.valueOf(input.charAt(i))) && ((i < maxIndex) && !Character.isDigit(input.charAt(i + 1)))) {
-        if ((stringBuilder.length() > 0) && (stringBuilder.charAt(stringBuilder.length() - 1) == ' ')) {
+      if (endings.contains(String.valueOf(input.charAt(i))) && i < maxIndex && !Character.isDigit(input.charAt(i + 1))) {
+        if (stringBuilder.length() > 0 && stringBuilder.charAt(stringBuilder.length() - 1) == ' ') {
           whitespaces++;
           stringBuilder.deleteCharAt(stringBuilder.length() - 1);
           stringBuilder.append(input.charAt(i));
@@ -437,7 +443,7 @@ public final class Misc {
           stringBuilder.append(' ');
           whitespaces--;
         }
-        while ((i < maxIndex) && (input.charAt(i) == ' ')) {
+        while (i < maxIndex && input.charAt(i) == ' ') {
           stringBuilder.append(input.charAt(i));
           i++;
         }

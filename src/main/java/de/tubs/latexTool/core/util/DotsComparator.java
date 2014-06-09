@@ -66,9 +66,9 @@ public class DotsComparator<T> implements Comparator<T> {
     String s2 = t2.toString();
     int dots1 = s1.length() - s1.replaceAll(Pattern.quote(mDelimiter), "").length();
     int dots2 = s2.length() - s2.replaceAll(Pattern.quote(mDelimiter), "").length();
-    if (dots1 == dots2) {
+    if (Integer.compare(dots1, dots2) == 0) {
       return s1.compareTo(s2);
     }
-    return dots2 - dots1;
+    return Integer.compare(dots1, dots2);
   }
 }

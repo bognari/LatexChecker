@@ -3,7 +3,7 @@ package de.tubs.latexTool.modules;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import de.tubs.latexTool.core.Api;
-import de.tubs.latexTool.core.DocumentTree;
+import de.tubs.latexTool.core.ChapterTree;
 import de.tubs.latexTool.core.entrys.Environment;
 import de.tubs.latexTool.core.entrys.IPosition;
 import de.tubs.latexTool.core.entrys.Result;
@@ -97,7 +97,7 @@ public class EnvTextCheck extends Module {
   }
 
   private void readSections() {
-    DocumentTree root = Api.getDocumentTreeRoot();
+    ChapterTree root = Api.getChapterTreeRoot();
     sectionRunner(root);
   }
 
@@ -113,7 +113,7 @@ public class EnvTextCheck extends Module {
     int sinceEnv = -1;
     for (int key : mMap.keySet()) {
       IPosition position = mMap.get(key);
-      if (position instanceof DocumentTree) {
+      if (position instanceof ChapterTree) {
         if (sinceEnv > -1) {
           if ((cMinAfterSentences > -1) && (sinceEnv < cMinAfterSentences)) {
             mLog.info(new Result(mName, position.getPosition(), String.format(cMsg, "has less than", cMinAfterSentences, "sentences after the last environment")).toString());
@@ -152,12 +152,12 @@ public class EnvTextCheck extends Module {
     }
   }
 
-  private void sectionRunner(DocumentTree node) {
+  private void sectionRunner(ChapterTree node) {
     if (node == null) {
       mLog.fine("Node is null in sectionRunner");
     } else {
       mMap.put(node.getStart(), node);
-      for (DocumentTree child : node.child()) {
+      for (ChapterTree child : node.child()) {
         sectionRunner(child);
       }
     }

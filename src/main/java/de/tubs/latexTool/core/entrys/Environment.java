@@ -102,6 +102,8 @@ public class Environment implements ILatex {
           nextCommand = Command.getCommand("end", matcher.start(), content);
           stack.pop();
           break;
+        default:
+          throw new IllegalStateException("crazy environment");
       }
     }
 
@@ -200,7 +202,7 @@ public class Environment implements ILatex {
     if (this == o) {
       return true;
     }
-    if ((o == null) || (getClass() != o.getClass())) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 

@@ -1,6 +1,6 @@
 package de.tubs.latexTool.core.entrys;
 
-import de.tubs.latexTool.core.DocumentTree;
+import de.tubs.latexTool.core.ChapterTree;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,14 +10,14 @@ import java.util.List;
  * einem \\ oder \n\n im Text
  */
 public class Paragraph {
-  private final DocumentTree mNode;
+  private final ChapterTree mNode;
   private final List<Text> mTextList = new LinkedList<>();
 
-  public Paragraph(DocumentTree node) {
+  public Paragraph(ChapterTree node) {
     mNode = node;
   }
 
-  public DocumentTree getNode() {
+  public ChapterTree getNode() {
     return mNode;
   }
 
@@ -27,7 +27,7 @@ public class Paragraph {
 
   @Override
   public int hashCode() {
-    int result = (mNode != null) ? mNode.hashCode() : 0;
+    int result = mNode != null ? mNode.hashCode() : 0;
     result = 31 * result + mTextList.hashCode();
     return result;
   }
@@ -37,13 +37,13 @@ public class Paragraph {
     if (this == o) {
       return true;
     }
-    if ((o == null) || (getClass() != o.getClass())) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     Paragraph paragraph = (Paragraph) o;
 
-    if ((mNode != null) ? !mNode.equals(paragraph.mNode) : (paragraph.mNode != null)) {
+    if (mNode != null ? !mNode.equals(paragraph.mNode) : paragraph.mNode != null) {
       return false;
     }
     return mTextList.equals(paragraph.mTextList);

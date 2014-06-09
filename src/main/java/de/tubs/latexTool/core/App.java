@@ -164,7 +164,7 @@ public final class App {
           if (mLog.isLoggable(Level.FINEST)) {
             mLog.finest(s);
           }
-          String t = String.format("Module: %3d%%", (threadPool.getTaskCount() <= 0) ? 0 : ((threadPool.getCompletedTaskCount() * 100) / threadPool.getTaskCount()));
+          String t = String.format("Module: %3d%%", threadPool.getTaskCount() <= 0 ? 0 : threadPool.getCompletedTaskCount() * 100 / threadPool.getTaskCount());
           if (mLog.isLoggable(Level.FINER)) {
             mLog.finer(t);
           }

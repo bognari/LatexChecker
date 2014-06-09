@@ -83,6 +83,15 @@ public class Settings {
     return mArgsSettings.mCharset;
   }
 
+  /**
+   * Gibt eine Menge aller auszuwertenden Latexbefehlen zurück
+   *
+   * @return
+   */
+  public Map<String, List<Integer>> getCommandWhitelist() {
+    return Collections.unmodifiableMap(mJsonSettings.mCommandWhitelist);
+  }
+
   public List<String> getConfigs() {
     return mArgsSettings.mConfigs;
   }
@@ -100,8 +109,8 @@ public class Settings {
    *
    * @return
    */
-  public List<String> getEnvironments() {
-    return Collections.unmodifiableList(mJsonSettings.mEnvironments);
+  public List<String> getEnvironmentWhitelist() {
+    return Collections.unmodifiableList(mJsonSettings.mEnvironmentWhitelist);
   }
 
   public List<String> getItemEnvironments() {
@@ -155,15 +164,6 @@ public class Settings {
 
   public String getSource() {
     return mArgsSettings.mSource;
-  }
-
-  /**
-   * Gibt eine Menge aller auszuwertenden Latexbefehlen zurück
-   *
-   * @return
-   */
-  public Map<String, List<Integer>> getWhiteList() {
-    return Collections.unmodifiableMap(mJsonSettings.mLatexWhitelist);
   }
 
   public boolean isConverting() {

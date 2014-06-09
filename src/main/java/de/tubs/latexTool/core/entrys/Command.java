@@ -235,7 +235,7 @@ public class Command implements ILatex {
     if (this == o) {
       return true;
     }
-    if ((o == null) || (getClass() != o.getClass())) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
@@ -256,7 +256,7 @@ public class Command implements ILatex {
 
   @Override
   public String toString() {
-    return mName + " " + Misc.iterableToString(mArgs, false, false) + ((getPosition() == null) ? "" : (" " + getPosition()));
+    return mName + " " + Misc.iterableToString(mArgs, false, false) + (getPosition() == null ? "" : " " + getPosition());
   }
 
   @Override

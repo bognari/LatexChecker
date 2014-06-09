@@ -12,25 +12,20 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.MatchResult;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Diese Klasse verwaltet alle Hierarchien eines Latex Dokuments
  */
-public class DocumentTree implements IPosition {
+public class ChapterTree implements IPosition {
 
-  private static final Logger sLog = Logger.getLogger(DocumentTree.class.getName());
-
-  /**
-   * Die Unterknoten
-   */
-  private final List<DocumentTree> mChildren;
+  private static final Logger sLog = Logger.getLogger(ChapterTree.class.getName());
   /**
    * Der Bezeichner des Knotens
    */
-  private final String mHeadline;
+  private final Headline mHeadline;
+  /**
+   * Der Text Inhalt
+   */
   private final List<Text> mLatexTexts;
   /**
    * Gibt die Wertigkeit des Knotens im Dokument an, z.B. Part, Chapter, Section ...
@@ -49,6 +44,10 @@ public class DocumentTree implements IPosition {
    */
   private final int mStart;
   /**
+   * Die Unterknoten
+   */
+  private final List<ChapterTree> mSubChapters;
+  /**
    * der Content nach dem alles entfernt wurde
    */
   private String mContent;
@@ -59,56 +58,61 @@ public class DocumentTree implements IPosition {
    * @param level    die Wertigkeit
    * @param start    Anfang des Knotens im Dokument (Start ->/section{mName})
    * @param offset   die Verschiebung (/section{mName}<- offset)
-   * @param list     Liste der noch zu bearbeiteten Knotenkandidaten
+   * @param partList Liste der noch zu bearbeiteten Knotenkandidaten
    * @param headline Name des Knotens
    * @param content  Inhalt des Dokuments
    */
-  private DocumentTree(int level, int start, int offset, LinkedList<MatchResult> list, String headline, StringBuilder content, ThreadPoolExecutor threadPool) {
+  private ChapterTree(int level, int start, int offset, List<Command> partList, Headline headline, StringBuilder content, ThreadPoolExecutor threadPool) {
     mLevel = level;
     mStart = start + offset;
     mHeadline = headline;
-    mChildren = new LinkedList<>();
+    if (mHeadline != null) {
+      mHeadline.setChapterTree(this);
+    }
+    mSubChapters = new LinkedList<>();
     mParagraphs = new LinkedList<>();
     mLatexTexts = new LinkedList<>();
 
-    if (!list.isEmpty()) {
-      mRaw = content.substring(start, ((list.getFirst().start() - 1) < 0) ? 0 : (list.getFirst().start() - 1));
+    if (!partList.isEmpty()) {
+      mRaw = content.substring(start, partList.get(0).getStart() - 1 < 0 ? 0 : partList.get(0).getStart() - 1);
     } else {
       mRaw = content.substring(start);
     }
 
-    MatchResult matchResult;
+    Command part;
     int newLevel;
-    while (!list.isEmpty()) {
-      matchResult = list.getFirst();
-      newLevel = Api.settings().getParts().get(matchResult.group(1));
+    String partName;
+    while (!partList.isEmpty()) {
+      part = partList.get(0);
+
+      partName = part.getName();
+
+      if (partName.endsWith("*")) {
+        partName = partName.substring(0, partName.length() - 1);
+      }
+
+      newLevel = Api.settings().getParts().get(partName);
 
       // größeres mLevel (also tochter)
       if (level < newLevel) {
-        list.pollFirst();
-        // richtige nummer einfügen
-        String cHeadline;
-        if (matchResult.group(5) != null) {
-          cHeadline = matchResult.group(5);
-        } else {
-          cHeadline = matchResult.group(6);
-        }
-        mChildren.add(new DocumentTree(newLevel, matchResult.end(), offset, list, cHeadline, content, threadPool));
+        partList.remove(0);
+        mSubChapters.add(new ChapterTree(newLevel, part.getEnd() + 1, offset, partList, new Headline(part), content, threadPool));
+
       } else {
         // gleiches oder kleineres mLevel (also Schwester oder Tante)
         break;
       }
     }
 
-    threadPool.execute(new DocumentTreeWorker());
-    threadPool.execute(new DocumentTreeWorkerLatex());
+    threadPool.execute(new ChapterTreeWorker());
+    threadPool.execute(new ChapterTreeWorkerLatex());
   }
 
   /**
    * Analysiert das Dokument und baut den Baum
    */
-  static DocumentTree build() {
-    DocumentTree root = null;
+  static ChapterTree build() {
+    ChapterTree root = null;
 
     final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(8, 8, 10, TimeUnit.SECONDS, new LinkedTransferQueue<Runnable>());
     Timer timer = new Timer(true);
@@ -116,11 +120,11 @@ public class DocumentTree implements IPosition {
       timer.scheduleAtFixedRate(new TimerTask() {
         @Override
         public void run() {
-          String s = String.format("DocumentTree %d threads are running, (%d / %4$d) are completed and (%d  / %4$d) are queued", threadPool.getActiveCount(), threadPool.getCompletedTaskCount(), threadPool.getQueue().size(), threadPool.getTaskCount());
+          String s = String.format("ChapterTree %d threads are running, (%d / %4$d) are completed and (%d  / %4$d) are queued", threadPool.getActiveCount(), threadPool.getCompletedTaskCount(), threadPool.getQueue().size(), threadPool.getTaskCount());
           if (sLog.isLoggable(Level.FINEST)) {
             sLog.finest(s);
           }
-          String t = String.format("DocumentTree: %3d%%", (threadPool.getTaskCount() <= 0) ? 0 : ((threadPool.getCompletedTaskCount() * 100) / threadPool.getTaskCount()));
+          String t = String.format("ChapterTree: %3d%%", threadPool.getTaskCount() <= 0 ? 0 : threadPool.getCompletedTaskCount() * 100 / threadPool.getTaskCount());
           if (sLog.isLoggable(Level.FINER)) {
             sLog.finer(t);
           }
@@ -150,17 +154,10 @@ public class DocumentTree implements IPosition {
 
       String partsString = Misc.iterableToString(new LinkedList<>(parts.keySet()), true, false);
 
-      Pattern partsPattern = Pattern.compile(String.format("\\\\(?<Part>%s)(?<Hidden>\\*)?\\s*(?<Titles>(?<ShortTitleAll>\\[(?<ShortTitle>.*?)\\])?\\{(?<LongTitle>.*?)\\})", partsString), Pattern.DOTALL);
-
-      // direkt auf dem String arbeiten, sonst erstellt er jedes mal einen neuen
-      Matcher matcher = partsPattern.matcher(content.toString());
-      LinkedList<MatchResult> list = new LinkedList<>();
-      while (matcher.find()) {
-        list.add(matcher.toMatchResult());
-      }
+      List<Command> partList = Command.getCommands(String.format("%s%s", partsString, "(?<Hidden>\\*)?"), content.toString());
 
       // der Root Knoten hat die Wertigkeit -20, somit es darf keinen anderen Knoten geben mit einer Wertigkeit von weniger als -19 !
-      root = new DocumentTree(-20, 0, offset, list, "root", content, threadPool);
+      root = new ChapterTree(-20, 0, offset, partList, null, content, threadPool);
 
       threadPool.shutdown();
       try {
@@ -194,11 +191,11 @@ public class DocumentTree implements IPosition {
       tex.allTexts().addAll(paragraph.getTexts());
     }
 
-    if ((mHeadline != null) && !"root".equals(mHeadline)) {
-      tex.allHeadlines().add(new Text(mHeadline, new Paragraph(this), 0, mStart));
+    if (mHeadline != null) {
+      tex.allHeadlines().add(mHeadline);
     }
 
-    for (DocumentTree child : mChildren) {
+    for (ChapterTree child : mSubChapters) {
       child.buildLists(tex);
     }
     //System.out.println("test");
@@ -209,8 +206,8 @@ public class DocumentTree implements IPosition {
    *
    * @return die Unterknoten
    */
-  public List<DocumentTree> child() {
-    return mChildren;
+  public List<ChapterTree> child() {
+    return mSubChapters;
   }
 
   public String getContent() {
@@ -222,7 +219,7 @@ public class DocumentTree implements IPosition {
    *
    * @return
    */
-  public String getHeadline() {
+  public Headline getHeadline() {
     return mHeadline;
   }
 
@@ -259,13 +256,16 @@ public class DocumentTree implements IPosition {
 
   @Override
   public String toString() {
-    return mHeadline;
+    if (mHeadline == null) {
+      return "root";
+    }
+    return mHeadline.toString();
   }
 
   /**
    * Analysiert den Rohtext des Knotens um die Sätze zu finden
    */
-  private class DocumentTreeWorker implements Runnable {
+  private class ChapterTreeWorker implements Runnable {
     @Override
     public void run() {
 
@@ -301,7 +301,7 @@ public class DocumentTree implements IPosition {
       String[] cParagraphs = content.split("\n\n");
 
       for (String cParagraph : cParagraphs) {
-        Paragraph paragraph = new Paragraph(DocumentTree.this);
+        Paragraph paragraph = new Paragraph(ChapterTree.this);
         List<String> sentencesString = Misc.getSentences(cParagraph);
 
         int start = 0;
@@ -331,7 +331,7 @@ public class DocumentTree implements IPosition {
   /**
    * Analysiert den Rohtext des Knotens um die Sätze (inclusive Latex Befehlen) zu finden
    */
-  private class DocumentTreeWorkerLatex implements Runnable {
+  private class ChapterTreeWorkerLatex implements Runnable {
     @Override
     public void run() {
 

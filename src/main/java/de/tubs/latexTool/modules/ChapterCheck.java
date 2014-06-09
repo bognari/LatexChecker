@@ -3,7 +3,7 @@ package de.tubs.latexTool.modules;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import de.tubs.latexTool.core.Api;
-import de.tubs.latexTool.core.DocumentTree;
+import de.tubs.latexTool.core.ChapterTree;
 import de.tubs.latexTool.core.entrys.Result;
 
 import java.util.IllegalFormatException;
@@ -99,7 +99,7 @@ public class ChapterCheck extends Module {
   @SerializedName("ToLevel")
   private int cToLevel = Integer.MAX_VALUE;
 
-  private void checkChapterDepth(DocumentTree tree, int length) {
+  private void checkChapterDepth(ChapterTree tree, int length) {
     if (tree == null) {
       mLog.fine("tree is null in checkSubChapters");
     } else {
@@ -108,13 +108,13 @@ public class ChapterCheck extends Module {
           mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgChapters, tree.getHeadline(), "is deeper as", cMaxChapterDepth, "chapters", (cMaxChapterDepth + Math.abs(length) + 1))).toString());
         }
       }
-      for (DocumentTree child : tree.child()) {
+      for (ChapterTree child : tree.child()) {
         checkChapterDepth(child, length - 1);
       }
     }
   }
 
-  private void checkSentences(DocumentTree tree) {
+  private void checkSentences(ChapterTree tree) {
     if (tree == null) {
       mLog.fine("tree is null in checkSubChapters");
     } else {
@@ -126,13 +126,13 @@ public class ChapterCheck extends Module {
           mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgSentences, tree.getHeadline(), "has more than", cMaxSentences, "sentences", tree.getTexts().size())).toString());
         }
       }
-      for (DocumentTree child : tree.child()) {
+      for (ChapterTree child : tree.child()) {
         checkSubChapters(child);
       }
     }
   }
 
-  private void checkSubChapters(DocumentTree tree) {
+  private void checkSubChapters(ChapterTree tree) {
     if (tree == null) {
       mLog.fine("tree is null in checkSubChapters");
     } else {
@@ -144,7 +144,7 @@ public class ChapterCheck extends Module {
           mLog.info(new Result(mName, tree.getPosition(), String.format(cMsgSubChapters, tree.getHeadline(), "has more than", cMaxSubChapters, "subchapters", tree.child().size())).toString());
         }
       }
-      for (DocumentTree child : tree.child()) {
+      for (ChapterTree child : tree.child()) {
         checkSubChapters(child);
       }
     }
@@ -175,13 +175,13 @@ public class ChapterCheck extends Module {
   @Override
   public void runModule() {
     if (!((cMinSubChapters <= -1) && (cMaxSubChapters <= -1))) {
-      checkSubChapters(Api.getDocumentTreeRoot());
+      checkSubChapters(Api.getChapterTreeRoot());
     }
     if (cMaxChapterDepth > -1) {
-      checkChapterDepth(Api.getDocumentTreeRoot(), cMaxChapterDepth);
+      checkChapterDepth(Api.getChapterTreeRoot(), cMaxChapterDepth);
     }
     if (!((cMinSentences <= -1) && (cMaxSentences <= -1))) {
-      checkSentences(Api.getDocumentTreeRoot());
+      checkSentences(Api.getChapterTreeRoot());
     }
 
   }

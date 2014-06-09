@@ -1,5 +1,5 @@
 {
-    "LATEXWHITELIST": {
+    "COMMAND_WHITELIST": {
         "lstinline": [],
         "Para": [],
         "FTNT": [],
@@ -12,7 +12,7 @@
         "ShortTitle": -5,
         "Chap": 0
     },
-    "MODULES": {
+    "RULES": {
         "Words": {
             "Class": "de.tubs.latexTool.modules.TextRegex",
             "WordList": ["aber", "also", "du", "ich", "man", "todo", "tun", "Bild"],
@@ -79,7 +79,7 @@
         },
         "BadSentenceLength": {
             "Class": "de.tubs.latexTool.modules.TextLength",
-            "MinChars": 3,
+            "MinChars": 5,
             "MaxChars": 240,
             "MinWords": 3,
             "MaxWords": 80

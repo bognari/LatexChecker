@@ -3,10 +3,7 @@ package de.tubs.latexTool.modules;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import de.tubs.latexTool.core.Api;
-import de.tubs.latexTool.core.entrys.Command;
-import de.tubs.latexTool.core.entrys.Environment;
-import de.tubs.latexTool.core.entrys.Result;
-import de.tubs.latexTool.core.entrys.Text;
+import de.tubs.latexTool.core.entrys.*;
 import de.tubs.latexTool.core.util.Misc;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
@@ -82,19 +79,9 @@ public class LanguageToolChecker extends Module {
   @Expose
   @SerializedName("UseRegex")
   private boolean cUseRegex = false;
+  private JLanguageTool mJLanguageTool;
 
-  @Override
-  protected void validation() {
-    try {
-      String.format(cMsg, "test", "test", "test");
-    } catch (IllegalFormatException e) {
-      mLog.throwing(LanguageToolChecker.class.getName(), mName, e);
-      cMsg = sMsg;
-    }
-  }
-
-  @Override
-  public void runModule() {
+  private void build() {
     Language language;
     try {
       language = Language.getLanguageForShortName(Api.settings().getLanguage());
@@ -125,67 +112,47 @@ public class LanguageToolChecker extends Module {
       loadRules(jLanguageTool);
     }
 
-    try {
-      switch (cSource) {
-        case "text":
-          text(jLanguageTool);
-          break;
-        case "environment":
-          environment(jLanguageTool);
-          break;
-        case "command":
-          command(jLanguageTool);
-          break;
-        case "headline":
-          headline(jLanguageTool);
-          break;
-        case "bullet":
-          bullets(jLanguageTool);
-          break;
-        default:
-          mLog.warning("only \"text\", \"environment\", \"command\", \"headline\" or \"bullet\" are allowed as an argument to Source.");
-      }
-    } catch (IOException e) {
-      mLog.throwing(LanguageToolChecker.class.getName(), "run", e);
-      mLog.severe(String.format("Spelling, can not connect to the native hunspell binaries"));
-    }
+    mJLanguageTool = jLanguageTool;
   }
 
-  // ToDo path besser benutzen
-  private void loadRules(JLanguageTool jLanguageTool) {
-    for (String path : cRulesXML) {
-      try {
-        List<PatternRule> rules = jLanguageTool.loadPatternRules(path);
-        for (PatternRule rule : rules) {
-          jLanguageTool.addRule(rule);
-        }
-      } catch (IOException e) {
-        mLog.throwing(LanguageToolChecker.class.getName(), "loadRules", e);
+  private void bullets() throws IOException {
+    mLog.fine("start bullets spellchecking");
+    List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
+    for (Environment environment : environments) {
+      List<Text> texts = environment.getItems();
+      for (Text text : texts) {
+        check(text.getMasked(), text.getPosition());
+      }
+
+    }
+    mLog.fine("finish bullets spellchecking");
+  }
+
+  private void check(String text, Position position) throws IOException {
+    List<RuleMatch> matches = mJLanguageTool.check(text);
+    for (RuleMatch ruleMatch : matches) {
+      if (isNotInMathMode(text, ruleMatch)) {
+        mLog.info(new Result(mName, position,
+                String.format(cMsg, ruleMatch.getMessage(), text,
+                        ruleMatch.getSuggestedReplacements())
+        ).toString());
       }
     }
   }
 
-  private void text(JLanguageTool jLanguageTool) throws IOException {
-    mLog.fine("start text spellchecking");
-    List<RuleMatch> matches;
-    List<Text> texts = Api.allTexts();
-    for (Text text : texts) {
-      matches = jLanguageTool.check(text.getText());
-      for (RuleMatch ruleMatch : matches) {
-        if (isNotInMathMode(text.getText(), ruleMatch)) {
-          mLog.info(new Result(mName, text.getPosition(),
-                  String.format(cMsg, ruleMatch.getMessage(), text.getText(),
-                          ruleMatch.getSuggestedReplacements())
-          ).toString());
-        }
+  private void command() throws IOException {
+    mLog.fine("start command spellchecking");
+    List<Command> commands = Api.getCommands(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
+    for (Command command : commands) {
+      for (String arg : command.getArgs()) {
+        check(arg, command.getPosition());
       }
     }
-    mLog.fine("finish text spellchecking");
+    mLog.fine("finish command spellchecking");
   }
 
-  private void environment(JLanguageTool jLanguageTool) throws IOException {
+  private void environment() throws IOException {
     mLog.fine("start environment spellchecking");
-    List<RuleMatch> matches;
     List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
     for (Environment environment : environments) {
       String content = environment.getContent();
@@ -193,78 +160,22 @@ public class LanguageToolChecker extends Module {
       content = Misc.maskingEnvironment(content);
       content = Misc.removeLatex(content);
       content = content.replaceAll("\\s+", " ");
-      matches = jLanguageTool.check(content);
-      for (RuleMatch ruleMatch : matches) {
-        if (isNotInMathMode(environment.getContent(), ruleMatch)) {
-          mLog.info(new Result(mName, environment.getPosition(),
-                  String.format(cMsg, ruleMatch.getMessage(), content,
-                          ruleMatch.getSuggestedReplacements())
-          ).toString());
-        }
-      }
+
+      check(content, environment.getPosition());
     }
     mLog.fine("finish environment spellchecking");
   }
 
-  private void command(JLanguageTool jLanguageTool) throws IOException {
-    mLog.fine("start command spellchecking");
-    List<RuleMatch> matches;
-    List<Command> commands = Api.getCommands(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
-    for (Command command : commands) {
-      for (String arg : command.getArgs()) {
-        matches = jLanguageTool.check(arg);
-        for (RuleMatch ruleMatch : matches) {
-          if (isNotInMathMode(arg, ruleMatch)) {
-            mLog.info(new Result(mName, command.getPosition(),
-                    String.format(cMsg, ruleMatch.getMessage(), arg,
-                            ruleMatch.getSuggestedReplacements())
-            ).toString());
-          }
-        }
-      }
-    }
-    mLog.fine("finish command spellchecking");
-  }
-
-  private void headline(JLanguageTool jLanguageTool) throws IOException {
+  private void headline() throws IOException {
     mLog.fine("start headline spellchecking");
-    List<RuleMatch> matches;
-    List<Text> headlines = Api.allHeadlines();
-    for (Text headline : headlines) {
-      matches = jLanguageTool.check(headline.getText());
-      for (RuleMatch ruleMatch : matches) {
-        if (isNotInMathMode(headline.getText(), ruleMatch)) {
-          mLog.info(new Result(mName, headline.getPosition(),
-                  String.format(cMsg, ruleMatch.getMessage(), headline.getText(),
-                          ruleMatch.getSuggestedReplacements())
-          ).toString());
-        }
+    List<Headline> headlines = Api.allHeadlines();
+    for (Headline headline : headlines) {
+      check(headline.getHeadline(), headline.getPosition());
+      if (headline.getShortHeadline() != null) {
+        check(headline.getShortHeadline(), headline.getPosition());
       }
     }
     mLog.fine("finish headline spellchecking");
-  }
-
-  private void bullets(JLanguageTool jLanguageTool) throws IOException {
-    mLog.fine("start bullets spellchecking");
-    List<RuleMatch> matches;
-    List<Environment> environments = Api.getEnvironments(Misc.iterableToString(cSourceList, !cUseRegex, !cUseRegex));
-    for (Environment environment : environments) {
-      List<Text> texts = environment.getItems();
-      for (Text text : texts) {
-        String cText = text.getMasked();
-        matches = jLanguageTool.check(cText);
-        for (RuleMatch ruleMatch : matches) {
-          if (isNotInMathMode(cText, ruleMatch)) {
-            mLog.info(new Result(mName, text.getPosition(),
-                    String.format(cMsg, ruleMatch.getMessage(), cText,
-                            ruleMatch.getSuggestedReplacements())
-            ).toString());
-          }
-        }
-      }
-
-    }
-    mLog.fine("finish bullets spellchecking");
   }
 
   /**
@@ -282,5 +193,69 @@ public class LanguageToolChecker extends Module {
       }
     }
     return true;
+  }
+
+  // ToDo path besser benutzen
+  private void loadRules(JLanguageTool jLanguageTool) {
+    for (String path : cRulesXML) {
+      try {
+        List<PatternRule> rules = jLanguageTool.loadPatternRules(path);
+        for (PatternRule rule : rules) {
+          jLanguageTool.addRule(rule);
+        }
+      } catch (IOException e) {
+        mLog.throwing(LanguageToolChecker.class.getName(), "loadRules", e);
+      }
+    }
+  }
+
+  private void text() throws IOException {
+    mLog.fine("start text spellchecking");
+    List<Text> texts = Api.allTexts();
+    for (Text text : texts) {
+      check(text.getText(), text.getPosition());
+    }
+    mLog.fine("finish text spellchecking");
+  }
+
+  @Override
+  protected void validation() {
+    try {
+      String.format(cMsg, "test", "test", "test");
+    } catch (IllegalFormatException e) {
+      mLog.throwing(LanguageToolChecker.class.getName(), mName, e);
+      cMsg = sMsg;
+    }
+  }
+
+  @Override
+  public void runModule() {
+
+    build();
+
+    try {
+      switch (cSource) {
+        case "text":
+          text();
+          break;
+        case "environment":
+          environment();
+          break;
+        case "command":
+          command();
+          break;
+        case "headline":
+          headline();
+          break;
+        case "bullet":
+          bullets();
+          break;
+        default:
+          mLog.warning("only \"text\", \"environment\", \"command\", \"headline\" or \"bullet\" are allowed as an argument to Source.");
+      }
+    } catch (IOException e) {
+      mLog.throwing(LanguageToolChecker.class.getName(), "run", e);
+      mLog.severe(String.format("Spelling, can not connect to the native hunspell binaries"));
+    }
   }
 }

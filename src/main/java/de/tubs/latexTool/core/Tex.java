@@ -36,7 +36,7 @@ public class Tex {
   /**
    * Liste aller Überschriften im Dokument
    */
-  private final List<Text> mAllHeadlines = new LinkedList<>();
+  private final List<Headline> mAllHeadlines = new LinkedList<>();
   /**
    * Liste aller Sätze (inklusive Latex) des Dokuments
    */
@@ -70,7 +70,7 @@ public class Tex {
    * somit darf eine Tex Datei max Integer.Max Chars beinhalten oO
    */
   private final TreeMap<Integer, Position> mPositions;
-  private volatile DocumentTree mDocumentTreeRoot;
+  private volatile ChapterTree mChapterTreeRoot;
 
   /**
    * Erstellt das Tex Objekt
@@ -107,34 +107,34 @@ public class Tex {
    *
    * @return alle Überschriften
    */
-  List<Text> allHeadlines() {
-    getDocumentTree();
+  List<Headline> allHeadlines() {
+    getChapterTreeRoot();
     return mAllHeadlines;
   }
 
   /**
-   * Gibt den DocumentTree des Dokuments zurück
+   * Gibt den ChapterTree des Dokuments zurück
    *
-   * @return DocumentTree
+   * @return ChapterTree
    */
-  DocumentTree getDocumentTree() {
-    if (mDocumentTreeRoot == null) {
+  ChapterTree getChapterTreeRoot() {
+    if (mChapterTreeRoot == null) {
       synchronized (lock) {
-        if (mDocumentTreeRoot == null) {
-          mLog.fine("getDocumentTree -> build");
-          mDocumentTreeRoot = DocumentTree.build();
-          if (mDocumentTreeRoot != null) {
+        if (mChapterTreeRoot == null) {
+          mLog.fine("getChapterTree -> build");
+          mChapterTreeRoot = ChapterTree.build();
+          if (mChapterTreeRoot != null) {
             mAllHeadlines.clear();
             mAllParagraphs.clear();
             mAllTexts.clear();
-            mDocumentTreeRoot.buildLists(this);
+            mChapterTreeRoot.buildLists(this);
           } else {
             mLog.warning("error while creating the document tree");
           }
         }
       }
     }
-    return mDocumentTreeRoot;
+    return mChapterTreeRoot;
   }
 
   /**
@@ -143,7 +143,7 @@ public class Tex {
    * @return alle Sätze
    */
   List<Text> allLatexTexts() {
-    getDocumentTree();
+    getChapterTreeRoot();
     return mAllLatexTexts;
   }
 
@@ -153,7 +153,7 @@ public class Tex {
    * @return alle Paragrafen
    */
   List<Paragraph> allParagraphs() {
-    getDocumentTree();
+    getChapterTreeRoot();
     return mAllParagraphs;
   }
 
@@ -163,7 +163,7 @@ public class Tex {
    * @return alle Sätze
    */
   List<Text> allTexts() {
-    getDocumentTree();
+    getChapterTreeRoot();
     return mAllTexts;
   }
 
@@ -261,8 +261,7 @@ public class Tex {
         textLine = matcher.replaceAll("");
 
         mPositions.put(stringBuilder.length(), new Position(file, line++));
-        stringBuilder.append(textLine);
-        stringBuilder.append(System.lineSeparator());
+        stringBuilder.append(textLine).append(System.lineSeparator());
       }
       if (mLog.isLoggable(Level.FINE)) {
         mLog.fine(String.format("loadFile finish reading file = %s", file));

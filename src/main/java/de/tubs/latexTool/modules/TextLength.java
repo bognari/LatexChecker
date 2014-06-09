@@ -158,10 +158,13 @@ public class TextLength extends Module {
   }
 
   private void headline() {
-    List<Text> texts = Api.allHeadlines();
-    for (Text text : texts) {
-      if ((text.getDocumentTree().getLevel() >= cHeadlineFrom) && (text.getDocumentTree().getLevel() <= cHeadlineTo)) {
-        check(text.getText(), text.getPosition());
+    List<Headline> headlines = Api.allHeadlines();
+    for (Headline headline : headlines) {
+      if ((headline.getChapterTree().getLevel() >= cHeadlineFrom) && (headline.getChapterTree().getLevel() <= cHeadlineTo)) {
+        check(headline.getHeadline(), headline.getPosition());
+        if (headline.getShortHeadline() != null) {
+          check(headline.getShortHeadline(), headline.getPosition());
+        }
       }
     }
   }

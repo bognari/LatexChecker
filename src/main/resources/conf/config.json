@@ -1,5 +1,5 @@
 {
-    "ABB": {
+    "ABBREVIATIONS": {
         "de": [
             "u.v.a.(m.)", "U.A.w.g.", "z.w.V.", "z.d.A.", "v.g.u.", "v.R.w.", "v.A.w.", "u.ü.V.", "u.d.T.", "u.d.M.", "u.D.Ltg.", "m.b.H.", "m.a.W.", "i.w.S.", "i.e.S.", "i.d.R.", "i. d. R.", "a.a.O.", "Prof.Dr.med.", "Prof. Dr.med.", "Prof. Dr. med.", "ö.L.", "ö.A.", "z.Z(t).", "z.Wv.", "z.T.", "z.S.", "z.K.", "z.H(d).", "z.B.", "z.A.", "z. T.", "z. B.", "w.o.", "w.L.", "v.u.", "v.o.", "v.a.", "v.T.", "v.M.", "v.J.", "v.H.", "v.Chr.", "v. a.", "v. Chr.", "u.ä.", "u.zw.", "u.f.", "u.dgl.", "u.a.", "u.W.", "u.U.", "u.E.", "u. a.", "s.u.", "s.o.", "s.d.", "s.a.", "s.Z.", "s.Br.", "s. u.", "s. o.", "s. d.", "röm.-kath.", "ren.bed.", "p.p.", "p.A.", "o.ä.", "o.Ä.", "o.g.", "o.Prof.", "o.J.", "o.B.", "o. ä.", "o. Ä.", "o. g.", "n.V.", "n.M.", "n.J.", "n.Chr.", "n.Br.", "n. Chr.", "m.W.", "m.E.", "k.J.", "i.g.", "i.b.", "i.allg.", "i.W.", "i.V.", "i.S.", "i.L.", "i.J.", "i.G.", "i.D.", "i.B.", "i.A.", "i. allg.", "i. Allg.", "e.V.", "d.i.", "d.h.", "d.Verf.", "d.U.", "d.O.", "d.M.", "d.J.", "d.Gr.", "d.A.", "d. h.", "b.w.", "a.M.", "a.D.", "Zw.-Whgn.", "Zw.-Whg.", "Ztr.-Hzg.", "Wg.Whg.", "Verbr.Pr.", "Prof.Dr.", "Prof. Dr.", "Priv.-Doz.", "P.P.", "Nb.-Whgn.", "Nb.-Whg.", "N.T.", "Mehrw.St.", "Mais.-Whgn.", "Mais.-Whg.", "M.sc.", "M.A.", "M. A.", "Kl.-Whgn.", "Kl.-Whg.", "Gart.ant.", "Eigt.-Whgn.", "Eigt.-Whg.", "Eigent.-Whgn.", "Eigent.-Whg.", "Dr.med.", "Dr. med.", "Dipl.med.", "Dipl.-Kfm.", "Dipl.-Ing.", "Dipl. med.", "Best.-Nr.", "B.sc.", "A.D.", "übl.", "östl.", "öff.", "zzt.", "zzgl.", "zz.", "zw.", "zus.", "zuf.", "zgl.", "zfr.", "z.", "wg.", "westl.", "vorm.", "vorl.", "vollst.", "vgl.", "verst.", "versch.", "verl.", "verh.", "var.", "v.", "usw.", "usf.", "urspr.", "unverk.", "univ.", "ult.", "u.", "tägl.", "südnl.", "südl.", "stud.", "stellv.", "stdl.", "spätmnl.", "spez.", "soz.", "sog.", "sen.", "selbst.", "san.", "s.", "röm.", "rm.", "rest.", "resp.", "ren.", "rd.", "r.", "prom.", "pop.", "pol.", "pl.", "pat.", "orth.", "organ.", "offiz.", "od.", "obh.", "o.", "nördl.", "näml.", "nl.", "nhd.", "naturw.", "nat.", "nachm.", "möbl.", "mnl.", "mind.", "mhd.", "mfrz.", "mehrf.", "ma.", "luth.", "ltd.", "lt.", "lfd.", "led.", "lat.", "konv.", "konst.", "komb.", "kath.", "kart.", "jew.", "inzw.", "insg.", "insb.", "inkl.", "inh.", "inbegr.", "id.", "i.", "höfl.", "hrsg.", "hl.", "herg.", "hd.", "haupts.", "habil.", "gzj.", "griech.", "grds.", "gr.", "ggf.", "ggez.", "gez.", "gew.", "gestr.", "gest.", "geschl.", "gesch.", "ges.", "gem.", "gek.", "gegr.", "gefl.", "geb.", "gar.", "frühnhd.", "frz.", "frl.", "freist.", "frdl.", "fr.", "fortl.", "fig.", "ff.", "f.", "exkl.", "evtl.", "ev.", "erstkl.", "erg.", "entw.", "entspr.", "engl.", "einschl.", "eig.", "ehem.", "ebda.", "ebd.", "dz.", "dt.", "dt(sch).", "dgl.", "dergl.", "cent.", "cand.", "c.", "bzw.", "bzgl.", "bspw.", "bibl.", "bezugsf.", "bez.", "betr.", "bes.", "b.", "ausschl.", "amtl.", "allg.", "ahd.", "afrz.", "abzgl.", "Zub.", "Ztschr.", "Ztrhzg.", "Ztg.", "Ziff.", "Ziegelbauw.", "Zi.", "Z.", "Wz.", "Wwr.", "Wwe.", "Wkst.", "Whgn.", "Whg.", "Wdh.", "Vors.", "Vollm.", "Verm.", "Verl.", "Verf.", "Univ.", "U/min.", "Tsd.", "Teilz.", "Teilh.", "Südd.", "Str.", "StAng.", "St.", "Sout.", "Ser.", "Sept.", "Sek.", "S.", "Rel.", "Reg.", "Red.", "RHh.", "Prov.", "Prof.", "Postf.", "Pos.", "Pl.", "Pkt.", "Pf.", "Part.", "Pak.", "Orig.", "Okt.", "Nr.", "Nov.", "Nordd.", "Nfl.", "Nachtr.", "Nachf.", "Nachdr.", "NB-Whg.", "N cont.", "MwSt.", "Ms.", "Mrd.", "Mio.", "Meth.", "Md.", "Ltg.", "Ln.", "Lkw.", "Lfg.", "Lekt.", "Kto.", "Konf.", "Kl.", "Kfz.", "Kfm.", "Kat.", "Kap.", "Kal.", "Jh.", "Jg.", "Jb.", "Jan.", "Jahrh.", "Int.", "Ing.", "Hrsg.", "Hr.", "Hpst.", "Hln.", "Hl.", "Hj.", "Hdt.", "Hdb.", "Hbg.", "Hbf.", "H.", "Grdst.", "Grd.", "Geschw.", "Ges.", "Gepr.", "Gen.", "Gem.", "Gebr.", "Geb.", "Gal.", "Frhr.", "Fr.", "Forts.", "Fig.", "Febr.", "Fam.", "Fak.", "Fa.", "Expl.", "Einw.", "Dtzt.", "Dtschld.", "Dr.", "Dpf.", "Doz.", "Dipl.", "Dez.", "Bsp.", "Blk.", "Bj.", "Bio.", "Bez.", "Bde.", "Bd.", "Ausf.", "Aufl.", "Anm.", "Angest.", "Anf.", "Allg.", "Adr.", "Abs.", "Abl.", "Abk.", "Abb.", "AB-Whg.", "-theo.", "-phil.", "-med.", "-jur."
         ],
@@ -16,7 +16,7 @@
         "paragraph": 40,
         "subparagraph": 50
     },
-    "ENVIRONMENTS": [
+    "ENVIRONMENT_WHITELIST": [
         "minipage",
         "quote",
         "frame",
@@ -34,7 +34,7 @@
         "displaymath"],
     "ITEM_ENVIRONMENTS": [
         "itemize", "description", "enumerate"],
-    "LATEXWHITELIST": {
+    "COMMAND_WHITELIST": {
         "mbox": [],
         "textbf": [],
         "textrm": [],
@@ -86,7 +86,7 @@
         "\\parallel": "||       ",
         "\\euro": "€    "
     },
-    "Converting": {
+    "CONVERTING": {
         "\"`": "\"",
         "\"'": "\"",
         "{``}": "\"",
@@ -119,10 +119,10 @@
         "\"U": "Ü",
         "\\ss": "ß"
     },
-    "ENVIRONMENT_BREAK_COMMENT": [
+    "ENVIRONMENT_BREAK_LATEX": [
         "verbatim", "verbatim*", "lstlisting"
     ],
-    "COMMAND_BREAK_COMMENT": [
+    "COMMAND_BREAK_LATEX": [
         "lstinline"
     ]
 }

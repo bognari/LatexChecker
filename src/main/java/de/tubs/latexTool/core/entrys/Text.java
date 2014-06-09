@@ -1,7 +1,7 @@
 package de.tubs.latexTool.core.entrys;
 
 import de.tubs.latexTool.core.Api;
-import de.tubs.latexTool.core.DocumentTree;
+import de.tubs.latexTool.core.ChapterTree;
 import de.tubs.latexTool.core.util.Misc;
 
 public class Text implements IPosition {
@@ -48,12 +48,12 @@ public class Text implements IPosition {
   }
 
   /**
-   * Gibt den DocumentTree Knoten zurück, wenn verfügbar, sonst NULL
+   * Gibt den ChapterTree Knoten zurück, wenn verfügbar, sonst NULL
    *
    * @return
    */
-  public DocumentTree getDocumentTree() {
-    return (mParagraph == null) ? null : mParagraph.getNode();
+  public ChapterTree getDocumentTree() {
+    return mParagraph == null ? null : mParagraph.getNode();
   }
 
   /**
@@ -84,7 +84,7 @@ public class Text implements IPosition {
   @Override
   public int hashCode() {
     int result = mOffset;
-    result = 31 * result + ((mParagraph != null) ? mParagraph.hashCode() : 0);
+    result = 31 * result + (mParagraph != null ? mParagraph.hashCode() : 0);
     result = 31 * result + mStart;
     result = 31 * result + mText.hashCode();
     return result;
@@ -95,7 +95,7 @@ public class Text implements IPosition {
     if (this == o) {
       return true;
     }
-    if ((o == null) || (getClass() != o.getClass())) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
@@ -107,7 +107,7 @@ public class Text implements IPosition {
     if (mStart != text1.mStart) {
       return false;
     }
-    if ((mParagraph != null) ? !mParagraph.equals(text1.mParagraph) : (text1.mParagraph != null)) {
+    if (mParagraph != null ? !mParagraph.equals(text1.mParagraph) : text1.mParagraph != null) {
       return false;
     }
     return mText.equals(text1.mText);
@@ -120,7 +120,7 @@ public class Text implements IPosition {
   }
 
   public boolean isSentence() {
-    return !mText.isEmpty() && (mText.split(" ").length > 2);
+    return !mText.isEmpty() && mText.split(" ").length > 2;
   }
 
   public int getEnd() {

@@ -20,7 +20,7 @@ public final class Api {
    *
    * @return alle Überschriften
    */
-  public static List<Text> allHeadlines() {
+  public static List<Headline> allHeadlines() {
     return mApp.getTex().allHeadlines();
   }
 
@@ -70,6 +70,15 @@ public final class Api {
   }
 
   /**
+   * Gibt den Root-Knoten zurück
+   *
+   * @return
+   */
+  public static ChapterTree getChapterTreeRoot() {
+    return mApp.getTex().getChapterTreeRoot();
+  }
+
+  /**
    * Gibt eine Liste aller Befehle zurück
    *
    * @param pattern
@@ -77,15 +86,6 @@ public final class Api {
    */
   public static List<Command> getCommands(String pattern) {
     return mApp.getTex().getCommands(pattern);
-  }
-
-  /**
-   * Gibt den Root-Knoten zurück
-   *
-   * @return
-   */
-  public static DocumentTree getDocumentTreeRoot() {
-    return mApp.getTex().getDocumentTree();
   }
 
   /**

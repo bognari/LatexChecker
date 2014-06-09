@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 public class TexTest {
   private static final Logger sLog = Logger.getLogger("de.tubs.latexTool");
 
-  private static StringBuilder write(DocumentTree dt, StringBuilder stringBuilder) {
+  private static StringBuilder write(ChapterTree dt, StringBuilder stringBuilder) {
     stringBuilder.append(String.format("Name:  %s%nLevel: %d%nDatei: %s   %d%n%n", dt.getHeadline(), dt.getLevel(), dt.getPosition().getFile(), dt.getPosition().getLine()));
-    for (DocumentTree child : dt.child()) {
+    for (ChapterTree child : dt.child()) {
       write(child, stringBuilder);
     }
     return stringBuilder;
@@ -49,11 +49,11 @@ public class TexTest {
         long time = System.nanoTime();
 
 
-        List<Environment> list = Api.getEnvironments("document");
+        List<Environment> list = Api.getEnvironmentWhitelist("document");
 
         //String pattern = PartsWL.getPartsPattern().pattern();
 
-        DocumentTree documentTree = Api.getDocumentTreeRoot();
+        ChapterTree documentTree = Api.getChapterTreeRoot();
 
         List<Text> all = Api.allTexts();
         System.out.printf("Time: %.3f%n######################%n", (System.nanoTime() - time) / 1000000.0);
@@ -63,8 +63,8 @@ public class TexTest {
 
         for (Text text : all) {
             Position positionEntry = text.getPosition();
-            //System.out.printf("Satz: %s%nDatei %s   %d%n%n", text.getText(), lineNumberEntry.getmFile(), lineNumberEntry.getLine());
-            writer.write(String.format("Satz:  %s%nDatei: %s   %d%n%n", text.getText(), positionEntry.getmFile(), positionEntry.getLine()));
+            //System.out.printf("Satz: %s%nDatei %s   %d%n%n", text.getHeadline(), lineNumberEntry.getmFile(), lineNumberEntry.getLine());
+            writer.write(String.format("Satz:  %s%nDatei: %s   %d%n%n", text.getHeadline(), positionEntry.getmFile(), positionEntry.getLine()));
         }
         writer.flush();
         writer.close();
