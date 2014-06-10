@@ -123,6 +123,6 @@
         "verbatim", "verbatim*", "lstlisting"
     ],
     "COMMAND_BREAK_LATEX": [
-        "lstinline"
+        "lstinline", "verb"
     ]
 }

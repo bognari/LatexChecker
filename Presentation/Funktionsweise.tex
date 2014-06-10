@@ -1,11 +1,10 @@
 \section{Funktionsweise}
 \begin{frame}
-\frametitle{\LaTeX~- StyleChecker -- DocumentTree}
+\frametitle{\LaTeX~- StyleChecker -- ChapterTree}
 \begin{block}{\vspace*{-3ex}}
 	\begin{itemize}
 		\item Aufbau eines Dokuments in einer Baumstruktur
 		\item Jedes Level eines Knoten entspricht der jeweiligen Hierarchie im Dokument in einem Abschnitt
-		\item Jeder Kindesknoten ist wieder ein Baum
 		\item Rootknoten als Beginn eines Dokuments
 	\end{itemize}
 \end{block}
@@ -15,20 +14,7 @@
 \begin{block}{\vspace*{-3ex}}
 	\begin{itemize}
 		\item Externe Bibliothek zur sprachlichen Überprüfung der \LaTeX~-Dateien
-		\item Mögliche Sprachen: alle unterstützten Sprachen \\ z.B.: Deutsch, Englisch
-	\end{itemize}
-\end{block}
-\end{frame}
-\begin{frame}
-\frametitle{\LaTeX~- StyleChecker -- Umsetzung der Regeln}
-\begin{block}{\vspace*{-3ex}}
-	\begin{itemize}
-		\item Mit Hilfe von regulären Ausdrücken
-		\begin{itemize}
-			\item Erkennen von beispielsweise Sätzen, Abkürzungen und Überschriften
-		\end{itemize}
-		\item Zum Testen der regulären Ausdrücke: Einsatz von regexr.com
-		\item Zugriff auf die einzelnen Klassen über eine API-Klasse
+		\item Mögliche Sprachen: alle unterstützten Sprachen \\ z.B.: Deutsch, Englisch, usw
 	\end{itemize}
 \end{block}
 \end{frame}

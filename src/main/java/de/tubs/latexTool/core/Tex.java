@@ -26,7 +26,7 @@ public class Tex {
   private static final Pattern sComment = Pattern.compile("(?<!\\\\)%.*$");
   private static final Pattern sInclude = Pattern.compile("(?<!\\\\)\\\\include\\s*\\{(?<Path>.*?)\\}");
   private static final Pattern sInput = Pattern.compile("(?<!\\\\)\\\\input\\s*\\{(?<Path>.*?)\\}");
-  private static final String sSBadCommand = "(?<!\\\\)(?<BeginCom>\\\\%s\\s*(?<Klammer>!|\\|))(?<ContentCom>.*?)(?<EndCom>\\k<Klammer>)";
+  private static final String sSBadCommand = "(?<!\\\\)(?<BeginCom>\\\\%s\\s*(?<Klammer>\\S))(?<ContentCom>.*?)(?<EndCom>\\k<Klammer>)";
   private static final String sSBadEnvEnd = "^(?<Content>.*)(?<!\\\\)(?<End>\\\\end\\s*\\{(?<Environment>%s)\\})";
   private static final String sSBadEnvStart = "(?<!\\\\)(?<Begin>\\\\begin\\s*\\{(?<Environment>%s)\\})(?<Content>.*)$";
   private static final String sSBadEnvironment = "(?<!\\\\)(?<BeginEnv>\\\\begin\\s*\\{(?<Environment>%s)\\})(?<ContentEnv>.*?)(?<EndEnv>\\\\end\\s*\\{\\k<Environment>\\})";

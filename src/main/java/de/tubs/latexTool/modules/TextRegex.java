@@ -117,7 +117,7 @@ public class TextRegex extends Module {
   private boolean cUseRegex = false;
   /**
    * "WordList" = ["Text"] <p></p>
-   * Eine Liste von Wörtern, von denen eins gemacht wird
+   * Eine Liste von Wörtern, von denen eins gematcht wird
    * <p></p> default: empty
    */
   @Expose

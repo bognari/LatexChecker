@@ -1,5 +1,5 @@
 \begin{frame}
-\frametitle{\LaTeX~- StyleChecker -- Systemvoraussetzungen}
+\frametitle{Systemvoraussetzungen}
 \begin{block}{\vspace*{-3ex}}
 	\begin{itemize}
 	  %\item Installation einer aktuellen LaTeX-Distribution wie MiKTeX
@@ -14,55 +14,203 @@
 	  	  	\item Maven
 	  	  	\item \emph{empfohlen}: IDE wie Intellij mit Maven Unterstützung
 	  	\end{itemize}  	  
-	  %\begin{itemize}
-	  %	\item Wenn eigene Module entwickelt werden sollen: JDK ab Version 7
-	  %\end{itemize}
-	  %\item MacOSX, Windows ab XP, Linux
 	\end{itemize}
 \end{block}
 \end{frame}
-%\begin{frame}
-%\frametitle{\LaTeX~- StyleChecker -- Aufbau und Funktion}
-%\begin{block}{\vspace*{-3ex}}
-%	\begin{itemize}
-%	 	\item Core
-%	  	\item Modules
-%		\item resources
-%	  	\item Test
-%		\item Die zu überprüfenden Dateien
-%	\end{itemize}
-%\end{block}
-%\end{frame}
 
-% wie benutzt man das tool
-% komandozeilen parameter beim starten
-% lesen der "ausgaben" der einzelnen module
-% die config dateien
-% was sind module
-% konfiguration des programms und der module über eine json datei (name ist eh egal)
-% vorstellen der einzelnen module (regeln)
-%
-%Usage: <main class> [options]
-%  Options:
-%    -cs, --charset
-%       Charset of the tex file
-%       Default: UTF-8
-%    -c, --config
-%       Path to the config files
-%       Default: []
-%    --default, -dc
-%       Create a default config at the given path
-%       Default: <empty string>
-%    --help, -h
-%       Show all CLI options
-%       Default: false
-%    -l, --language
-%       Language of the tex file
-%       Default: en
-%    -nd, --noDocument
-%       Not limited to the "Document" environment
-%       Default: false
-%    -s, -t, --source, --tex
-%       Path to the tex file
-%       Default: <empty string>
+\begin{frame}
+\frametitle{Aufrufparameter}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+\caption{Informationsparameter}
+	\begin{tabular}{l|p{9cm}}
+		-dc & erzeugt eine Standart Konfiguration beim angegeben Pfad\\
+		-h  & gibt einen Hilfetext für alle Aufrufparameter aus\\
+		-ver & zeigt Informationen zur Version, benutzten Software und Lizens an
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
 
+\begin{frame}
+\frametitle{Aufrufparameter}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+\caption{Standard Parateter}
+	\begin{tabular}{l|p{9cm}}
+		-t & gibt den Pfad zur Latex Datei an\\
+		-cs & gibt den benutzten Zeichensatz in der Latex Datei an\\
+		-c & die zuladenen Konfigurations Dateien\\
+		-l & gibt die verwendete Sprache an
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Aufrufparameter}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+\caption{Erweiterte Parateter}
+	\begin{tabular}{l|p{9cm}}
+		-abb & gibt an, ob Abkürzungen maskiert werden soll oder nicht, bei Deaktivierung, wird die standart Satzerkennung aus dem LanguageTool benutzt\\
+		-nd & wertet die ganze Datei und nicht nur den Inhalt in der \emph{document} Umgebung aus\\
+		-uc & gibt an, ob beim Einlesen schon Latex Befehle verarbeitet werden sollen, dies ist die einzige Möglichkeit um ein \command{"a} in ä um zu wandeln
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Konfuguration}
+\begin{block}{\vspace*{-3ex}}
+\begin{itemize}
+\item Format: Json
+\item Mehre Konfiguratonsdateien möglich
+\item Standard Konfiguration (config.json) ist in der Jar im conf Ordner enthalten und wird immer mit benutzt
+\item Jede Konfiguration erweitert die standard Konfiguration mittels merge
+\item Somit können die Kunfugurationen sich gegenseitig ergänzen 
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Konfiguration Standard}
+\begin{block}{\vspace*{-3ex}}
+\begin{lstlisting}
+{	"ABBREVIATIONS": {
+        "language" : ["abbreviation"]},
+    "PARTS": {"part" : level},
+    "ENVIRONMENT_WHITELIST": ["environment"],
+    "MATH_ENVIRONMENTS": ["environment"],
+    "ITEM_ENVIRONMENTS": ["environment"],
+    "COMMAND_WHITELIST": {"command" : [arg]},
+    "LATEX": {"command" : "translation"},
+    "CONVERTING": {"command" : "translation"},
+    "ENVIRONMENT_BREAK_LATEX": ["environment"],
+    "COMMAND_BREAK_LATEX": ["command"]}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Konfiguration}
+\begin{block}{\vspace*{-3ex}}
+\begin{itemize}
+\item Jede Regel wird durch ein Modul umgesetzt
+\item Die meisten Module können für verschiedene Regeln konfiguriert werden
+\item Jede Regel muss einen eindeutigen Namen besitzen und ein Modul
+\item Falls benötigt, können auch andere Einstellungen ergänzt werden
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Konfiguration}
+\begin{block}{\vspace*{-3ex}}
+\begin{lstlisting}
+{	"RULES" : {
+        "rule name" : {
+            "Class" : "class path to the module",
+            "other" : ...
+        }
+    }
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Modul -- TextRegex}
+\begin{block}{\vspace*{-3ex}}
+\begin{itemize}
+\item Als Beispiel betrachten wir das Modul TextRegex
+\item Testen den Text mit Regulären ausdrücken
+\item Der Text und die Ausdrücke sind genau festlegbar
+\item Für jede Quelle (Text) muss eine neue Regel erstellt werden, da nur eine Quelle pro Regel erlaubt ist
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modul -- TextRegex}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+	\begin{tabular}{l|p{5cm}}
+		\lstinline|"CaseSensitive" = bool| & Gibt an, ob nach Groß- und Kleinschreibung unterschieden werden soll\\
+		\lstinline|"HeadlineFrom" = number| & Startlevel für die Suche in der Dokumenten Hierarchie\\
+		\lstinline|"HeadlineTo" = number| & Endlevel für die Suche in der Dokumenten Hierarchie\\
+		\lstinline|"ListEndWith" = "Text"| & Ein Text, der nach einem Wort aus der Wortlist gematcht wird\\
+		\lstinline|"ListStartWith" = "Text"| & Ein Text, der vor einem Wort aus der Wortlist gematcht wird
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modul -- TextRegex}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+	\begin{tabular}{l|p{5cm}}
+			\lstinline|"Msg" = "Text"| & Der Nachrichten Prototyp\\
+			\lstinline|"OnlyAtEnd" = bool| & Gibt an, ob nur am Ende (\$) gematcht wird\\
+			\lstinline|"OnlyAtStart" = bool| & Gibt an, ob nur am Anfang (\textasciicircum) gematcht wird\\
+			\lstinline|"Source" = "Text"| & möglich sind: text, environment, command, headline, bullet, tex oder latexText\\
+			\lstinline|"SourceList" = ["Text"]| & Die Eingabemöglichkeiten für SourceList sind von "Source" abhängig (für Regex setzte UseRegex auf true)
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modul -- TextRegex}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+	\begin{tabular}{l|p{5cm}}
+			\lstinline|"UseEscaping" = bool| & Gibt an, alle eingaben escapt werden mit \textbackslash Q Text \textbackslash E\\
+			\lstinline|"UseRegex" = bool| & Gibt an, ob Regex in Listen benutzt wird\\
+			\lstinline|"WordList" = ["Text"]| & Eine Liste von Wörtern, von denen eins gematcht wird (logisches Oder)
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weitere Module}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+	\begin{tabular}{l|p{7cm}}
+			ChapterCheck & Testet auf: zu viele / wenige Unterkapitel, zu tiere Verschachtelung\\
+			EnvTextCheck & Testet auf: zu wenig Text zwischen, vor (seit Beginn des Abschnits) und nach (bis Ende des Abschnitts) einer Umgebung\\
+			HeadlineRegEx & Testet auf: Paragraphentitel enden immer mit Punkt oder Doppelpunkt, Keine Doppelpunkte in Überschriften und Grafik-/Tabellenunterschriften, Mindestens n Wörter in Überschriften und Grafik-/Tabellenunterschriften
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weitere Module}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+	\begin{tabular}{l|p{7cm}}
+			BadLatex & Testet auf: nicht zu verwendenen Befehlen / Umgebungen\\
+			ItemCheck & Testet auf: zu viele oder zu wenige Items in einer Umgebung\\
+			LabelCheck & Testet auf: Jede Grafik ist min. 1 mal referenziert, testet, ob jede Umgebung (die angegeben ist) ein Label hat sowie ob jedes im Dokument existierende label auch referenziert wird.
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weitere Module}
+\begin{block}{\vspace*{-3ex}}
+\begin{table}[h]
+	\begin{tabular}{l|p{7cm}}
+			LanguageToolChecker & Testet auf: Rechtschreibung und weitere Regels des LanguageTools\\
+			ParagraphLength & Testet auf: zu viele oder zu wenige Sätze pro Paragraph\\
+			TextLength & Testet auf: Satzlänge (Wort-, Zeichenanzahl)\\
+			AbbreviationsCheck & Testet auf: falsche Abkürzungszwischenräume 
+	\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
